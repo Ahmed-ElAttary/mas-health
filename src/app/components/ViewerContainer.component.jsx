@@ -3,7 +3,7 @@
 window.CESIUM_BASE_URL = "/cesium/build/CesiumUnminified";
 import "cesium/Build/Cesium/Widgets/widgets.css";
 import React, { useState, useEffect, Children, useRef } from "react";
-import { Entity, Viewer, CameraFlyTo, useCesium, Clock, Scene } from "resium";
+import {  Viewer, CameraFlyTo, useCesium, } from "resium";
 import {
   WebMapTileServiceImageryProvider,
   createWorldTerrain,
@@ -20,14 +20,16 @@ import {
   Cesium3DTileset,
   Light,
 } from "cesium";
+import Marker from "./Marker.component";
+import Controls from "./Controls.component";
 
-import { JulianDate } from "cesium";
+
 Ion.defaultAccessToken =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwNmI4NDZkNS05YjE1LTRmNGMtOWIxZC1kYWM2NjkyNzQxYzUiLCJpZCI6MTM2MTc3LCJpYXQiOjE2ODI4Mzk1MzZ9.iEG0SY_0StIfWUg57qVwbPe5NHlD48ZMf3AGqC_nVdI";
 function ViewerContainer({
 
 }) {
-  const viewerRef = useRef(null);
+
 
   const handleMapClick = async (click) => {
   //   const viewer = viewerRef.current.cesiumElement;
@@ -41,17 +43,20 @@ function ViewerContainer({
 
   return (
     <Viewer
-      ref={viewerRef}
+    
       shouldAnimate={true}
       onClick={handleMapClick}
       homeButton={false}
-      // sceneModePicker={false}
+      sceneModePicker={false}
       geocoder={false}
       timeline={false}
       navigationHelpButton={false}
       animation={false}
       baseLayerPicker={false}
       fullscreenButton={false}
+    
+      selectionIndicator={false}
+      // infoBox={false}
       // terrainProvider={createWorldTerrain({
       //   requestWaterMask: true,
       //   requestVertexNormals: true,
@@ -59,7 +64,7 @@ function ViewerContainer({
       creditContainer={document.createElement("div")}
       imageryProvider={
         new WebMapTileServiceImageryProvider({
-          url: "http://mt0.google.com/vt/lyrs=s&hl=en&x={TileCol}&y={TileRow}&z={TileMatrix}",
+          url: "http://mt0.google.com/vt/lyrs=s&hl=ar&x={TileCol}&y={TileRow}&z={TileMatrix}",
           layer: "OpenStreetMap",
           format: "image/png",
           style: "default",
@@ -72,10 +77,10 @@ function ViewerContainer({
       full
     >
       <CameraFlyTo
-        duration={5}
+        duration={0}
         destination={Cartesian3.fromDegrees(30.2,28,2000000)}
       />
-    <div
+    {/* <div
       style={{
         position: "absolute",
         top: "0px",
@@ -90,7 +95,16 @@ function ViewerContainer({
       }}
     >
       <h1>points</h1>
-      </div>
+      </div> */}
+
+      
+
+<Controls/>
+<Marker color="bad" lon={31} lat={30} idd={1} popupContent='محطة 1'/>
+<Marker color="good" lon={31} lat={26} idd={2} 
+popupContent='2 محطة'
+
+/>
     </Viewer>
   );
 }
