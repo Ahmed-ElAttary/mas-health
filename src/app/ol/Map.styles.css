@@ -1,0 +1,20 @@
+#map {
+  width: 80vw;
+  height: 80vh;
+  border-radius: 12px;
+}
+.ol-viewport {
+  border-radius: 12px;
+}
+.M {
+  top: 65px;
+  left: 0.5em;
+}
+.C {
+  top: 90px;
+  left: 0.5em;
+}
+.D {
+  top: 115px;
+  left: 0.5em;
+}
