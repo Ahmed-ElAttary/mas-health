@@ -1,15 +1,15 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
+import Map from "ol/Map";
 // import { Button } from "primereact/button";
 import "ol/ol.css";
 import "./Map.styles.css";
+import View from 'ol/View';
 
-import Map from "ol/Map.js";
-
-import TileLayer from "ol/layer/Tile.js";
-import OSM from "ol/source/OSM.js";
+import TileLayer from "ol/layer/Tile";
+import OSM from "ol/source/OSM";
 import XYZ from "ol/source/XYZ";
-
+import { fromLonLat } from 'ol/proj';
 function MapComponent({}) {
   const mapRef = useRef();
 
@@ -22,7 +22,12 @@ function MapComponent({}) {
             url: "http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}",
           }),
         }),
+      //   new TileLayer({ source: new OSM() })
       ],
+      view: new View({
+        center: fromLonLat([30.2, 28]),
+        zoom: 5.8,
+    }),
     });
 
     return () => map.setTarget(undefined);
@@ -30,7 +35,7 @@ function MapComponent({}) {
 
   return (
     <>
-      <div ref={mapRef} id="map"></div>
+      <div ref={mapRef} id="map"  ></div>
     </>
   );
 }

@@ -1,5 +1,5 @@
 "use client";
-import Controls from "../components/Controls/Controls.jsx";
+import Controls from "../components/HomeControls/Controls.jsx";
 import Markers from "../components/Markers/Markers.jsx";
 import ViewerContainer from "../components/ViewerContainer.component.jsx";
 

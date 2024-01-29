@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Marker from './Marker'
-import { openBottom } from "../Controls/BottomSidebar/BottomSidebar";
+import { openBottom } from "../HomeControls/BottomSidebar/BottomSidebar";
 
 
 
@@ -11,7 +11,7 @@ const Markers = () => {
 
 {
   data.map(({id,lat,lon,name,type,color})=>{return(
-<Marker  color={color} lon={lon} lat={lat} idd={id} popupContent={<>
+<Marker  color={color} lon={lon} lat={lat} idd={id} key={id} popupContent={<>
 <div>
 {name}
 </div>
