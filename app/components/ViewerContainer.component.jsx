@@ -66,7 +66,7 @@ function ViewerContainer({ children }) {
       style={{ overflow: "hidden" }}
     >
       <CameraFlyTo
-        duration={0}
+        duration={10}
         destination={Cartesian3.fromDegrees(30.2, 28, 2000000)}
       />
 
