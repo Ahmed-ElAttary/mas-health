@@ -23,7 +23,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.9.0",
-    "resium": "^1.16.1"
+    "resium": "^1.16.1",
+    "shapefile": "^0.6.6"
   },
   "devDependencies": {
     "@types/node": "20.2.5",
