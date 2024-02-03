@@ -52,7 +52,7 @@ function ViewerContainer({ children }) {
       creditContainer={typeof document !== 'undefined' ? document.createElement("div"):null}
       imageryProvider={
         new WebMapTileServiceImageryProvider({
-          url: "http://mt0.google.com/vt/lyrs=s&hl=ar&x={TileCol}&y={TileRow}&z={TileMatrix}",
+          url: "https://mt0.google.com/vt/lyrs=s&hl=ar&x={TileCol}&y={TileRow}&z={TileMatrix}",
           layer: "OpenStreetMap",
           format: "image/png",
           style: "default",
