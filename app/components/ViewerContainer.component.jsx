@@ -22,11 +22,8 @@ import {
 } from "cesium";
 import Markers from "./Markers/Markers";
 import Controls from "./HomeControls/Controls";
-if(typeof window !== 'undefined')
-{
-// Your client-side code that uses window goes here
-window.CESIUM_BASE_URL = "/cesium/build/CesiumUnminified"
-}
+if(typeof window !== 'undefined') window.CESIUM_BASE_URL = "/cesium/Build/CesiumUnminified"
+
 Ion.defaultAccessToken =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwNmI4NDZkNS05YjE1LTRmNGMtOWIxZC1kYWM2NjkyNzQxYzUiLCJpZCI6MTM2MTc3LCJpYXQiOjE2ODI4Mzk1MzZ9.iEG0SY_0StIfWUg57qVwbPe5NHlD48ZMf3AGqC_nVdI";
 
@@ -52,7 +49,7 @@ function ViewerContainer({ children }) {
       //   requestVertexNormals: true,
       // })}
 
-      creditContainer={document.createElement("div")}
+      creditContainer={typeof document !== 'undefined' ? document.createElement("div"):null}
       imageryProvider={
         new WebMapTileServiceImageryProvider({
           url: "http://mt0.google.com/vt/lyrs=s&hl=ar&x={TileCol}&y={TileRow}&z={TileMatrix}",
@@ -79,3 +76,4 @@ function ViewerContainer({ children }) {
 }
 
 export default ViewerContainer;
+
