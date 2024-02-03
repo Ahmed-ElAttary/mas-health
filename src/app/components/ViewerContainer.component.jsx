@@ -1,6 +1,6 @@
 "use client";
 
-window.CESIUM_BASE_URL = "/cesium/build/CesiumUnminified";
+
 import "cesium/Build/Cesium/Widgets/widgets.css";
 import React, { useState, useEffect, Children, useRef } from "react";
 import { Viewer, CameraFlyTo, useCesium, CameraFlyHome } from "resium";
@@ -22,13 +22,18 @@ import {
 } from "cesium";
 import Markers from "./Markers/Markers";
 import Controls from "./HomeControls/Controls";
-
+if(typeof window !== 'undefined')
+{
+// Your client-side code that uses window goes here
+window.CESIUM_BASE_URL = "/cesium/build/CesiumUnminified"
+}
 Ion.defaultAccessToken =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwNmI4NDZkNS05YjE1LTRmNGMtOWIxZC1kYWM2NjkyNzQxYzUiLCJpZCI6MTM2MTc3LCJpYXQiOjE2ODI4Mzk1MzZ9.iEG0SY_0StIfWUg57qVwbPe5NHlD48ZMf3AGqC_nVdI";
 
 const popups = {};
 
 function ViewerContainer({ children }) {
+  useEffect(() =>window.CESIUM_BASE_URL = "/cesium/build/CesiumUnminified",[])
   return (
     <Viewer
       shouldAnimate={true}

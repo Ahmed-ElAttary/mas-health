@@ -39,11 +39,11 @@ const Legend = () => {
     <Chip label="مطابق" image="right.png" />
     <Chip label="غير مطابق" image="wrong.png" />
     <Divider type="solid" >WQI</Divider>
-    <Chip label="مطابق" image="marker-svgrepo-com.svg" />
-    <Chip label="غير مطابق" image="marker-svgrepo-com.svg" />  
-    <Chip label="مطابق" image="marker-svgrepo-com.svg" />
-    <Chip label="غير مطابق" image="marker-svgrepo-com.svg" />  
-    <Chip label="مطابق" image="marker-svgrepo-com.svg" /> 
+    <Chip label="سيئة" image="marker-svgrepo-com.svg" />
+    <Chip label="ضعيفة" image="marker-svgrepo-com.svg" />  
+    <Chip label="مقبولة" image="marker-svgrepo-com.svg" />
+    <Chip label="جيدة" image="marker-svgrepo-com.svg" />  
+    <Chip label="ممتازة" image="marker-svgrepo-com.svg" /> 
 
     </div>
 
