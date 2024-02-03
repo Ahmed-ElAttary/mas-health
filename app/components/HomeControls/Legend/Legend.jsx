@@ -7,7 +7,7 @@ import { Inplace, InplaceDisplay, InplaceContent } from 'primereact/inplace';
 import { Button } from 'primereact/button';
 import { Fieldset } from 'primereact/fieldset';
 import { ScrollPanel } from 'primereact/scrollpanel';
-
+const avatar =(color)=>`data:image/svg+xml;base64,${btoa(`<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect width="100%" height="100%" fill="${color}"/></svg>`)}`
 const Legend = () => {
   return (
      <Inplace  closable>
@@ -39,11 +39,11 @@ const Legend = () => {
     <Chip label="مطابق" image="right.png" />
     <Chip label="غير مطابق" image="wrong.png" />
     <Divider type="solid" >WQI</Divider>
-    <Chip label="سيئة" image="marker-svgrepo-com.svg" />
-    <Chip label="ضعيفة" image="marker-svgrepo-com.svg" />  
-    <Chip label="مقبولة" image="marker-svgrepo-com.svg" />
-    <Chip label="جيدة" image="marker-svgrepo-com.svg" />  
-    <Chip label="ممتازة" image="marker-svgrepo-com.svg" /> 
+    <Chip label="سيئة" image={avatar("#f00000")} />
+    <Chip label="ضعيفة" image={avatar("#d07916")} />  
+    <Chip label="مقبولة" image={avatar("#ffeb0a")} />
+    <Chip label="جيدة" image={avatar("#00c8fa")} />  
+    <Chip label="ممتازة" image={avatar("#00d62b")} /> 
 
     </div>
 

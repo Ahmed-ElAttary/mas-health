@@ -7,9 +7,10 @@ Color,
 Viewer,
 NearFarScalar,
 
-LabelStyle
+LabelStyle,
+Cartesian2
 } from "cesium";
-
+import { openBottom } from "../HomeControls/BottomSidebar/BottomSidebar";
 import PopupComponent from '../Popup.component';
 import Popup from '@cesium-extends/popup';
 const colors = {
@@ -20,13 +21,17 @@ good : ["#00c8fa","#94e4ff"],
 excellent:["#00d62b","#96ff94"],
 
 }
+const statusIcons ={"تعمل":"green-static.png","لا تعمل" :"red-static.png","تحت الصيانة" :"yellow-static.png"};
+const legalIcons ={"مطابق":"right.png","غير مطابق" :"wrong.png"};
+
 
 const popups= {};
 
-const Marker = ({lon,lat,color,idd,popupContent}) => {
+const Marker = ({data}) => {
+  const {lon,lat,color,id,status,legal,name}=data;
   const viewerCs= useCesium();
 
-  const popupID="popup"+idd;
+  const popupID="popup"+id;
  const  closePopup = () => {
     popups[popupID]?.switchElementShow(false);
   popups[popupID]?.destroy();
@@ -47,7 +52,7 @@ popups[popupID]=undefined;
 const showPopup=()=>{
   closeAllPopups();
   const element = document.getElementById(popupID);
-  if (element && popupContent) {
+  if (element) {
     popups[popupID]= new Popup(viewerCs.viewer, {
       position: [lon, lat],
       element,
@@ -70,13 +75,23 @@ const showPopup=()=>{
  <BillboardCollection
 
      modelMatrix={Transforms.eastNorthUpToFixedFrame(Cartesian3.fromDegrees(lon, lat,0))}>
-      <Billboard image={`data:image/svg+xml;base64,${btoa(svg)}`} scale={0.05}
+          <Billboard image={`/${statusIcons[status]}`}  scale={0.015}
+          pixelOffset={new Cartesian2(-18,18)} ></Billboard>
+                    <Billboard image={`/${legalIcons[legal]}`}   scale={0.12}
+          pixelOffset={new Cartesian2(20,-20)} ></Billboard>
+      <Billboard image={`data:image/svg+xml;base64,${btoa(svg)}`}  scale={0.045}
        onClick={showPopup}
   
-scaleByDistance={new NearFarScalar(1.5e2, 1.0, 1.5e7, 0.5)}
+// scaleByDistance={new NearFarScalar(1.5e2, 1.0, 1.5e7, 0.5)}
       >
-    {popupContent && <PopupComponent id={popupID} closePopup={closePopup}>
-      {popupContent}
+
+
+    {<PopupComponent id={popupID} closePopup={closePopup}>
+    <>
+<div>
+{name}
+</div>
+<button onClick={() => openBottom(name)} >عرض أخر قراءة</button></>
       </PopupComponent>
       
       }
