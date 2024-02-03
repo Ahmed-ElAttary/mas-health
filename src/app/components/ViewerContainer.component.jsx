@@ -33,7 +33,7 @@ Ion.defaultAccessToken =
 const popups = {};
 
 function ViewerContainer({ children }) {
-  useEffect(() =>window.CESIUM_BASE_URL = "/cesium/build/CesiumUnminified",[])
+
   return (
     <Viewer
       shouldAnimate={true}
