@@ -46,8 +46,9 @@ function ViewerContainer({ children }) {
       infoBox={false}
       // terrainProvider={createWorldTerrain({
       //   requestWaterMask: true,
-      //   requestVertexNormals: true,
+      //   // requestVertexNormals: true,
       // })}
+      
 
       creditContainer={typeof document !== 'undefined' ? document.createElement("div"):null}
       imageryProvider={
