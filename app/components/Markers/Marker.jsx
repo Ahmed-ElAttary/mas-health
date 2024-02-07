@@ -78,11 +78,11 @@ const showPopup=()=>{
 
 
      modelMatrix={Transforms.eastNorthUpToFixedFrame(Cartesian3.fromDegrees(lon, lat,0))}>
-          <Billboard heightReference={HeightReference.CLAMP_TO_GROUND} image={`/${statusIcons[status]}`}  scale={0.015}
+          <Billboard  image={`/${statusIcons[status]}`}  scale={0.015}
           pixelOffset={new Cartesian2(-18,18)} ></Billboard>
-                    <Billboard heightReference={HeightReference.CLAMP_TO_GROUND} image={`/${legalIcons[legal]}`}   scale={0.12}
+                    <Billboard  image={`/${legalIcons[legal]}`}   scale={0.12}
           pixelOffset={new Cartesian2(20,-20)} ></Billboard>
-      <Billboard heightReference={HeightReference.CLAMP_TO_GROUND}  image={`data:image/svg+xml;base64,${btoa(svg)}`}   scale={0.045}
+      <Billboard   image={`data:image/svg+xml;base64,${btoa(svg)}`}   scale={0.045}
        onClick={showPopup}
   
 // scaleByDistance={new NearFarScalar(1.5e2, 1.0, 1.5e7, 0.5)}

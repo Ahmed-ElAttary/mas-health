@@ -4,7 +4,7 @@ import Controls from "../components/HomeControls/Controls.jsx";
 import Markers from "../components/Markers/Markers.jsx";
 import ViewerContainer from "../components/ViewerContainer.component.jsx";
 import { Color } from "cesium";
-// import GeojsonComp from "../components/GeojsonComp/GeojsonComp.jsx"
+import GeojsonComp from "../components/GeojsonComp/GeojsonComp.jsx"
 
 
 export default function Home() {
@@ -18,11 +18,11 @@ export default function Home() {
 
 stroke={Color.RED}
 strokeWidth={10}
-     fill={Color.WHEAT.withAlpha(0.3)}
+     fill={Color.YELLOW.withAlpha(0.2)}
    
          />
-         {/* <GeojsonComp/> */}
       <Markers />
+         {/* <GeojsonComp/> */}
 
       <Controls />
     </ViewerContainer>

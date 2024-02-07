@@ -1,0 +1,10 @@
+.p-dropdown .p-dropdown-clear-icon {
+    right:  unset;
+    left : 2.35em !important;
+
+}
+
+label {
+    right:  10px;
+    left: unset;
+}
