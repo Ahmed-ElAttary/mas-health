@@ -17,7 +17,7 @@ export default function Home() {
 // ref={geojsonRef}
 
 stroke={Color.RED}
-strokeWidth={10}
+// strokeWidth={1}
      fill={Color.YELLOW.withAlpha(0.2)}
    
          />
