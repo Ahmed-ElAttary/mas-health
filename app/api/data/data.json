@@ -1,0 +1,38 @@
+[
+  {
+    
+    "id": 1,
+    "lat": 30,
+    "lon": 31,
+    "name": "محطة 1",
+    "type": "Aaaaa",
+    "color": "bad",
+    "legal": "مطابق",
+    "status": "تحت الصيانة",
+    "gov": "القاهرة"
+  },
+  {
+    "id": 2,
+    "lat": 26,
+    "lon": 31,
+    "name": "محطة 2",
+    "type": "Aaaaa",
+    "color": "good",
+    "legal": "غير مطابق",
+    "status": "تعمل",
+    "gov": "القاهرة",
+    "geha":"جهة 1"
+
+  },
+  {
+    "id": 3,
+    "lat": 29,
+    "lon": 32,
+    "name": "محطة 3",
+    "type": "Aaaaa",
+    "color": "excellent",
+    "legal": "غير مطابق",
+    "status": "لا تعمل",
+    "geha": "جهة 1"
+  }
+]

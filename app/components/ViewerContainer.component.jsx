@@ -1,6 +1,5 @@
 "use client";
 
-
 import "cesium/Build/Cesium/Widgets/widgets.css";
 import React, { useState, useEffect, Children, useRef } from "react";
 import { Viewer, CameraFlyTo, useCesium, CameraFlyHome } from "resium";
@@ -22,7 +21,8 @@ import {
 } from "cesium";
 import Markers from "./Markers/Markers";
 import Controls from "./HomeControls/Controls";
-if(typeof window !== 'undefined') window.CESIUM_BASE_URL = "/cesium/Build/CesiumUnminified"
+if (typeof window !== "undefined")
+  window.CESIUM_BASE_URL = "/cesium/Build/CesiumUnminified";
 
 Ion.defaultAccessToken =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwNmI4NDZkNS05YjE1LTRmNGMtOWIxZC1kYWM2NjkyNzQxYzUiLCJpZCI6MTM2MTc3LCJpYXQiOjE2ODI4Mzk1MzZ9.iEG0SY_0StIfWUg57qVwbPe5NHlD48ZMf3AGqC_nVdI";
@@ -30,7 +30,6 @@ Ion.defaultAccessToken =
 const popups = {};
 
 function ViewerContainer({ children }) {
-
   return (
     <Viewer
       shouldAnimate={true}
@@ -48,9 +47,10 @@ function ViewerContainer({ children }) {
       //   requestWaterMask: true,
       //   // requestVertexNormals: true,
       // })}
-      
 
-      creditContainer={typeof document !== 'undefined' ? document.createElement("div"):null}
+      creditContainer={
+        typeof document !== "undefined" ? document.createElement("div") : null
+      }
       imageryProvider={
         new WebMapTileServiceImageryProvider({
           url: "https://mt0.google.com/vt/lyrs=s&hl=ar&x={TileCol}&y={TileRow}&z={TileMatrix}",
@@ -67,9 +67,8 @@ function ViewerContainer({ children }) {
       style={{ overflow: "hidden" }}
     >
       <CameraFlyTo
-        duration={0}
+        duration={10}
         destination={Cartesian3.fromDegrees(30.2, 28, 2000000)}
-     
       />
 
       {children}
@@ -78,4 +77,3 @@ function ViewerContainer({ children }) {
 }
 
 export default ViewerContainer;
-
