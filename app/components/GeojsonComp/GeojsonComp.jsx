@@ -24,11 +24,11 @@ const GeojsonComp = () => {
             const entities = data.entities.values;
             for (let i = 0; i < entities.length; i++) {
                 const entity = entities[i];
-              // entity.polygon.material = Color.CYAN.withAlpha(0.2);
+              entity.polygon.material = Color.RED.withAlpha(0.1);
 
               // entity.polygon.outline = true;
    
-              // entity.polygon.outlineColor = Color.BLACK;
+              entity.polygon.outlineColor = Color.RED;
               // viewerCs.viewer.flyTo(data);
               entity.polygon.heightReference = HeightReference.CLAMP_TO_GROUND;
                     // entity.polygon.extrudedHeight=1000*entity.properties._Shape_Area._value
