@@ -45,7 +45,8 @@ function ViewerContainer({ children }) {
       infoBox={false}
       // terrainProvider={createWorldTerrain({
       //   requestWaterMask: true,
-      //   // requestVertexNormals: true,
+      //   requestVertexNormals: true,
+
       // })}
 
       creditContainer={
@@ -67,7 +68,7 @@ function ViewerContainer({ children }) {
       style={{ overflow: "hidden" }}
     >
       <CameraFlyTo
-        duration={10}
+        duration={0}
         destination={Cartesian3.fromDegrees(30.2, 28, 2000000)}
       />
 

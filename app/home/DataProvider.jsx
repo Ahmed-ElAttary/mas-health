@@ -11,31 +11,32 @@ const DataProvider = ({ children }) => {
   useEffect(() => {
     const getData = async () => {
       const { data } = await axios.get("./api/data");
-
       setAllData(data.default);
-
       setFilteredData(data.default);
     };
     getData();
   }, []);
   const applyFilter = (searchParams) => {
-    const multiPropsFilter = (data, filters) => {
+    const multiDimensionalFilter = (data, filters) => {
       const filterKeys = Object.keys(filters);
       return data.filter((el) => {
         return filterKeys.every((key) => {
-          if (!filters[key]?.length) return true;
+          if (!filters[key]) return true;
           if (Array.isArray(el[key])) {
-            return el[key].some((keyEle) => filters[key].includes(keyEle));
+            return el[key].code.some((keyEle) => filters[key].code.includes(keyEle));
           }
-          return filters[key].includes(el[key]);
+          return filters[key].code.includes(el[key]);
         });
       });
     };
+    setFilteredData(multiDimensionalFilter(allData, searchParams));
 
-    setFilteredData(multiPropsFilter(allData, searchParams));
   };
+const resetFilter = ()=>{setFilteredData(allData)}
+
+
   return (
-    <DataContext.Provider value={{ filteredData, applyFilter }}>
+    <DataContext.Provider value={{ filteredData, applyFilter,resetFilter }}>
       {children}
     </DataContext.Provider>
   );

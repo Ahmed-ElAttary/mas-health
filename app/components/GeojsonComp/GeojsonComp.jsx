@@ -1,7 +1,7 @@
 
 import { useEffect } from 'react';
 import { useCesium } from 'resium';
-import { Color, GeoJsonDataSource, HeightReference } from 'cesium';
+import { ClassificationType, Color, ConstantProperty, GeoJsonDataSource, HeightReference } from 'cesium';
 const colors = {
     bad:["#f00000","#ffa3a3"],
     weak:["#d07916","#ffae3d"],
@@ -18,16 +18,19 @@ const GeojsonComp = () => {
         (async()=>{
 
             const data=await GeoJsonDataSource.load( "/shapefile.geojson");
+            console.log(data)
             viewerCs.viewer.dataSources.add(data);
-            
+            console.log(viewerCs.viewer.dataSources)
             const entities = data.entities.values;
             for (let i = 0; i < entities.length; i++) {
                 const entity = entities[i];
-              entity.polygon.material = Color.CYAN.withAlpha(0.2);
-              entity.polygon.outline = true;
-              entity.polygon.outlineColor = Color.BLACK;
-              entity.polygon.heightReference =
-                    HeightReference.CLAMP_TO_GROUND;
+              // entity.polygon.material = Color.CYAN.withAlpha(0.2);
+
+              // entity.polygon.outline = true;
+   
+              // entity.polygon.outlineColor = Color.BLACK;
+              // viewerCs.viewer.flyTo(data);
+              entity.polygon.heightReference = HeightReference.CLAMP_TO_GROUND;
                     // entity.polygon.extrudedHeight=1000*entity.properties._Shape_Area._value
             }
  

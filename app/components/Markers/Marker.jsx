@@ -82,9 +82,8 @@ const showPopup=()=>{
           pixelOffset={new Cartesian2(-18,18)} ></Billboard>
                     <Billboard  image={`/${legalIcons[legal]}`}   scale={0.12}
           pixelOffset={new Cartesian2(20,-20)} ></Billboard>
-      <Billboard   image={`data:image/svg+xml;base64,${btoa(svg)}`}   scale={0.045}
+      <Billboard eyeOffset={ new Cartesian3(0,0,-999) }   image={`data:image/svg+xml;base64,${btoa(svg)}`}   scale={0.045}
        onClick={showPopup}
-  
 // scaleByDistance={new NearFarScalar(1.5e2, 1.0, 1.5e7, 0.5)}
       >
 

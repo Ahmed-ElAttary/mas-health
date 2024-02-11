@@ -1,12 +1,14 @@
 import { Dropdown } from "primereact/dropdown";
-import { useState } from "react";
-const ComboBox = ({ id, label, searchParams }) => {
+import { useEffect, useState } from "react";
+const ComboBox = ({ id, label, searchParams,reload }) => {
   const [value, setValue] = useState();
   const [options, setOptions] = useState(
     id == "gov"
-      ? [{ name: "القاهرة", code: "القاهرة" }]
-      : [{ name: "جهة 1", code: "جهة 1" }]
+      ? [{ name: "القاهرة", code: "القاهرة" }]:null
   );
+  useEffect(()=>{
+    setValue(searchParams.current[id])
+  },[reload])
   return (
     <>
       <span className="p-float-label">
@@ -15,11 +17,11 @@ const ComboBox = ({ id, label, searchParams }) => {
           value={value}
           onChange={(e) => {
             setValue(e.value);
-            searchParams.current[id] = e.value?.name;
+            searchParams.current[id] = e.value;
           }}
           options={options}
           optionLabel="name"
-          className="w-full md:w-14rem"
+          className="w-full"
           showClear
         />
         <label htmlFor={id}>{label}</label>

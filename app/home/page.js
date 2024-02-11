@@ -15,16 +15,16 @@ export default function Home() {
     <ViewerContainer>
             <GeoJsonDataSource
          data= "/shapefile.geojson"
-         // clampToGround
+        //  clampToGround
          // ref={geojsonRef}
          
          stroke={Color.RED}
-         // strokeWidth={1}
-         fill={Color.YELLOW.withAlpha(0.2)}
+        strokeWidth={1}
+         fill={Color.YELLOW.withAlpha(0.3)}
          
 />
-      <Markers />
          {/* <GeojsonComp/> */}
+      <Markers />
 
       <Controls />
     </ViewerContainer>
