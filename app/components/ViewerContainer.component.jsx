@@ -2,7 +2,7 @@
 
 import "cesium/Build/Cesium/Widgets/widgets.css";
 import React, { useState, useEffect, Children, useRef } from "react";
-import { Viewer, CameraFlyTo, useCesium, CameraFlyHome } from "resium";
+import { Viewer, CameraFlyTo, Provider, Globe, Scene } from "resium";
 import {
   WebMapTileServiceImageryProvider,
   createWorldTerrain,
@@ -43,12 +43,12 @@ function ViewerContainer({ children }) {
       fullscreenButton={false}
       selectionIndicator={false}
       infoBox={false}
-      // terrainProvider={createWorldTerrain({
-      //   requestWaterMask: true,
-      //   requestVertexNormals: true,
+  /*   terrainProvider={createWorldTerrain({
+   requestWaterMask: true,
+          requestVertexNormals: true,
 
-      // })}
-
+        })}
+*/
       creditContainer={
         typeof document !== "undefined" ? document.createElement("div") : null
       }
@@ -67,12 +67,15 @@ function ViewerContainer({ children }) {
       full
       style={{ overflow: "hidden" }}
     >
-      <CameraFlyTo
-        duration={0}
-        destination={Cartesian3.fromDegrees(30.2, 28, 2000000)}
-      />
-
-      {children}
+      <Scene>
+        <Globe>
+          <CameraFlyTo
+            duration={0}
+            destination={Cartesian3.fromDegrees(30.2, 28, 2000000)}
+          />
+          {children}
+        </Globe>
+      </Scene>
     </Viewer>
   );
 }
