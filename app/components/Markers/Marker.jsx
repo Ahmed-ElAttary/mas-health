@@ -74,14 +74,14 @@ const Marker = ({ data }) => {
           Cartesian3.fromDegrees(lon, lat, 0)
         )}
       >
-        <Billboard
+        {/* <Billboard
           image={`/${legalIcons[legal]}`}
           scale={0.12}
           pixelOffset={new Cartesian2(20, -20)}
-        ></Billboard>
+        ></Billboard> */}
         <Billboard
           image={`/${statusIcons[status]}`}
-          scale={0.015}
+          scale={0.017}
           pixelOffset={new Cartesian2(-18, 18)}
         ></Billboard>
 

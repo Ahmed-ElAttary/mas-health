@@ -35,9 +35,9 @@ const Legend = () => {
     <Chip label="تعمل" image="green-static.png" />
     <Chip label="لا تعمل" image="red-static.png" />
     <Chip label="تحت الصيانة" image="yellow-static.png" />
-    <Divider type="solid" >المطابقة</Divider>
+    {/* <Divider type="solid" >المطابقة</Divider>
     <Chip label="مطابق" image="right.png" />
-    <Chip label="غير مطابق" image="wrong.png" />
+    <Chip label="غير مطابق" image="wrong.png" /> */}
     <Divider type="solid" >WQI</Divider>
     <Chip label="سيئة" image={avatar("#f00000")} />
     <Chip label="ضعيفة" image={avatar("#d07916")} />  
