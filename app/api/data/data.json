@@ -1,6 +1,5 @@
 [
   {
-    
     "id": 1,
     "lat": 30,
     "lon": 31,
@@ -21,8 +20,7 @@
     "legal": "غير مطابق",
     "status": "تعمل",
     "gov": "القاهرة",
-    "geha":"جهة 1"
-
+    "geha": "جهة 1"
   },
   {
     "id": 3,
@@ -33,6 +31,28 @@
     "color": "excellent",
     "legal": "غير مطابق",
     "status": "لا تعمل",
+    "geha": "جهة 1"
+  },
+  {
+    "id": 4,
+    "lat": 28,
+    "lon": 30,
+    "name": "4",
+    "type": "Aaaaa",
+    "color": "passed",
+    "legal": "غير مطابق",
+    "status": "مستمرة",
+    "geha": "جهة 1"
+  },
+  {
+    "id": 5,
+    "lat": 27,
+    "lon": 28,
+    "name": "5",
+    "type": "Aaaaa",
+    "color": "passed",
+    "legal": "غير مطابق",
+    "status": "تم إلغائها",
     "geha": "جهة 1"
   }
 ]

@@ -28,6 +28,8 @@ const statusIcons = {
   تعمل: "green-static.png",
   "لا تعمل": "red-static.png",
   "تحت الصيانة": "yellow-static.png",
+  مستمرة: "cycle.png",
+  "تم إلغائها": "cancel.png",
 };
 const legalIcons = { مطابق: "right.png", "غير مطابق": "wrong.png" };
 
