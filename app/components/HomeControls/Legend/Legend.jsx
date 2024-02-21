@@ -49,27 +49,27 @@ const Legend = () => {
                 image="marker-svgrepo-com.svg"
               />
 
-<Divider type="solid" >الحالة</Divider>
-    <Chip label="تعمل" image="green-static.png" />
-    <Chip label="لا تعمل" image="red-static.png" />
-    <Chip label="تحت الصيانة" image="yellow-static.png" />
-    <Divider type="solid" >المطابقة</Divider>
+              <Divider type="solid">الحالة</Divider>
+              <Chip label="تعمل" image="green-static.png" />
+              <Chip label="لا تعمل" image="red-static.png" />
+              <Chip label="تحت الصيانة" image="yellow-static.png" />
+              <Chip label="مستمرة" image="cycle.png" />
+              <Chip label="تم إلغائها" image="cancel.png" />
+              {/* <Divider type="solid" >المطابقة</Divider>
     <Chip label="مطابق" image="right.png" />
-    <Chip label="غير مطابق" image="wrong.png" />
-    <Divider type="solid" >WQI</Divider>
-    <Chip label="سيئة" image={avatar("#f00000")} />
-    <Chip label="ضعيفة" image={avatar("#d07916")} />  
-    <Chip label="مقبولة" image={avatar("#ffeb0a")} />
-    <Chip label="جيدة" image={avatar("#00c8fa")} />  
-    <Chip label="ممتازة" image={avatar("#00d62b")} /> 
-
-    </div>
-
-    </ScrollPanel>
-</Fieldset>
-</InplaceContent>
-</Inplace>
-  )
+    <Chip label="غير مطابق" image="wrong.png" /> */}
+              <Divider type="solid">WQI</Divider>
+              <Chip label="سيئة" image={avatar("#f00000")} />
+              <Chip label="ضعيفة" image={avatar("#d07916")} />
+              <Chip label="مقبولة" image={avatar("#ffeb0a")} />
+              <Chip label="جيدة" image={avatar("#00c8fa")} />
+              <Chip label="ممتازة" image={avatar("#00d62b")} />
+            </div>
+          </ScrollPanel>
+        </Fieldset>
+      </InplaceContent>
+    </Inplace>
+  );
 }
 
 export default Legend;
