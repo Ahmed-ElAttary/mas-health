@@ -29,48 +29,37 @@ const DataProvider = ({ children }) => {
 
   const auth = async () => {
     try {
-      const { data } = await axios.post(
-        "http://196.221.36.203:1145/api/token/",
-        {
-          username: "admin",
-          password: "123",
-        }
-      );
+      const { data } = await axios.get("./api/token/");
       setToken(data.access);
     } catch (err) {
       console.log(err);
     }
   };
   const getData = async () => {
-    // const { data } = await axios.get("./api/data");
-    // setAllData(data.default);
-    // setFilteredData(data.default);
-
-    const { data: res } = await axios.get(
-      " http://196.221.36.203:1145/api/location-handle?start=1&length=100000000",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    const StationsNames = res.data.map(({ name }) => {
-      return { name, id: name };
-    });
-    lookups.current = { ...lookups.current, StationsNames };
-    allData.current = res.data;
-    setFilteredData(res.data);
+    try {
+      const { data: res } = await axios.post("./api/location-handle", {
+        token,
+      });
+      const StationsNames = res.data.map(({ name }) => {
+        return { name, id: name };
+      });
+      lookups.current = { ...lookups.current, StationsNames };
+      allData.current = res.data;
+      setFilteredData(res.data);
+    } catch (err) {
+      console.log(err);
+    }
   };
   const getLookups = async () => {
-    const { data: res } = await axios.get(
-      "http://196.221.36.203:1145/api/handle-all-essentials",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    lookups.current = { ...lookups.current, ...res.data };
+    try {
+      const { data: res } = await axios.post("./api/handle-all-essentials", {
+        token,
+      });
+
+      lookups.current = { ...lookups.current, ...res.data };
+    } catch (err) {
+      console.log(err);
+    }
   };
   const applyFilter = (searchParams) => {
     const multiDimensionalFilter = (data, filters) => {
