@@ -6,19 +6,19 @@ import ViewerContainer from "../components/ViewerContainer.component.jsx";
 
 import GeojsonComp from "../components/GeojsonComp/GeojsonComp.jsx";
 import DataProvider from "./DataProvider.jsx";
-
+import EssentialsProvider from "./EssentialsProvider.jsx";
 export default function Home() {
-
-
   return (
-    <DataProvider>
-      <ViewerContainer>
- 
-        <GeojsonComp/>
+    <EssentialsProvider>
+
+    <ViewerContainer>
+      <GeojsonComp />
+      <DataProvider>
         <Markers />
 
         <Controls />
-      </ViewerContainer>
-    </DataProvider>
+      </DataProvider>
+    </ViewerContainer>
+    </EssentialsProvider>
   );
 }

@@ -1,9 +1,9 @@
 import { useContext, useEffect } from "react";
 import { GeoJsonDataSource, useCesium } from "resium";
 import { Color } from "cesium";
-import { DataContext } from "@app/home/DataProvider";
+import { EssentialsContext } from "@app/home/EssentialsProvider";
 const GeojsonComp = () => {
-  const { colors } = useContext(DataContext);
+  const { colors } = useContext(EssentialsContext);
 
   const coloring = (layer) => {
     const entities = layer.entities.values;

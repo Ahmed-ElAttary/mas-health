@@ -23,8 +23,9 @@ import {
 import { openBottom } from "../HomeControls/BottomSidebar/BottomSidebar";
 import PopupComponent from "../Popup.component";
 import Popup from "@cesium-extends/popup";
-import { DataContext } from "@app/home/DataProvider";
+
 import { Button } from "primereact/button";
+import { EssentialsContext } from "@app/home/EssentialsProvider";
 const statusIcons = {
   2: "green-static.png",
   3: "red-static.png",
@@ -48,7 +49,7 @@ const Marker = ({ data }) => {
   } = data;
   const viewerCs = useCesium();
 
-  const { colors } = useContext(DataContext);
+  const { colors } = useContext(EssentialsContext);
   const popupID = "popup" + id;
   const closePopup = () => {
     popups[popupID]?.switchElementShow(false);
