@@ -5,25 +5,60 @@ import ComboBox from "./ComboBox";
 import "./RightSidebar.css";
 
 import { DataContext } from "@app/home/DataProvider.jsx";
-import { ScrollPanel } from "primereact/scrollpanel";
+
 import { Card } from "primereact/card";
 
 export const fields = {
-  geha: "الجهة",
-  gov: "المحافظة",
-  city: "المدينة",
-  village: "القرية",
-  water_type: "نوعية المياه",
-  water_bodies: "المسطحات المائية",
-  point_type: "نوع النقطة",
-  site_name: "اسم الموقع",
-  status: "الحالة",
+  Entity: { label: "الجهة", filter_id: "entity_id", column: "name" },
+  Governorate: {
+    label: "المحافظة",
+    filter_id: "governorate_id",
+    column: "name",
+  },
+  Centeralization: {
+    label: "المدينة",
+    filter_id: "centeralization_id",
+    column: "name",
+    dependancy: "governorate_id",
+  },
+  City: {
+    label: "القرية",
+    filter_id: "city_id",
+    column: "name",
+    dependancy: "centeralization_id",
+  },
+
+  // water_type: "نوعية المياه",
+  BodiesOfWater: {
+    label: "المسطحات المائية",
+    filter_id: "bodies_of_water_id",
+    column: "name",
+  },
+  LocationType: {
+    label: "نوع النقطة",
+    filter_id: "location_type_id",
+    column: "name",
+  },
+
+  StationsNames: {
+    label: "اسم النقطة",
+    filter_id: "name",
+    column: "name",
+  },
+  StateOfPlace: {
+    label: "الحالة",
+    filter_id: "state_of_place_id",
+    column: "state",
+  },
 };
 const RightSidebar = () => {
   const { applyFilter, resetFilter } = useContext(DataContext);
   const [sideBarVis, setSideBarVis] = useState(false);
   const searchParams = useRef({});
   const [reload, setReload] = useState(0);
+  const reloadHandler = () => {
+    setReload(reload + 1);
+  };
 
   return (
     <>
@@ -32,6 +67,8 @@ const RightSidebar = () => {
         onHide={() => setSideBarVis(false)}
         position="right"
         dir="rtl"
+        style={{ width: "20%", minWidth: "400px" }}
+        onShow={reloadHandler}
       >
         <Card>
           <div className="card flex flex-column gap-5  justify-content-center">
@@ -39,9 +76,13 @@ const RightSidebar = () => {
               <ComboBox
                 key={index}
                 id={field[0]}
-                label={field[1]}
+                label={field[1].label}
+                filter_id={field[1].filter_id}
+                column={field[1].column}
                 searchParams={searchParams}
                 reload={reload}
+                dependancy={field[1].dependancy}
+                reloadHandler={reloadHandler}
               />
             ))}
             <div className="card flex  gap-6  justify-content-center">
@@ -59,7 +100,7 @@ const RightSidebar = () => {
                 iconPos="right"
                 onClick={() => {
                   searchParams.current = {};
-                  setReload(reload + 1);
+                  reloadHandler();
                   resetFilter();
                 }}
               />

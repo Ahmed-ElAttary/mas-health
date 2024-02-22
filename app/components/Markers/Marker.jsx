@@ -25,18 +25,26 @@ import PopupComponent from "../Popup.component";
 import Popup from "@cesium-extends/popup";
 import { DataContext } from "@app/home/DataProvider";
 const statusIcons = {
-  تعمل: "green-static.png",
-  "لا تعمل": "red-static.png",
-  "تحت الصيانة": "yellow-static.png",
-  مستمرة: "cycle.png",
-  "تم إلغائها": "cancel.png",
+  2: "green-static.png",
+  3: "red-static.png",
+  1: "yellow-static.png",
+  4: "cycle.png",
+  5: "cancel.png",
 };
-const legalIcons = { مطابق: "right.png", "غير مطابق": "wrong.png" };
+// const legalIcons = { مطابق: "right.png", "غير مطابق": "wrong.png" };
 
 const popups = {};
 
 const Marker = ({ data }) => {
-  const { lon, lat, color, id, status, legal, name } = data;
+  const {
+    longitude,
+    latitude,
+    color = "excellent",
+    id,
+    state_of_place_id,
+    // legal,
+    name,
+  } = data;
   const viewerCs = useCesium();
 
   const { colors } = useContext(DataContext);
@@ -60,7 +68,7 @@ const Marker = ({ data }) => {
     const element = document.getElementById(popupID);
     if (element) {
       popups[popupID] = new Popup(viewerCs.viewer, {
-        position: [lon, lat],
+        position: [+longitude, +latitude],
         element,
         offset: [0, -30],
       });
@@ -73,7 +81,7 @@ const Marker = ({ data }) => {
     <>
       <BillboardCollection
         modelMatrix={Transforms.eastNorthUpToFixedFrame(
-          Cartesian3.fromDegrees(lon, lat, 0)
+          Cartesian3.fromDegrees(+longitude, +latitude, 0)
         )}
       >
         {/* <Billboard
@@ -82,7 +90,7 @@ const Marker = ({ data }) => {
           pixelOffset={new Cartesian2(20, -20)}
         ></Billboard> */}
         <Billboard
-          image={`/${statusIcons[status]}`}
+          image={`/${statusIcons[state_of_place_id]}`}
           scale={0.017}
           pixelOffset={new Cartesian2(-18, 18)}
         ></Billboard>

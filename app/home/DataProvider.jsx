@@ -11,17 +11,67 @@ const colors = {
   excellent: ["rgb(0, 214, 43)", "rgb(150, 255, 148)"],
 };
 const DataProvider = ({ children }) => {
-  const [allData, setAllData] = useState([]);
+  // const [allData, setAllData] = useState([]);
+  const allData = useRef();
   const [filteredData, setFilteredData] = useState([]);
+  const lookups = useRef();
+  const [token, setToken] = useState();
+  useEffect(() => {
+    auth();
+  }, []);
 
   useEffect(() => {
-    const getData = async () => {
-      const { data } = await axios.get("./api/data");
-      setAllData(data.default);
-      setFilteredData(data.default);
-    };
-    getData();
-  }, []);
+    if (token) {
+      getData();
+      getLookups();
+    }
+  }, [token]);
+
+  const auth = async () => {
+    try {
+      const { data } = await axios.post(
+        "http://196.221.36.203:1145/api/token/",
+        {
+          username: "admin",
+          password: "123",
+        }
+      );
+      setToken(data.access);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const getData = async () => {
+    // const { data } = await axios.get("./api/data");
+    // setAllData(data.default);
+    // setFilteredData(data.default);
+
+    const { data: res } = await axios.get(
+      " http://196.221.36.203:1145/api/location-handle?start=1&length=100000000",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const StationsNames = res.data.map(({ name }) => {
+      return { name, id: name };
+    });
+    lookups.current = { ...lookups.current, StationsNames };
+    allData.current = res.data;
+    setFilteredData(res.data);
+  };
+  const getLookups = async () => {
+    const { data: res } = await axios.get(
+      "http://196.221.36.203:1145/api/handle-all-essentials",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    lookups.current = { ...lookups.current, ...res.data };
+  };
   const applyFilter = (searchParams) => {
     const multiDimensionalFilter = (data, filters) => {
       const filterKeys = Object.keys(filters);
@@ -33,19 +83,20 @@ const DataProvider = ({ children }) => {
               filters[key].code.includes(keyEle)
             );
           }
+
           return filters[key].code.includes(el[key]);
         });
       });
     };
-    setFilteredData(multiDimensionalFilter(allData, searchParams));
+    setFilteredData(multiDimensionalFilter(allData.current, searchParams));
   };
   const resetFilter = () => {
-    setFilteredData(allData);
+    setFilteredData(allData.current);
   };
 
   return (
     <DataContext.Provider
-      value={{ filteredData, applyFilter, resetFilter, colors }}
+      value={{ filteredData, applyFilter, resetFilter, lookups, colors }}
     >
       {children}
     </DataContext.Provider>
