@@ -43,7 +43,7 @@ function ViewerContainer({ children }) {
       fullscreenButton={false}
       selectionIndicator={false}
       infoBox={false}
-  /*   terrainProvider={createWorldTerrain({
+      /*   terrainProvider={createWorldTerrain({
    requestWaterMask: true,
           requestVertexNormals: true,
 
@@ -69,10 +69,10 @@ function ViewerContainer({ children }) {
     >
       <Scene>
         <Globe>
-          <CameraFlyTo
+          {/* <CameraFlyTo
             duration={0}
             destination={Cartesian3.fromDegrees(30.2, 28, 2000000)}
-          />
+          /> */}
           {children}
         </Globe>
       </Scene>

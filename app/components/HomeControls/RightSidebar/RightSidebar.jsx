@@ -7,6 +7,7 @@ import "./RightSidebar.css";
 import { DataContext } from "@app/home/DataProvider.jsx";
 
 import { Card } from "primereact/card";
+import { Message } from "primereact/message";
 
 export const fields = {
   Entity: { label: "الجهة", filter_id: "entity_id", column: "name" },
@@ -52,7 +53,7 @@ export const fields = {
   },
 };
 const RightSidebar = () => {
-  const { applyFilter, resetFilter } = useContext(DataContext);
+  const { applyFilter, resetFilter, filteredData } = useContext(DataContext);
   const [sideBarVis, setSideBarVis] = useState(false);
   const searchParams = useRef({});
   const [reload, setReload] = useState(0);
@@ -85,6 +86,8 @@ const RightSidebar = () => {
                 reloadHandler={reloadHandler}
               />
             ))}
+
+           {!filteredData.length &&<Message severity="warn" text="لايوجد نتيجة للبحث" />}
             <div className="card flex  gap-6  justify-content-center">
               <Button
                 icon="pi pi-search"

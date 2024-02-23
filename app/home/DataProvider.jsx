@@ -1,11 +1,14 @@
 import axios from "axios";
+import { Cartesian3, Rectangle } from "cesium";
 import React, { useRef, useState } from "react";
 import { createContext, useEffect } from "react";
+import { useCesium } from "resium";
 
 export const DataContext = createContext();
 
 const DataProvider = ({ children }) => {
   // const [allData, setAllData] = useState([]);
+  const viewerCs = useCesium();
   const allData = useRef();
   const [filteredData, setFilteredData] = useState([]);
   const lookups = useRef();
@@ -21,6 +24,32 @@ const DataProvider = ({ children }) => {
     }
   }, [token]);
 
+  useEffect(() => {
+    const latitudes = filteredData.map((el) => el.latitude);
+    const longitudes = filteredData.map((el) => el.longitude);
+    const north = Math.max(...latitudes);
+    const east = Math.max(...longitudes);
+    const south = Math.min(...latitudes);
+    const west = Math.min(...longitudes);
+    if (
+      isFinite(north) &&
+      isFinite(east) &&
+      isFinite(south) &&
+      isFinite(west)
+    ) {
+      viewerCs.camera.flyTo({
+        duration: 3,
+        destination:
+          filteredData.length == 1
+            ? Cartesian3.fromDegrees(
+                (east + west) / 2,
+                (south + north) / 2,
+                1000
+              )
+            : Rectangle.fromDegrees(west, south, east, north),
+      });
+    }
+  }, [filteredData]);
   const auth = async () => {
     try {
       const { data } = await axios.get("./api/token/");
