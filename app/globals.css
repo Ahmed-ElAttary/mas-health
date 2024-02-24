@@ -1,10 +1,16 @@
 .p-dropdown .p-dropdown-clear-icon {
-    right:  unset;
-    left : 2.35em !important;
-
+  right: unset;
+  left: 2.35em !important;
 }
 
 label {
-    right:  10px;
-    left: unset;
+  right: 10px;
+  left: unset;
+}
+
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+  text-align: right;
+}
+.p-dropdown-panel .p-dropdown-items .p-dropdown-empty-message {
+  text-align: right;
 }

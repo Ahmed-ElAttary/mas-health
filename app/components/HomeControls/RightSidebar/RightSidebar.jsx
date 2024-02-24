@@ -36,28 +36,41 @@ export const fields = {
     column: "name",
   },
   LocationType: {
-    label: "نوع النقطة",
+    label: "نوع الموقع",
     filter_id: "location_type_id",
     column: "name",
   },
 
-  StationsNames: {
-    label: "اسم النقطة",
-    filter_id: "name",
-    column: "name",
-  },
   StateOfPlace: {
     label: "الحالة",
     filter_id: "state_of_place_id",
     column: "state",
   },
+  StationsNames: {
+    label: "اسم الموقع",
+    filter_id: "name",
+    column: "name",
+  },
 };
 const RightSidebar = () => {
-  const { applyFilter, resetFilter, filteredData } = useContext(DataContext);
+  const {
+    applyFilter,
+    resetFilter,
+    filteredData,
+    multiDimensionalFilter,
+    lookups,
+  } = useContext(DataContext);
   const [sideBarVis, setSideBarVis] = useState(false);
   const searchParams = useRef({});
   const [reload, setReload] = useState(0);
   const reloadHandler = () => {
+    const dataFiltered = multiDimensionalFilter(filteredData, searchParams.current);
+    const StationsNames = dataFiltered.map(({ name }) => {
+      return { name, id: name };
+    });
+
+    console.log(filteredData, searchParams, StationsNames);
+    lookups.current = { ...lookups.current, StationsNames };
     setReload(reload + 1);
   };
 
@@ -87,7 +100,9 @@ const RightSidebar = () => {
               />
             ))}
 
-           {!filteredData.length &&<Message severity="warn" text="لايوجد نتيجة للبحث" />}
+            {!filteredData.length && (
+              <Message severity="warn" text="لايوجد نتيجة للبحث" />
+            )}
             <div className="card flex  gap-6  justify-content-center">
               <Button
                 icon="pi pi-search"

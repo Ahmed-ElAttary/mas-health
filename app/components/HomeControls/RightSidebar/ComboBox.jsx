@@ -27,13 +27,25 @@ const ComboBox = ({
           } else return true;
         })
         .map((el) => {
-          return { name: String(el[column]), code: String(el.id) };
+          return {
+            name: String(el[column]),
+            code: String(el.id),
+            [dependancy]: el[dependancy],
+          };
         })
     );
   };
   useEffect(() => {
     if (dependancy && !searchParams.current[dependancy]) {
       searchParams.current[filter_id] = undefined;
+    }
+    if (dependancy && searchParams.current[filter_id]) {
+      if (
+        searchParams.current[dependancy]?.code !=
+        searchParams.current[filter_id][dependancy]
+      ) {
+        searchParams.current[filter_id] = undefined;
+      }
     }
     optionsHandler();
     setValue(searchParams.current[filter_id]);
@@ -50,6 +62,7 @@ const ComboBox = ({
             reloadHandler();
           }}
           options={options}
+          emptyMessage="لا يوجد"
           optionLabel="name"
           className="w-full"
           showClear

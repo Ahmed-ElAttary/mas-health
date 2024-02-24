@@ -104,14 +104,23 @@ const Marker = ({ data }) => {
           <PopupComponent id={popupID} closePopup={closePopup}>
             <>
               <div>{name}</div>
-
-              <Button
-                icon="pi pi-copy"
-                severity="info"
-                label="عرض أخر قراءة"
-                onClick={() => openBottom(name)}
+              <div
+                className="flex flex-column gap-2"
                 style={{ marginTop: "10px" }}
-              />
+              >
+                <Button
+                  icon="pi pi-file-edit"
+                  severity="info"
+                  label="عرض أخر قراءة"
+                  onClick={() => openBottom(name)}
+                />
+                <Button
+                  icon="pi pi-book"
+                  severity="info"
+                  label="عرض تفاصيل الموقع"
+                  // onClick={() => openBottom(name)}
+                />
+              </div>
             </>
           </PopupComponent>
         }
