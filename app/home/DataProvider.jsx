@@ -12,7 +12,7 @@ const DataProvider = ({ children }) => {
   const allData = useRef();
   const [filteredData, setFilteredData] = useState([]);
   const [isLoadiing, setIsLoading] = useState(true);
-  const lookups = useRef();
+  const lookups = useRef([]);
   const [token, setToken] = useState();
   useEffect(() => {
     auth();

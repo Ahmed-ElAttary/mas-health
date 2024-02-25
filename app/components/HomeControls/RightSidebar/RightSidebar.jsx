@@ -64,12 +64,14 @@ const RightSidebar = () => {
   const searchParams = useRef({});
   const [reload, setReload] = useState(0);
   const reloadHandler = () => {
-    const dataFiltered = multiDimensionalFilter(filteredData, searchParams.current);
+    const dataFiltered = multiDimensionalFilter(
+      filteredData,
+      searchParams.current
+    );
     const StationsNames = dataFiltered.map(({ name }) => {
       return { name, id: name };
     });
 
-    console.log(filteredData, searchParams, StationsNames);
     lookups.current = { ...lookups.current, StationsNames };
     setReload(reload + 1);
   };
