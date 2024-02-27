@@ -120,6 +120,7 @@ const DataProvider = ({ children }) => {
         lookups,
         isLoading,
         multiDimensionalFilter,
+        token,
       }}
     >
       {children}
