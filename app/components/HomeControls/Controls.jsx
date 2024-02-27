@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Children, useRef } from "react";
+import React from "react";
 import { Sidebar } from "primereact/sidebar";
 
 import BasicDemo from "./Dock/Dock";

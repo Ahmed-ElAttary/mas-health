@@ -1,3 +1,4 @@
+"use client";
 import axios from "axios";
 import { Cartesian3, Rectangle } from "cesium";
 import React, { useRef, useState } from "react";
@@ -11,7 +12,7 @@ const DataProvider = ({ children }) => {
   const viewerCs = useCesium();
   const allData = useRef();
   const [filteredData, setFilteredData] = useState([]);
-  const [isLoadiing, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const lookups = useRef([]);
   const [token, setToken] = useState();
   useEffect(() => {
@@ -117,7 +118,7 @@ const DataProvider = ({ children }) => {
         applyFilter,
         resetFilter,
         lookups,
-        isLoadiing,
+        isLoading,
         multiDimensionalFilter,
       }}
     >

@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { GeoJsonDataSource, useCesium } from "resium";
 import { Color } from "cesium";
 import { EssentialsContext } from "@app/home/EssentialsProvider";

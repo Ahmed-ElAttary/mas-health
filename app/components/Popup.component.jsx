@@ -1,3 +1,4 @@
+"use client";
 import { Card } from "primereact/card";
 
 import "./Popup.styles.css";
@@ -8,6 +9,7 @@ import { Chip } from "primereact/chip";
 import { Divider } from "primereact/divider";
 import { ScrollPanel } from "primereact/scrollpanel";
 import { Fieldset } from "primereact/fieldset";
+
 export default function PopupComponent({ children, closePopup, ...props }) {
   const op = useRef(null);
   return (
@@ -21,10 +23,9 @@ export default function PopupComponent({ children, closePopup, ...props }) {
 
       <div className="pop-content">{children}</div>
 
-      <div className="pop-arrow"> 
+      <div className="pop-arrow">
         <div className="pop-arrow-content" />
       </div>
     </Card>
-    
   );
 }
