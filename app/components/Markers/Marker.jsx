@@ -88,7 +88,7 @@ const Marker = ({ data }) => {
     console.log(data.data.line);
 
     window.open(
-      `${window.location.ancestorOrigins[0]}/${data.data.line}`,
+      `${window.location.ancestorOrigins[0]}${data.data.line}`,
       "_blank"
     );
   };
