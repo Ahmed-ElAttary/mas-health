@@ -9,6 +9,7 @@ import { DataContext } from "@app/home/DataProvider.jsx";
 
 import { Card } from "primereact/card";
 import { Message } from "primereact/message";
+import { ScrollPanel } from "primereact/scrollpanel";
 
 export const fields = {
   Entity: { label: "الجهة", filter_id: "entity_id", column: "name" },
@@ -84,7 +85,6 @@ const RightSidebar = () => {
         onHide={() => setSideBarVis(false)}
         position="right"
         dir="rtl"
-        style={{ width: "20%", minWidth: "400px" }}
         onShow={reloadHandler}
       >
         <Card>
