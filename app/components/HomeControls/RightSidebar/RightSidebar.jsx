@@ -112,7 +112,10 @@ const RightSidebar = () => {
                 label="بحث"
                 iconPos="right"
                 severity="success"
-                onClick={() => applyFilter(searchParams.current)}
+                onClick={() => {
+                  applyFilter(searchParams.current);
+                  setSideBarVis(false);
+                }}
               />
               <Button
                 icon="pi pi-times"
