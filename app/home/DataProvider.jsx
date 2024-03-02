@@ -1,14 +1,16 @@
 "use client";
 import axios from "axios";
 import { Cartesian3, Rectangle } from "cesium";
+
 import React, { useRef, useState } from "react";
 import { createContext, useEffect } from "react";
 import { useCesium } from "resium";
-
+const HOST = process.env.NEXT_PUBLIC_BASE_URL;
+const username = process.env.NEXT_PUBLIC_USERNAME;
+const password = process.env.NEXT_PUBLIC_PASSWORD;
 export const DataContext = createContext();
 
 const DataProvider = ({ children }) => {
-  // const [allData, setAllData] = useState([]);
   const viewerCs = useCesium();
   const allData = useRef();
   const [filteredData, setFilteredData] = useState([]);
@@ -54,7 +56,10 @@ const DataProvider = ({ children }) => {
   }, [filteredData]);
   const auth = async () => {
     try {
-      const { data } = await axios.get("./api/token/");
+      const { data } = await axios.post(`${HOST}/api/token/`, {
+        username,
+        password,
+      });
       setToken(data.access);
     } catch (err) {
       console.log(err);
@@ -62,13 +67,15 @@ const DataProvider = ({ children }) => {
   };
   const getData = async () => {
     try {
-      const { data: res } = await axios.post("./api/location-handle", {
-        token,
-      });
-      // const StationsNames = res.data.map(({ name }) => {
-      //   return { name, id: name };
-      // });
-      // lookups.current = { ...lookups.current, StationsNames };
+      const { data: res } = await axios.get(
+        `${HOST}/api/location-handle?start=1&length=100000000`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
       allData.current = res.data;
       setFilteredData(res.data);
       setIsLoading(false);
@@ -76,12 +83,26 @@ const DataProvider = ({ children }) => {
       console.log(err);
     }
   };
+
+  const detailsRedirect = async (id) => {
+    const { data } = await axios.get(`${HOST}/api/location-handle?id=${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    window.open(`${HOST}${data.data.line}`, "_blank");
+  };
   const getLookups = async () => {
     try {
-      const { data: res } = await axios.post("./api/handle-all-essentials", {
-        token,
-      });
-
+      const { data: res } = await axios.get(
+        `${HOST}/api/handle-all-essentials`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       lookups.current = { ...lookups.current, ...res.data };
     } catch (err) {
       console.log(err);
@@ -120,7 +141,7 @@ const DataProvider = ({ children }) => {
         lookups,
         isLoading,
         multiDimensionalFilter,
-        token,
+        detailsRedirect,
       }}
     >
       {children}
