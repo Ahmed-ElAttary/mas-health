@@ -1,3 +1,4 @@
+"use client";
 import { useContext } from "react";
 import { GeoJsonDataSource, useCesium } from "resium";
 import { Color } from "cesium";

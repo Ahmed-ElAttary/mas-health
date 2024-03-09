@@ -1,14 +1,15 @@
 "use client";
-import axios from "axios";
+
 import { Cartesian3, Rectangle } from "cesium";
 
 import React, { useRef, useState } from "react";
 import { createContext, useEffect } from "react";
 import { useCesium } from "resium";
-const HOST = process.env.NEXT_PUBLIC_BASE_URL;
+
 const username = process.env.NEXT_PUBLIC_USERNAME;
 const password = process.env.NEXT_PUBLIC_PASSWORD;
 export const DataContext = createContext();
+import { getData, getLookups, detailsLink } from "./server";
 
 const DataProvider = ({ children }) => {
   const viewerCs = useCesium();
@@ -16,17 +17,22 @@ const DataProvider = ({ children }) => {
   const [filteredData, setFilteredData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const lookups = useRef([]);
-  const [token, setToken] = useState();
-  useEffect(() => {
-    auth();
-  }, []);
 
+  const intial = async () => {
+    const data = await getData();
+
+    allData.current = data;
+    setFilteredData(data);
+    const lookupsReq = await getLookups();
+    lookups.current = { ...lookups.current, ...lookupsReq };
+    data && lookupsReq && setIsLoading(false);
+  };
+  const detailsRedirect = async (id) => {
+    window.open(await detailsLink(id), "_blank");
+  };
   useEffect(() => {
-    if (token) {
-      getData();
-      getLookups();
-    }
-  }, [token]);
+    intial();
+  }, []);
 
   useEffect(() => {
     const latitudes = filteredData.map((el) => el.latitude);
@@ -54,60 +60,6 @@ const DataProvider = ({ children }) => {
       });
     }
   }, [filteredData]);
-  const auth = async () => {
-    try {
-      const { data } = await axios.post(`${HOST}/api/token/`, {
-        username,
-        password,
-      });
-      setToken(data.access);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  const getData = async () => {
-    try {
-      const { data: res } = await axios.get(
-        `${HOST}/api/location-handle?start=1&length=100000000`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      allData.current = res.data;
-      setFilteredData(res.data);
-      setIsLoading(false);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const detailsRedirect = async (id) => {
-    const { data } = await axios.get(`${HOST}/api/location-handle?id=${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    window.open(`${HOST}${data.data.line}`, "_blank");
-  };
-  const getLookups = async () => {
-    try {
-      const { data: res } = await axios.get(
-        `${HOST}/api/handle-all-essentials`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      lookups.current = { ...lookups.current, ...res.data };
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   const multiDimensionalFilter = (data, filters) => {
     const filterKeys = Object.keys(filters);
