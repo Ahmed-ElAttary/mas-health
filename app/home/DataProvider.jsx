@@ -6,8 +6,7 @@ import React, { useRef, useState } from "react";
 import { createContext, useEffect } from "react";
 import { useCesium } from "resium";
 
-const username = process.env.NEXT_PUBLIC_USERNAME;
-const password = process.env.NEXT_PUBLIC_PASSWORD;
+
 export const DataContext = createContext();
 import { getData, getLookups, detailsLink } from "./server";
 
@@ -19,13 +18,21 @@ const DataProvider = ({ children }) => {
   const lookups = useRef([]);
 
   const intial = async () => {
-    const data = await getData();
+    try
+    {const data = await getData() || [];
 
     allData.current = data;
     setFilteredData(data);
-    const lookupsReq = await getLookups();
+    const lookupsReq = await getLookups() || [];
     lookups.current = { ...lookups.current, ...lookupsReq };
     data && lookupsReq && setIsLoading(false);
+  }
+
+    catch(err){
+console.log(err)
+    }
+
+    
   };
   const detailsRedirect = async (id) => {
     window.open(await detailsLink(id), "_blank");
