@@ -6,33 +6,29 @@ import React, { useRef, useState } from "react";
 import { createContext, useEffect } from "react";
 import { useCesium } from "resium";
 
-
 export const DataContext = createContext();
 import { getData, getLookups, detailsLink } from "./server";
 
 const DataProvider = ({ children }) => {
   const viewerCs = useCesium();
   const allData = useRef();
+  const searchParams = useRef({});
   const [filteredData, setFilteredData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const lookups = useRef([]);
 
   const intial = async () => {
-    try
-    {const data = await getData() || [];
+    try {
+      const data = (await getData()) || [];
 
-    allData.current = data;
-    setFilteredData(data);
-    const lookupsReq = await getLookups() || [];
-    lookups.current = { ...lookups.current, ...lookupsReq };
-    data && lookupsReq && setIsLoading(false);
-  }
-
-    catch(err){
-console.log(err)
+      allData.current = data;
+      setFilteredData(data);
+      const lookupsReq = (await getLookups()) || [];
+      lookups.current = { ...lookups.current, ...lookupsReq };
+      data && lookupsReq && setIsLoading(false);
+    } catch (err) {
+      console.log(err);
     }
-
-    
   };
   const detailsRedirect = async (id) => {
     window.open(await detailsLink(id), "_blank");
@@ -78,11 +74,11 @@ console.log(err)
             filters[key].code?.includes(keyEle)
           );
         }
-
         return filters[key].code?.includes(el[key]);
       });
     });
   };
+
   const applyFilter = (searchParams) => {
     const dataFiltered = multiDimensionalFilter(allData.current, searchParams);
     setFilteredData(dataFiltered);
@@ -101,6 +97,7 @@ console.log(err)
         isLoading,
         multiDimensionalFilter,
         detailsRedirect,
+        searchParams,
       }}
     >
       {children}

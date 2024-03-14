@@ -11,8 +11,8 @@ export default async function Home() {
   return (
     <EssentialsProvider>
       <ViewerContainer>
-        <GeojsonComp />
         <DataProvider>
+        <GeojsonComp />
           <LoadingSpinner />
           <Markers />
 

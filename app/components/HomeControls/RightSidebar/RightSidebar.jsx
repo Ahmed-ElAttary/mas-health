@@ -61,9 +61,10 @@ const RightSidebar = () => {
     filteredData,
     multiDimensionalFilter,
     lookups,
+    searchParams,
   } = useContext(DataContext);
   const [sideBarVis, setSideBarVis] = useState(false);
-  const searchParams = useRef({});
+
   const [reload, setReload] = useState(0);
   const reloadHandler = () => {
     const dataFiltered = multiDimensionalFilter(
