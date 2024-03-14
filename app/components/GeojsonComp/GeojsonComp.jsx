@@ -7,6 +7,7 @@ import { DataContext } from "@app/home/DataProvider.jsx";
 const GeojsonComp = () => {
   const { colors } = useContext(EssentialsContext);
   const { searchParams } = useContext(DataContext);
+  const viewerCs = useCesium();
   const coloring = (layer) => {
     const entities = layer.entities.values;
     entities.forEach((entity) => {
@@ -18,6 +19,8 @@ const GeojsonComp = () => {
           entity.polygon.material = Color.fromCssColorString(
             colors[color][0]
           ).withAlpha(0.4);
+
+          viewerCs.viewer.flyTo(entity);
         } else {
           entity.polygon.material = Color.fromCssColorString(
             colors[color][0]

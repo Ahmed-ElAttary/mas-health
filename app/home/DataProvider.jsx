@@ -50,6 +50,7 @@ const DataProvider = ({ children }) => {
       isFinite(south) &&
       isFinite(west)
     ) {
+     
       viewerCs.camera.flyTo({
         duration: 3,
         destination:
