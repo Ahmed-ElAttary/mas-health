@@ -36,7 +36,7 @@ const GeojsonComp = () => {
 
   return (
     <GeoJsonDataSource
-      data="./api/gov_geometry"
+      data="./shapefile.json"
       clampToGround
       onLoad={(layer) => coloring(layer)}
       on
