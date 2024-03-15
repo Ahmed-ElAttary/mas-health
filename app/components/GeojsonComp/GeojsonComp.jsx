@@ -8,62 +8,61 @@ const GeojsonComp = () => {
   const { colors } = useContext(EssentialsContext);
   const { searchParams } = useContext(DataContext);
   const viewerCs = useCesium();
-  // const coloring = (layer) => {
-  //   const entities = layer.entities.values;
-  //   entities.forEach((entity) => {
-  //     const color = entity.properties.color._value;
-  //     const id = entity.properties.id._value;
-
-  //     if (searchParams.current.governorate_id?.code) {
-  //       if (searchParams.current.governorate_id?.code == id) {
-  //         entity.polygon.material = Color.fromCssColorString(
-  //           colors[color][0]
-  //         ).withAlpha(0.4);
-
-  //         viewerCs.viewer.flyTo(entity);
-  //       } else {
-  //         entity.polygon.material = Color.fromCssColorString(
-  //           colors[color][0]
-  //         ).withAlpha(0);
-  //       }
-  //     } else {
-  //       entity.polygon.material = Color.fromCssColorString(
-  //         colors[color][0]
-  //       ).withAlpha(0.4);
-  //     }
-  //   });
-  // };
   const coloring = (layer) => {
     const entities = layer.entities.values;
     entities.forEach((entity) => {
-  
+      const color = entity.properties.color._value;
       const id = entity.properties.id._value;
 
       if (searchParams.current.governorate_id?.code) {
         if (searchParams.current.governorate_id?.code == id) {
-          entity.polygon.material = Color.RED.withAlpha(0.2);
-          entity.polygon.outline = true;
-          entity.polygon.outlineColor = Color.RED.withAlpha(1);
+          entity.polygon.material = Color.fromCssColorString(
+            colors[color][0]
+          ).withAlpha(0.4);
 
           viewerCs.viewer.flyTo(entity);
         } else {
-          entity.polygon.material = Color.WHITE.withAlpha(0);
-          entity.polygon.outline = true;
-          entity.polygon.outlineColor = Color.RED.withAlpha(0);
+          entity.polygon.material = Color.fromCssColorString(
+            colors[color][0]
+          ).withAlpha(0);
         }
       } else {
-        entity.polygon.material = Color.WHITE.withAlpha(0.1);
-        entity.polygon.outline = true;
-        entity.polygon.outlineColor = Color.BLUE.withAlpha(1);
+        entity.polygon.material = Color.fromCssColorString(
+          colors[color][0]
+        ).withAlpha(0.4);
       }
     });
   };
+  // const coloring = (layer) => {
+  //   const entities = layer.entities.values;
+  //   entities.forEach((entity) => {
+
+  //     const id = entity.properties.id._value;
+
+  //     if (searchParams.current.governorate_id?.code) {
+  //       if (searchParams.current.governorate_id?.code == id) {
+  //         entity.polygon.material = Color.RED.withAlpha(0.2);
+  //         entity.polygon.outline = true;
+  //         entity.polygon.outlineColor = Color.RED.withAlpha(1);
+
+  //         viewerCs.viewer.flyTo(entity);
+  //       } else {
+  //         entity.polygon.material = Color.WHITE.withAlpha(0);
+  //         entity.polygon.outline = true;
+  //         entity.polygon.outlineColor = Color.RED.withAlpha(0);
+  //       }
+  //     } else {
+  //       entity.polygon.material = Color.WHITE.withAlpha(0.1);
+  //       entity.polygon.outline = true;
+  //       entity.polygon.outlineColor = Color.BLUE.withAlpha(1);
+  //     }
+  //   });
+  // };
   return (
     <GeoJsonDataSource
       data="./api/gov_geometry"
       // clampToGround
       onLoad={(layer) => coloring(layer)}
-
       stroke={Color.RED}
       strokeWidth={1}
       fill={Color.RED.withAlpha(0.5)}
