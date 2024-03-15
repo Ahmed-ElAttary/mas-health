@@ -54,7 +54,7 @@ function ViewerContainer({ children }) {
       }
       imageryProvider={
         new WebMapTileServiceImageryProvider({
-          url: "https://mt0.google.com/vt/lyrs=s&hl=ar&x={TileCol}&y={TileRow}&z={TileMatrix}",
+          url: "https://mt0.google.com/vt/lyrs=y&hl=ar&x={TileCol}&y={TileRow}&z={TileMatrix}",
           layer: "OpenStreetMap",
           format: "image/png",
           style: "default",
@@ -67,8 +67,8 @@ function ViewerContainer({ children }) {
       full
       style={{ overflow: "hidden" }}
     >
-      <Scene>
-        <Globe>
+      <Scene >
+        <Globe >
           {/* <CameraFlyTo
             duration={0}
             destination={Cartesian3.fromDegrees(30.2, 28, 2000000)}
