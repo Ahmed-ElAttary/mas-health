@@ -15,7 +15,7 @@ export async function POST(req, res) {
         },
       };
 
-      const resData = booleanWithin(point, polygon);
+      const resData = booleanWithin(point, polygon) ? "valid" : "invalid";
 
       return NextResponse.json(resData, { status: 200 });
     } else {
