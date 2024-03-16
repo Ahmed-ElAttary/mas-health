@@ -11,7 +11,6 @@ const GeojsonComp = () => {
   const coloring = (layer) => {
     const entities = layer.entities.values;
     entities.forEach((entity) => {
-
       const id = entity.properties.id._value;
 
       if (searchParams.current.governorate_id?.code) {
@@ -37,11 +36,10 @@ const GeojsonComp = () => {
   return (
     <GeoJsonDataSource
       data="./shapefile.json"
-      clampToGround
+      // clampToGround
       onLoad={(layer) => coloring(layer)}
-      on
       stroke={Color.RED}
-      strokeWidth={10}
+      strokeWidth={1}
       fill={Color.RED.withAlpha(0.5)}
     />
   );
