@@ -17,6 +17,6 @@ export async function GET(req) {
 
     return NextResponse.json(resData, { status: 200 });
   } catch (err) {
-     return NextResponse.json("there is an error", { status: 500 });
+    return NextResponse.json("there is an error", { status: 500 });
   }
 }
