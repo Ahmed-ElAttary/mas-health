@@ -26,7 +26,7 @@ ORDER BY
 
         return NextResponse.json(telemetry, { status: 200 });
     } catch (err) {
-        console.log(err)
+   
         return NextResponse.json("there is an error", { status: 500 });
     }
 }
