@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import * as data from "@public/shapefile.json";
+import * as data from "@public/simplified.json";
 export async function GET(req) {
   try {
     const url = new URL(req.url);
