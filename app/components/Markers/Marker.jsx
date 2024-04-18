@@ -70,15 +70,15 @@ const Marker = ({ data }) => {
           pixelOffset={new Cartesian2(20, -20)}
         ></Billboard> */}
       <Billboard
-        image={`/${statusIcons[state_of_place_id].image}`}
+        image={`/${statusIcons[state_of_place_id]?.image}`}
         scale={0.017}
         pixelOffset={new Cartesian2(-18, 18)}
       ></Billboard>
 
       <Billboard
         // image={`data:image/svg+xml;base64,${btoa(svg)}`}
-        image={`/${mainIcons[location_type_id].image}`}
-        scale={mainIcons[location_type_id].scale}
+        image={`/${mainIcons[location_type_id]?.image}`}
+        scale={mainIcons[location_type_id]?.scale}
         // scale={0.045}
         onClick={showPopup}
       >
