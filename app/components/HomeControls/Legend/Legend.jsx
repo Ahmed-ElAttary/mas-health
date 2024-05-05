@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { Chip } from "primereact/chip";
 import { Divider } from "primereact/divider";
@@ -8,12 +8,29 @@ import { Button } from "primereact/button";
 import { Fieldset } from "primereact/fieldset";
 import { ScrollPanel } from "primereact/scrollpanel";
 import { EssentialsContext } from "@app/home/EssentialsProvider";
+import { Checkbox } from "primereact/checkbox";
+import { DataContext } from "@app/home/DataProvider";
 const avatar = (color) =>
   `data:image/svg+xml;base64,${btoa(
     `<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect width="100%" height="100%" fill="${color}"/></svg>`
   )}`;
 const Legend = () => {
   const { statusIcons, mainIcons } = useContext(EssentialsContext);
+  const { applyFilter, searchParams, allData } = useContext(DataContext);
+  const [checked, setChecked] = useState({ 5: true });
+  const checkHandler = (key, value) => {
+    setChecked((prev) => {
+      prev[key] = value;
+      return { ...prev };
+    });
+  };
+
+  useEffect(() => {
+    searchParams.current.legendType = {
+      code: Object.keys(checked).filter((key) => checked[key] === true),
+    };
+    applyFilter(searchParams.current);
+  }, [checked]);
   return (
     <Inplace closable>
       <InplaceDisplay>
@@ -34,7 +51,35 @@ const Legend = () => {
             >
               <Divider type="solid">المواقع</Divider>
               {Object.entries(mainIcons).map(([key, val]) => (
-                <Chip key={key} label={val.name} image={val.image} />
+                <>
+                  <Chip
+                    key={key}
+                    label={val.name}
+                    image={val.image}
+                    // template={() => (
+                    //   <div
+                    //     style={{
+                    //       display: "flex",
+
+                    //       // width: "-webkit-fill-available",
+                    //     }}
+                    //   >
+                    //     <img style={{}} src={val.image}></img>
+                    //     <div style={{}}>{val.name}</div>
+                    //     <Checkbox
+                    //       style={{}}
+                    //       onChange={(e) => checkHandler(key, e.checked)}
+                    //       checked={checked[key]}
+                    //     ></Checkbox>
+                    //   </div>
+                    // )}
+                  ></Chip>
+                  <Checkbox
+                    style={{}}
+                    onChange={(e) => checkHandler(key, e.checked)}
+                    checked={checked[key]}
+                  ></Checkbox>
+                </>
               ))}
               <Divider type="solid">الحالة</Divider>
               {Object.entries(statusIcons).map(([key, val]) => (

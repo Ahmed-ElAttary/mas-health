@@ -1,5 +1,5 @@
 "use client";
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
 export const EssentialsContext = createContext();
 
@@ -19,7 +19,7 @@ const statusIcons = {
 };
 const mainIcons = {
   1: {
-    name: "نقطة رصد دورية",
+    name: "نقطة رصد دورية (عذبة/غير عذبة)",
     image: "f7406b70-c594-45b3-89ce-1d5173a86eff.png",
     scale: 0.14,
   },
@@ -29,7 +29,7 @@ const mainIcons = {
     scale: 0.1,
   },
   3: {
-    name: "رصد لحظي مستمر",
+    name: "رصد لحظي مستمر (عذبة/غير عذبة)",
     image: "85d7bcdb-bec6-477a-b0b5-472f43f77dd5.png",
     scale: 0.27,
   },

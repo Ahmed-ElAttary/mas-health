@@ -12,7 +12,9 @@ import { getData, getLookups, detailsLink } from "./server";
 const DataProvider = ({ children }) => {
   const viewerCs = useCesium();
   const allData = useRef();
+
   const searchParams = useRef({});
+
   const [filteredData, setFilteredData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const lookups = useRef([]);
@@ -22,7 +24,8 @@ const DataProvider = ({ children }) => {
       const data = (await getData()) || [];
 
       allData.current = data;
-      setFilteredData(data);
+      setFilteredData(data.filter((el) => el.legendType == "5"));
+
       const lookupsReq = (await getLookups()) || [];
       lookups.current = { ...lookups.current, ...lookupsReq };
       data && lookupsReq && setIsLoading(false);
@@ -50,7 +53,6 @@ const DataProvider = ({ children }) => {
       isFinite(south) &&
       isFinite(west)
     ) {
-     
       viewerCs.camera.flyTo({
         duration: 3,
         destination:
@@ -81,8 +83,13 @@ const DataProvider = ({ children }) => {
   };
 
   const applyFilter = (searchParams) => {
-    const dataFiltered = multiDimensionalFilter(allData.current, searchParams);
-    setFilteredData(dataFiltered);
+    if (allData.current) {
+      const dataFiltered = multiDimensionalFilter(
+        allData.current,
+        searchParams
+      );
+      setFilteredData(dataFiltered);
+    }
   };
   const resetFilter = () => {
     setFilteredData(allData.current);
