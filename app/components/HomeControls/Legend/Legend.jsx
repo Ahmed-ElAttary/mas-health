@@ -16,21 +16,9 @@ const avatar = (color) =>
   )}`;
 const Legend = () => {
   const { statusIcons, mainIcons } = useContext(EssentialsContext);
-  const { applyFilter, searchParams, allData } = useContext(DataContext);
-  const [checked, setChecked] = useState({ 5: true });
-  const checkHandler = (key, value) => {
-    setChecked((prev) => {
-      prev[key] = value;
-      return { ...prev };
-    });
-  };
+  const { checked, checkHandler } = useContext(DataContext);
+  // const [checked, setChecked] = useState({ 5: true });
 
-  useEffect(() => {
-    searchParams.current.legendType = {
-      code: Object.keys(checked).filter((key) => checked[key] === true),
-    };
-    applyFilter(searchParams.current);
-  }, [checked]);
   return (
     <Inplace closable>
       <InplaceDisplay>

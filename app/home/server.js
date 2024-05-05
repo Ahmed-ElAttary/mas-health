@@ -47,13 +47,21 @@ export const getData = async () => {
     );
     ////////////////////////////
     res1.data.forEach((el) => {
-      el.legendType = String(el.location_type_id);
+      if (el.bodies_of_water_id == 16 || el.bodies_of_water_id == 17) {
+        if (el.bodies_of_water_id == 16) el.legendType = "16";
+        if (el.bodies_of_water_id == 17) el.legendType = "17";
+        el.location_type_id = 0;
+      } else {
+        el.legendType = String(el.location_type_id);
+      }
     });
     res2.data.forEach((el) => {
       el.legendType = "5";
+      el.location_type_id = 0;
     });
     res3.data.forEach((el) => {
       el.legendType = "4";
+      el.location_type_id = 0;
     });
 
     return [...res1.data, ...res2.data, ...res3.data];

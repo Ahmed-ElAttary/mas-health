@@ -10,6 +10,20 @@ export const DataContext = createContext();
 import { getData, getLookups, detailsLink } from "./server";
 
 const DataProvider = ({ children }) => {
+  const [checked, setChecked] = useState({ 5: true });
+  const checkHandler = (key, value) => {
+    setChecked((prev) => {
+      prev[key] = value;
+      return { ...prev };
+    });
+  };
+  const ApplyCheckHandler = () => {
+    searchParams.current.legendType = {
+      code: Object.keys(checked).filter((key) => checked[key] === true),
+    };
+    applyFilter(searchParams.current);
+  };
+  useEffect(ApplyCheckHandler, [checked]);
   const viewerCs = useCesium();
   const allData = useRef();
 
@@ -93,6 +107,7 @@ const DataProvider = ({ children }) => {
   };
   const resetFilter = () => {
     setFilteredData(allData.current);
+    ApplyCheckHandler();
   };
 
   return (
@@ -106,6 +121,8 @@ const DataProvider = ({ children }) => {
         multiDimensionalFilter,
         detailsRedirect,
         searchParams,
+        checked,
+        checkHandler,
       }}
     >
       {children}

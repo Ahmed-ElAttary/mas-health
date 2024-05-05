@@ -43,6 +43,16 @@ const mainIcons = {
     image: "e472e82b-5e55-4720-8f07-a720f665c297.png",
     scale: 0.15,
   },
+  16: {
+    name: "صرف صحي",
+    image: "waste-sewer-svgrepo-com.png",
+    scale: 0.15,
+  },
+  17: {
+    name: "صرف صناعي",
+    image: "industry-svgrepo-com.png",
+    scale: 0.15,
+  },
 };
 
 const EssentialsProvider = ({ children }) => {
