@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useState } from "react";
+import { createContext, useRef, useState } from "react";
 
 export const EssentialsContext = createContext();
 
@@ -56,8 +56,11 @@ const mainIcons = {
 };
 
 const EssentialsProvider = ({ children }) => {
+  const reference = useRef();
   return (
-    <EssentialsContext.Provider value={{ colors, statusIcons, mainIcons }}>
+    <EssentialsContext.Provider
+      value={{ colors, statusIcons, mainIcons, reference }}
+    >
       {children}
     </EssentialsContext.Provider>
   );

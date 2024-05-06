@@ -63,12 +63,12 @@ const Marker = ({ data }) => {
     });
   };
 
-  const showPopup = () => {
+  const showPopup = (lng, lat) => {
     closeAllPopups();
     const element = document.getElementById(popupID);
     if (element) {
       popups[popupID] = new Popup(viewerCs.viewer, {
-        position: [+longitude, +latitude],
+        position: [+lng, +lat],
         element,
         offset: [0, -30],
       });
@@ -118,6 +118,7 @@ const Marker = ({ data }) => {
                 color: Color.RED,
                 outlineColor: Color.BLACK,
               }}
+              onClick={() => showPopup(el.lng, el.lat)}
             ></Entity>
           ))}
         </>
@@ -142,7 +143,7 @@ const Marker = ({ data }) => {
           // image={`data:image/svg+xml;base64,${btoa(svg)}`}
           image={`/${mainIcons[legendType]?.image}`}
           scale={mainIcons[legendType]?.scale * 0.6}
-          onClick={showPopup}
+          onClick={() => showPopup(longitude, latitude)}
         >
           {
             <PopupComponent id={popupID} closePopup={closePopup}>
