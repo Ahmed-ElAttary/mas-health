@@ -35,14 +35,14 @@ const DataProvider = ({ children }) => {
 
   const intial = async () => {
     try {
-            const lookupsReq = (await getLookups()) || [];
-            lookups.current = { ...lookups.current, ...lookupsReq };
       const data = (await getData()) || [];
 
       allData.current = data;
       setFilteredData(data.filter((el) => el.legendType == "5"));
 
-
+      const lookupsReq = (await getLookups()) || [];
+      lookups.current = { ...lookups.current, ...lookupsReq };
+      console.log(lookups.current);
       data && lookupsReq && setIsLoading(false);
     } catch (err) {
       console.log(err);
