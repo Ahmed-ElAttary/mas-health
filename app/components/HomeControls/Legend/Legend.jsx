@@ -39,9 +39,8 @@ const Legend = () => {
             >
               <Divider type="solid">المواقع</Divider>
               {Object.entries(mainIcons).map(([key, val]) => (
-                <>
+                <div key={key}>
                   <Chip
-                    key={key}
                     label={val.name}
                     image={val.image}
                     // template={() => (
@@ -67,7 +66,7 @@ const Legend = () => {
                     onChange={(e) => checkHandler(key, e.checked)}
                     checked={checked[key]}
                   ></Checkbox>
-                </>
+                </div>
               ))}
               <Divider type="solid">الحالة</Divider>
               {Object.entries(statusIcons).map(([key, val]) => (
