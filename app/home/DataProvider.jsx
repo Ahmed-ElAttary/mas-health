@@ -39,7 +39,7 @@ const DataProvider = ({ children }) => {
 
       allData.current = data;
       setFilteredData(data.filter((el) => el.legendType == "5"));
-
+      console.log(allData.current);
       const lookupsReq = (await getLookups()) || [];
       lookups.current = { ...lookups.current, ...lookupsReq };
       console.log(lookups.current);
