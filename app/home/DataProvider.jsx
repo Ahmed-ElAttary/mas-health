@@ -10,9 +10,25 @@ export const DataContext = createContext();
 import { getData, getLookups, detailsLink } from "./server";
 
 const DataProvider = ({ children }) => {
+  const [checked, setChecked] = useState({ 5: true });
+  const checkHandler = (key, value) => {
+    setChecked((prev) => {
+      prev[key] = value;
+      return { ...prev };
+    });
+  };
+  const ApplyCheckHandler = () => {
+    searchParams.current.legendType = {
+      code: Object.keys(checked).filter((key) => checked[key] === true),
+    };
+    applyFilter(searchParams.current);
+  };
+  useEffect(ApplyCheckHandler, [checked]);
   const viewerCs = useCesium();
   const allData = useRef();
+
   const searchParams = useRef({});
+
   const [filteredData, setFilteredData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const lookups = useRef([]);
@@ -22,9 +38,11 @@ const DataProvider = ({ children }) => {
       const data = (await getData()) || [];
 
       allData.current = data;
-      setFilteredData(data);
+      setFilteredData(data.filter((el) => el.legendType == "5"));
+      console.log(allData.current);
       const lookupsReq = (await getLookups()) || [];
       lookups.current = { ...lookups.current, ...lookupsReq };
+      console.log(lookups.current);
       data && lookupsReq && setIsLoading(false);
     } catch (err) {
       console.log(err);
@@ -50,7 +68,6 @@ const DataProvider = ({ children }) => {
       isFinite(south) &&
       isFinite(west)
     ) {
-     
       viewerCs.camera.flyTo({
         duration: 3,
         destination:
@@ -81,11 +98,17 @@ const DataProvider = ({ children }) => {
   };
 
   const applyFilter = (searchParams) => {
-    const dataFiltered = multiDimensionalFilter(allData.current, searchParams);
-    setFilteredData(dataFiltered);
+    if (allData.current) {
+      const dataFiltered = multiDimensionalFilter(
+        allData.current,
+        searchParams
+      );
+      setFilteredData(dataFiltered);
+    }
   };
   const resetFilter = () => {
     setFilteredData(allData.current);
+    ApplyCheckHandler();
   };
 
   return (
@@ -99,6 +122,8 @@ const DataProvider = ({ children }) => {
         multiDimensionalFilter,
         detailsRedirect,
         searchParams,
+        checked,
+        checkHandler,
       }}
     >
       {children}

@@ -17,7 +17,6 @@ const ComboBox = ({
   const [options, setOptions] = useState();
 
   const optionsHandler = () => {
-
     setOptions(
       lookups?.current[id]
         ?.filter((el) => {
