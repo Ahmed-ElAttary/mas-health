@@ -17,8 +17,13 @@ const ComboBox = ({
   const [options, setOptions] = useState();
 
   const optionsHandler = () => {
-    setOptions(
-      lookups?.current[id]
+    let opts = [];
+    if (lookups?.current[id]) {
+      const lookup = Array.isArray(lookups?.current[id])
+        ? lookups?.current[id]
+        : [];
+
+      opts = lookup
         ?.filter((el) => {
           if (dependancy) {
             return searchParams.current[dependancy]
@@ -32,8 +37,9 @@ const ComboBox = ({
             code: String(el.id),
             [dependancy]: el[dependancy],
           };
-        })
-    );
+        });
+    }
+    setOptions(opts);
   };
   useEffect(() => {
     if (dependancy && !searchParams.current[dependancy]) {
