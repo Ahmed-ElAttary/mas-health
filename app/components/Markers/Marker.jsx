@@ -42,7 +42,7 @@ const Marker = ({ data }) => {
     location_type_id,
     legendType,
     json__EmergencyEventsTrackLocation,
-    line,
+    api,
   } = data;
   const viewerCs = useCesium();
   const [details, setDetails] = useState({});
@@ -75,7 +75,7 @@ const Marker = ({ data }) => {
         offset: [0, -30],
       });
     }
-    setDetails(await popupDetails(id));
+    setDetails(await popupDetails(id, api));
   };
   if (legendType == "5") {
     if (json__EmergencyEventsTrackLocation?.length) {
@@ -152,10 +152,10 @@ const Marker = ({ data }) => {
             <PopupComponent id={popupID} closePopup={closePopup}>
               <>
                 <div>{name}</div>
-                <div>ID : {id}</div>
-                {details.wqi ? (
+                <div>المحافظة : {details.governorate}</div>
+                {api == "location-handle" && (
                   <>
-                    <div>WQI :{details.wqi}</div>
+                    <div>WQI :{details.wqi ?? "غير معرف"}</div>
 
                     <div
                       style={{
@@ -167,8 +167,6 @@ const Marker = ({ data }) => {
                       {wqiCalc(details.wqi)}
                     </div>
                   </>
-                ) : (
-                  <div>WQI : غير معرف</div>
                 )}
                 <div
                   className="flex flex-column gap-2"

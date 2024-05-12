@@ -48,8 +48,8 @@ const DataProvider = ({ children }) => {
       console.log(err);
     }
   };
-  const popupDetails = async (id) => {
-    const details = await detailsById(id);
+  const popupDetails = async (id,api) => {
+    const details = await detailsById(id,api);
     // console.log(details);
     return details;
   };

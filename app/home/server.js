@@ -47,6 +47,7 @@ export const getData = async () => {
     );
     ////////////////////////////
     res1.data.forEach((el) => {
+      el.api = "location-handle";
       if (el.bodies_of_water_id == 16 || el.bodies_of_water_id == 17) {
         if (el.bodies_of_water_id == 16) el.legendType = "16";
         if (el.bodies_of_water_id == 17) el.legendType = "17";
@@ -56,10 +57,12 @@ export const getData = async () => {
       }
     });
     res2.data.forEach((el) => {
+      el.api = "emergency-events-location_handle";
       el.legendType = "5";
       el.location_type_id = 0;
     });
     res3.data.forEach((el) => {
+      el.api = "handle-research-study";
       el.legendType = "4";
       el.location_type_id = 0;
     });
@@ -70,17 +73,17 @@ export const getData = async () => {
   }
 };
 
-export const detailsById = async (id) => {
-  const { data } = await axios.get(`${HOST}/api/location-handle?id=${id}`, {
+export const detailsById = async (id, api) => {
+  // console.log(api);
+  const { data } = await axios.get(`${HOST}/api/${api}?id=${id}`, {
     headers: {
       Authorization: `Bearer ${await getToken()}`,
     },
   });
 
   return {
+    ...data.data,
     url: `${HOST}${data.data.line}`,
-    wqi: data.data["WQI"],
-    line: data.data.line,
   };
 };
 export const getLookups = async () => {
