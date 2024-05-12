@@ -50,8 +50,8 @@ const DataProvider = ({ children }) => {
   };
   const popupDetails = async (id) => {
     const details = await detailsById(id);
+    // console.log(details);
     return details;
-    // window.open(url, "_blank");
   };
   useEffect(() => {
     intial();

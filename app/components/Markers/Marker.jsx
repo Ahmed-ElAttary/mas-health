@@ -153,16 +153,23 @@ const Marker = ({ data }) => {
               <>
                 <div>{name}</div>
                 <div>ID : {id}</div>
-                <div>WQI :{details.wqi}</div>
-                <div
-                  style={{
-                    fontSize: "x-large",
-                    fontWeight: 800,
-                    color: colors[wqiCalc(details.wqi)]?.[0],
-                  }}
-                >
-                  {wqiCalc(details.wqi)}
-                </div>
+                {details.wqi ? (
+                  <>
+                    <div>WQI :{details.wqi}</div>
+
+                    <div
+                      style={{
+                        fontSize: "x-large",
+                        fontWeight: 800,
+                        color: colors[wqiCalc(details.wqi)]?.[0],
+                      }}
+                    >
+                      {wqiCalc(details.wqi)}
+                    </div>
+                  </>
+                ) : (
+                  <div>WQI : غير معرف</div>
+                )}
                 <div
                   className="flex flex-column gap-2"
                   style={{ marginTop: "10px" }}

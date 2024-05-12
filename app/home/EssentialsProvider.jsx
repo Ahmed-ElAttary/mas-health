@@ -9,7 +9,7 @@ const wqiCalc = (val) => {
   if (val >= 64 && val < 79) return "مقبولة";
   if (val >= 79 && val < 94) return "جيدة";
   if (val >= 94 && val <= 100) return "ممتازة";
-  return "unknown";
+  return "";
 };
 const colors = {
   سيئة: ["rgb(240, 0, 0)", "rgb(255, 163, 163)"],
