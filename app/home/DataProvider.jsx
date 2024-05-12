@@ -7,7 +7,7 @@ import { createContext, useEffect } from "react";
 import { useCesium } from "resium";
 
 export const DataContext = createContext();
-import { getData, getLookups, detailsLink } from "./server";
+import { getData, getLookups, detailsById } from "./server";
 
 const DataProvider = ({ children }) => {
   const [checked, setChecked] = useState({ 5: true });
@@ -39,17 +39,19 @@ const DataProvider = ({ children }) => {
 
       allData.current = data;
       setFilteredData(data.filter((el) => el.legendType == "5"));
-      console.log(allData.current);
+      // console.log(allData.current);
       const lookupsReq = (await getLookups()) || [];
       lookups.current = { ...lookups.current, ...lookupsReq };
-      console.log(lookups.current);
+      // console.log(lookups.current);
       data && lookupsReq && setIsLoading(false);
     } catch (err) {
       console.log(err);
     }
   };
-  const detailsRedirect = async (id) => {
-    window.open(await detailsLink(id), "_blank");
+  const popupDetails = async (id) => {
+    const details = await detailsById(id);
+    return details;
+    // window.open(url, "_blank");
   };
   useEffect(() => {
     intial();
@@ -120,7 +122,7 @@ const DataProvider = ({ children }) => {
         lookups,
         isLoading,
         multiDimensionalFilter,
-        detailsRedirect,
+        popupDetails,
         searchParams,
         checked,
         checkHandler,

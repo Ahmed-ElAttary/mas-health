@@ -70,14 +70,18 @@ export const getData = async () => {
   }
 };
 
-export const detailsLink = async (id) => {
+export const detailsById = async (id) => {
   const { data } = await axios.get(`${HOST}/api/location-handle?id=${id}`, {
     headers: {
       Authorization: `Bearer ${await getToken()}`,
     },
   });
 
-  return `${HOST}${data.data.line}`;
+  return {
+    url: `${HOST}${data.data.line}`,
+    wqi: data.data["WQI"],
+    line: data.data.line,
+  };
 };
 export const getLookups = async () => {
   try {
