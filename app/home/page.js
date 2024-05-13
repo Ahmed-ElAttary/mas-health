@@ -1,3 +1,4 @@
+"use client";
 import Controls from "@app/components/HomeControls/Controls.jsx";
 import Markers from "@app/components/Markers/Markers.jsx";
 import ViewerContainer from "@app/components/ViewerContainer.component.jsx";
