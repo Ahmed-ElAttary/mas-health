@@ -62,7 +62,9 @@ const RightSidebar = () => {
     multiDimensionalFilter,
     lookups,
     searchParams,
+    params,
   } = useContext(DataContext);
+
   const [sideBarVis, setSideBarVis] = useState(false);
 
   const [reload, setReload] = useState(0);
@@ -90,19 +92,22 @@ const RightSidebar = () => {
       >
         <Card>
           <div className="card flex flex-column gap-5  justify-content-center">
-            {Object.entries(fields).map((field, index) => (
-              <ComboBox
-                key={index}
-                id={field[0]}
-                label={field[1].label}
-                filter_id={field[1].filter_id}
-                column={field[1].column}
-                searchParams={searchParams}
-                reload={reload}
-                dependancy={field[1].dependancy}
-                reloadHandler={reloadHandler}
-              />
-            ))}
+            {Object.entries(fields).map((field, index) => {
+              if (params?.[field[0]]) return null;
+              return (
+                <ComboBox
+                  key={index}
+                  id={field[0]}
+                  label={field[1].label}
+                  filter_id={field[1].filter_id}
+                  column={field[1].column}
+                  searchParams={searchParams}
+                  reload={reload}
+                  dependancy={field[1].dependancy}
+                  reloadHandler={reloadHandler}
+                />
+              );
+            })}
 
             {!filteredData.length && (
               <Message severity="warn" text="لايوجد نتيجة للبحث" />

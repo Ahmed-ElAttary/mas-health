@@ -3,14 +3,14 @@ import Markers from "@app/components/Markers/Markers.jsx";
 import ViewerContainer from "@app/components/ViewerContainer.component.jsx";
 
 import GeojsonComp from "@app/components/GeojsonComp/GeojsonComp.jsx";
-import DataProvider from "./DataProvider.jsx";
-import EssentialsProvider from "./EssentialsProvider.jsx";
+import DataProvider from "../DataProvider.jsx";
+import EssentialsProvider from "../EssentialsProvider.jsx";
 import LoadingSpinner from "@app/components/LoadingSpinner/LoadingSpinner.jsx";
-export default async function Home() {
+export default async function Ahmed({ params }) {
   return (
     <EssentialsProvider>
       <ViewerContainer>
-        <DataProvider>
+        <DataProvider params={params}>
           <GeojsonComp />
           <LoadingSpinner />
           <Markers />

@@ -35,7 +35,7 @@ const GeojsonComp = () => {
 
   return (
     <GeoJsonDataSource
-      data="./simplified.json"
+      data="/simplified.json"
       // clampToGround
       onLoad={(layer) => coloring(layer)}
       stroke={Color.RED}

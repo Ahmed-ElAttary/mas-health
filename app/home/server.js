@@ -16,11 +16,13 @@ export const getToken = async () => {
   }
 };
 
-export const getData = async () => {
+export const getData = async (params) => {
+  const urlParams = new URLSearchParams(params).toString();
+
   try {
     ///// locations
     const { data: res1 } = await axios.get(
-      `${HOST}/api/location-handle?start=1&length=100000000`,
+      `${HOST}/api/location-handle?start=1&length=100000000&${urlParams}`,
       {
         headers: {
           Authorization: `Bearer ${await getToken()}`,
@@ -29,7 +31,7 @@ export const getData = async () => {
     );
     ///// emergency
     const { data: res2 } = await axios.get(
-      `${HOST}/api/emergency-events-location_handle?start=1&length=100000000`,
+      `${HOST}/api/emergency-events-location_handle?start=1&length=100000000&${urlParams}`,
       {
         headers: {
           Authorization: `Bearer ${await getToken()}`,
@@ -38,7 +40,7 @@ export const getData = async () => {
     );
     ////// research
     const { data: res3 } = await axios.get(
-      `${HOST}/api/handle-research-study?start=1&length=100000000`,
+      `${HOST}/api/handle-research-study?start=1&length=100000000&${urlParams}`,
       {
         headers: {
           Authorization: `Bearer ${await getToken()}`,
