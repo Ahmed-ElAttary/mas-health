@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
   BillboardCollection,
   Billboard,
@@ -42,12 +42,14 @@ const Marker = ({ data }) => {
     location_type_id,
     legendType,
     json__EmergencyEventsTrackLocation,
-    line,
+    api,
   } = data;
   const viewerCs = useCesium();
+  const [details, setDetails] = useState({});
+  const { colors, statusIcons, mainIcons, wqiCalc } =
+    useContext(EssentialsContext);
+  const { popupDetails } = useContext(DataContext);
 
-  const { colors, statusIcons, mainIcons } = useContext(EssentialsContext);
-  const { detailsRedirect } = useContext(DataContext);
   const popupID = "popup" + id;
   const closePopup = () => {
     popups[popupID]?.switchElementShow(false);
@@ -63,7 +65,7 @@ const Marker = ({ data }) => {
     });
   };
 
-  const showPopup = (lng, lat) => {
+  const showPopup = async (lng, lat) => {
     closeAllPopups();
     const element = document.getElementById(popupID);
     if (element) {
@@ -73,6 +75,7 @@ const Marker = ({ data }) => {
         offset: [0, -30],
       });
     }
+    setDetails(await popupDetails(id, api));
   };
   if (legendType == "5") {
     if (json__EmergencyEventsTrackLocation?.length) {
@@ -149,6 +152,22 @@ const Marker = ({ data }) => {
             <PopupComponent id={popupID} closePopup={closePopup}>
               <>
                 <div>{name}</div>
+                <div>المحافظة : {details.governorate}</div>
+                {api == "location-handle" && (
+                  <>
+                    <div>WQI :{details.wqi ?? "غير معرف"}</div>
+
+                    <div
+                      style={{
+                        fontSize: "x-large",
+                        fontWeight: 800,
+                        color: colors[wqiCalc(details.wqi)]?.[0],
+                      }}
+                    >
+                      {wqiCalc(details.wqi)}
+                    </div>
+                  </>
+                )}
                 <div
                   className="flex flex-column gap-2"
                   style={{ marginTop: "10px" }}
@@ -161,9 +180,10 @@ const Marker = ({ data }) => {
                   />
                   <Button
                     icon="pi pi-book"
+                    visible={Boolean(details.line)}
                     severity="info"
                     label="عرض تفاصيل الموقع"
-                    onClick={() => detailsRedirect(id)}
+                    onClick={() => window.open(details.url)}
                   />
                 </div>
               </>

@@ -7,9 +7,9 @@ import { createContext, useEffect } from "react";
 import { useCesium } from "resium";
 
 export const DataContext = createContext();
-import { getData, getLookups, detailsLink } from "./server";
+import { getData, getLookups, detailsById } from "./server";
 
-const DataProvider = ({ children }) => {
+const DataProvider = ({ params, children }) => {
   const [checked, setChecked] = useState({ 5: true });
   const checkHandler = (key, value) => {
     setChecked((prev) => {
@@ -35,21 +35,23 @@ const DataProvider = ({ children }) => {
 
   const intial = async () => {
     try {
-      const data = (await getData()) || [];
+      const data = (await getData(params)) || [];
 
       allData.current = data;
       setFilteredData(data.filter((el) => el.legendType == "5"));
-      console.log(allData.current);
+      // console.log(allData.current);
       const lookupsReq = (await getLookups()) || [];
       lookups.current = { ...lookups.current, ...lookupsReq };
-      console.log(lookups.current);
+      // console.log(lookups.current);
       data && lookupsReq && setIsLoading(false);
     } catch (err) {
       console.log(err);
     }
   };
-  const detailsRedirect = async (id) => {
-    window.open(await detailsLink(id), "_blank");
+  const popupDetails = async (id, api) => {
+    const details = await detailsById(id, api);
+    // console.log(details);
+    return details;
   };
   useEffect(() => {
     intial();
@@ -62,24 +64,31 @@ const DataProvider = ({ children }) => {
     const east = Math.max(...longitudes);
     const south = Math.min(...latitudes);
     const west = Math.min(...longitudes);
-    if (
-      isFinite(north) &&
-      isFinite(east) &&
-      isFinite(south) &&
-      isFinite(west)
-    ) {
-      viewerCs.camera.flyTo({
-        duration: 3,
-        destination:
-          filteredData.length == 1
-            ? Cartesian3.fromDegrees(
-                (east + west) / 2,
-                (south + north) / 2,
-                1000
-              )
-            : Rectangle.fromDegrees(west, south, east, north),
-      });
-    }
+
+    const dist = () => {
+      if (filteredData.length == 0)
+        return Cartesian3.fromDegrees(30.2, 28, 2000000);
+
+      if (
+        isFinite(north) &&
+        isFinite(east) &&
+        isFinite(south) &&
+        isFinite(west)
+      ) {
+        if (filteredData.length == 1)
+          return Cartesian3.fromDegrees(
+            (east + west) / 2,
+            (south + north) / 2,
+            1000
+          );
+        else return Rectangle.fromDegrees(west, south, east, north);
+      }
+    };
+
+    viewerCs.camera.flyTo({
+      duration: 3,
+      destination: dist(),
+    });
   }, [filteredData]);
 
   const multiDimensionalFilter = (data, filters) => {
@@ -120,10 +129,11 @@ const DataProvider = ({ children }) => {
         lookups,
         isLoading,
         multiDimensionalFilter,
-        detailsRedirect,
+        popupDetails,
         searchParams,
         checked,
         checkHandler,
+        params,
       }}
     >
       {children}

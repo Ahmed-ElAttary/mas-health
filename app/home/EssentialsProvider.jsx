@@ -2,13 +2,21 @@
 import { createContext, useRef, useState } from "react";
 
 export const EssentialsContext = createContext();
-
+const wqiCalc = (val) => {
+  if (val == 0) return "سيئة";
+  if (val > 0 && val < 44) return "سيئة";
+  if (val >= 44 && val < 64) return "ضعيفة";
+  if (val >= 64 && val < 79) return "مقبولة";
+  if (val >= 79 && val < 94) return "جيدة";
+  if (val >= 94 && val <= 100) return "ممتازة";
+  return "";
+};
 const colors = {
-  bad: ["rgb(240, 0, 0)", "rgb(255, 163, 163)"],
-  weak: ["rgb(208, 121, 22)", "rgb(255, 174, 61)"],
-  passed: ["rgb(255, 235, 10)", "rgb(255, 243, 168)"],
-  good: ["rgb(0, 200, 250)", "rgb(148, 228, 255)"],
-  excellent: ["rgb(0, 214, 43)", "rgb(150, 255, 148)"],
+  سيئة: ["rgb(240, 0, 0)", "rgb(255, 163, 163)"],
+  ضعيفة: ["rgb(208, 121, 22)", "rgb(255, 174, 61)"],
+  مقبولة: ["rgb(255, 235, 10)", "rgb(255, 243, 168)"],
+  جيدة: ["rgb(0, 200, 250)", "rgb(148, 228, 255)"],
+  ممتازة: ["rgb(0, 214, 43)", "rgb(150, 255, 148)"],
 };
 const statusIcons = {
   2: { name: "تعمل", image: "green-static.png" },
@@ -59,7 +67,7 @@ const EssentialsProvider = ({ children }) => {
   const reference = useRef();
   return (
     <EssentialsContext.Provider
-      value={{ colors, statusIcons, mainIcons, reference }}
+      value={{ colors, statusIcons, mainIcons, reference, wqiCalc }}
     >
       {children}
     </EssentialsContext.Provider>

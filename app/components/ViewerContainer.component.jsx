@@ -8,7 +8,7 @@ import React, {
   useRef,
   useContext,
 } from "react";
-import { Viewer, CameraFlyTo, Provider, Globe, Scene } from "resium";
+import { Viewer, CameraFlyTo, Provider, Globe, Scene, useCesium } from "resium";
 import {
   WebMapTileServiceImageryProvider,
   createWorldTerrain,
@@ -24,6 +24,7 @@ import {
   defined,
   Cesium3DTileset,
   Light,
+  Cartesian2,
 } from "cesium";
 import Markers from "./Markers/Markers";
 import Controls from "./HomeControls/Controls";
@@ -34,13 +35,39 @@ if (typeof window !== "undefined")
 Ion.defaultAccessToken =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwNmI4NDZkNS05YjE1LTRmNGMtOWIxZC1kYWM2NjkyNzQxYzUiLCJpZCI6MTM2MTc3LCJpYXQiOjE2ODI4Mzk1MzZ9.iEG0SY_0StIfWUg57qVwbPe5NHlD48ZMf3AGqC_nVdI";
 
-const popups = {};
-
 function ViewerContainer({ children }) {
-  const { reference } = useContext(EssentialsContext);
+  const viewerRef = useRef();
+  const radiansToDegrees = (radians) => {
+    const pi = Math.PI;
+    return radians * (180 / pi);
+  };
+  const getLocationFromScreenXY = (x, y) => {
+    const scene = viewerRef.current?.cesiumElement?.scene;
+    if (!scene) return;
+    const ellipsoid = scene.globe.ellipsoid;
+    const cartesian = scene.camera.pickEllipsoid(
+      new Cartesian2(x, y),
+      ellipsoid
+    );
+    if (!cartesian) return;
+    const { latitude, longitude, height } =
+      ellipsoid.cartesianToCartographic(cartesian);
+    console.log({
+      lat: radiansToDegrees(latitude),
+      lng: radiansToDegrees(longitude),
+      height,
+    });
+  };
+
   return (
-    <div ref={reference}>
+    <div>
       <Viewer
+        ref={viewerRef}
+        onClick={(e) => {
+          const { x, y } = e.position;
+
+          getLocationFromScreenXY(x, y);
+        }}
         shouldAnimate={true}
         homeButton={false}
         sceneModePicker={false}

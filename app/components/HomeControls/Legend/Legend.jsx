@@ -42,7 +42,7 @@ const Legend = () => {
                 <div key={key}>
                   <Chip
                     label={val.name}
-                    image={val.image}
+                    image={`/${val.image}`}
                     // template={() => (
                     //   <div
                     //     style={{
@@ -70,7 +70,7 @@ const Legend = () => {
               ))}
               <Divider type="solid">الحالة</Divider>
               {Object.entries(statusIcons).map(([key, val]) => (
-                <Chip key={key} label={val.name} image={val.image} />
+                <Chip key={key} label={val.name} image={`/${val.image}`} />
               ))}
 
               {/* <Divider type="solid" >المطابقة</Divider>
