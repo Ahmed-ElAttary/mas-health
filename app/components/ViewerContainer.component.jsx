@@ -63,7 +63,8 @@ function ViewerContainer({ children }) {
         }
         imageryProvider={
           new WebMapTileServiceImageryProvider({
-            url: "https://mt0.google.com/vt/lyrs=y&hl=ar&x={TileCol}&y={TileRow}&z={TileMatrix}",
+            url: "https://services.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer",
+            // url: "https://mt0.google.com/vt/lyrs=y&hl=ar&x={TileCol}&y={TileRow}&z={TileMatrix}",
             layer: "OpenStreetMap",
             format: "image/png",
             style: "default",
