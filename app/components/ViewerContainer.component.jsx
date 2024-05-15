@@ -29,6 +29,7 @@ import {
 import Markers from "./Markers/Markers";
 import Controls from "./HomeControls/Controls";
 import { EssentialsContext } from "@app/home/EssentialsProvider";
+import { govOfClick } from "@app/home/server";
 if (typeof window !== "undefined")
   window.CESIUM_BASE_URL = "/cesium/Build/CesiumUnminified";
 
@@ -41,7 +42,7 @@ function ViewerContainer({ children }) {
     const pi = Math.PI;
     return radians * (180 / pi);
   };
-  const getLocationFromScreenXY = (x, y) => {
+  const getLocationFromScreenXY = async (x, y) => {
     const scene = viewerRef.current?.cesiumElement?.scene;
     if (!scene) return;
     const ellipsoid = scene.globe.ellipsoid;
@@ -50,13 +51,14 @@ function ViewerContainer({ children }) {
       ellipsoid
     );
     if (!cartesian) return;
-    const { latitude, longitude, height } =
+    const { latitude, longitude } =
       ellipsoid.cartesianToCartographic(cartesian);
-    // console.log({
-    //   lat: radiansToDegrees(latitude),
-    //   lng: radiansToDegrees(longitude),
-    //   height,
-    // });
+    const govID = await govOfClick(
+      radiansToDegrees(latitude),
+      radiansToDegrees(longitude)
+    );
+
+    window.parent.postMessage(govID, "*");
   };
 
   return (

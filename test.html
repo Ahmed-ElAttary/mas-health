@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+iframe {
+    width: 90vw;
+    height: 80vh;
+}
+    </style>
+</head>
+
+<body>
+ message: 
+      <div id="messageArea">No message received from child yet.</div>
+   <iframe src="http://localhost:3001/home">
+    <script>
+        var messageArea = document.querySelector("#messageArea");
+
+        function onMessageHandler(event) {
+            alert('message')
+  if (typeof event.data === "string") {
+    messageArea.innerText = event.data;
+  }}
+        window.addEventListener("message", onMessageHandler);
+
+    </script>
+</body>
+</html>

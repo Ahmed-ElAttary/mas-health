@@ -1,5 +1,6 @@
 "use server";
-
+import govs from "@public/simplified.json";
+import booleanWithin from "@turf/boolean-within";
 import axios from "axios";
 const { HOST, USER, PASS } = process.env;
 
@@ -99,4 +100,16 @@ export const getLookups = async () => {
   } catch (err) {
     console.log(err);
   }
+};
+export const govOfClick = async (lat, lng) => {
+  const point = {
+    type: "Feature",
+    geometry: {
+      coordinates: [lng, lat],
+      type: "Point",
+    },
+  };
+  const govID = govs.features.find((gov) => booleanWithin(point, gov))
+    ?.properties?.id;
+  return govID;
 };

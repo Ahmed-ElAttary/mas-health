@@ -38,6 +38,7 @@ const DataProvider = ({ params, children }) => {
       const data = (await getData(params)) || [];
 
       allData.current = data;
+
       setFilteredData(data.filter((el) => el.legendType == "5"));
       // console.log(allData.current);
       const lookupsReq = (await getLookups()) || [];
