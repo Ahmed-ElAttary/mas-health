@@ -52,11 +52,11 @@ function ViewerContainer({ children }) {
     if (!cartesian) return;
     const { latitude, longitude, height } =
       ellipsoid.cartesianToCartographic(cartesian);
-    console.log({
-      lat: radiansToDegrees(latitude),
-      lng: radiansToDegrees(longitude),
-      height,
-    });
+    // console.log({
+    //   lat: radiansToDegrees(latitude),
+    //   lng: radiansToDegrees(longitude),
+    //   height,
+    // });
   };
 
   return (
@@ -90,8 +90,8 @@ function ViewerContainer({ children }) {
         }
         imageryProvider={
           new WebMapTileServiceImageryProvider({
-            url: "https://services.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer",
-            // url: "https://mt0.google.com/vt/lyrs=y&hl=ar&x={TileCol}&y={TileRow}&z={TileMatrix}",
+            // url: "https://services.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer",
+            url: "https://mt0.google.com/vt/lyrs=y&hl=ar&x={TileCol}&y={TileRow}&z={TileMatrix}",
             layer: "OpenStreetMap",
             format: "image/png",
             style: "default",

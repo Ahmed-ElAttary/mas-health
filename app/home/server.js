@@ -82,7 +82,7 @@ export const detailsById = async (id, api) => {
       Authorization: `Bearer ${await getToken()}`,
     },
   });
-
+  // console.log(data.data);
   return {
     ...data.data,
     url: `${HOST}${data.data.line}`,

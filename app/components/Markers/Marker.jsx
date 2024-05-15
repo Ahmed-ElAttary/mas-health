@@ -155,16 +155,16 @@ const Marker = ({ data }) => {
                 <div>المحافظة : {details.governorate}</div>
                 {api == "location-handle" && (
                   <>
-                    <div>WQI :{details.wqi ?? "غير معرف"}</div>
+                    <div>WQI :{details["WQI"] ?? "غير معرف"}</div>
 
                     <div
                       style={{
                         fontSize: "x-large",
                         fontWeight: 800,
-                        color: colors[wqiCalc(details.wqi)]?.[0],
+                        color: colors[wqiCalc(details["WQI"])]?.[0],
                       }}
                     >
-                      {wqiCalc(details.wqi)}
+                      {wqiCalc(details["WQI"])}
                     </div>
                   </>
                 )}

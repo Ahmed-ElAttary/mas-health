@@ -8,7 +8,7 @@ const LoadingSpinner = () => {
 
   return (
     <>
-      {/* <BlockUI blocked={isLoading} fullScreen /> */}
+      <BlockUI blocked={isLoading} fullScreen />
       {isLoading && (
         <ProgressSpinner
           style={{
