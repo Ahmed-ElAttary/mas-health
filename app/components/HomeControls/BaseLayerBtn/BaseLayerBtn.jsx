@@ -8,7 +8,9 @@ import {
   Rectangle,
   WebMapTileServiceImageryProvider,
 } from "cesium";
+import { EssentialsContext } from "@app/home/EssentialsProvider";
 const BaseLayerBtn = () => {
+  const { egyptBound } = useContext(EssentialsContext);
   const viewerCs = useCesium();
   const [currentLayer, setCurrentLayer] = useState(false);
   const changeHandler = () => {
@@ -17,12 +19,7 @@ const BaseLayerBtn = () => {
   const clipped = [
     new OpenStreetMapImageryProvider({
       url: "https://tile.openstreetmap.org/",
-      rectangle: Rectangle.fromDegrees(
-        24.7066669999999995,
-        22.0,
-        33.5,
-        31.6762034861141828
-      ),
+      rectangle: Rectangle.fromDegrees(...egyptBound),
     }),
     new WebMapTileServiceImageryProvider({
       url: "https://mt0.google.com/vt/lyrs=y&hl=ar&x={TileCol}&y={TileRow}&z={TileMatrix}",
@@ -32,19 +29,13 @@ const BaseLayerBtn = () => {
       tileMatrixSetID: "GoogleMapsCompatible",
       maximumLevel: 22,
       credit: new Credit("ATTARY"),
-      rectangle: Rectangle.fromDegrees(
-        24.7066669999999995,
-        22.0,
-        33.5,
-        31.6762034861141828
-      ),
+      rectangle: Rectangle.fromDegrees(...egyptBound),
     }),
   ];
 
   const base = [
     new OpenStreetMapImageryProvider({
       url: "https://tile.openstreetmap.org/",
-      
     }),
     new WebMapTileServiceImageryProvider({
       url: "https://mt0.google.com/vt/lyrs=s&hl=ar&x={TileCol}&y={TileRow}&z={TileMatrix}",

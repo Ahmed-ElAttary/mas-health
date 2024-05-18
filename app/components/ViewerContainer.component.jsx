@@ -49,6 +49,7 @@ Ion.defaultAccessToken =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwNmI4NDZkNS05YjE1LTRmNGMtOWIxZC1kYWM2NjkyNzQxYzUiLCJpZCI6MTM2MTc3LCJpYXQiOjE2ODI4Mzk1MzZ9.iEG0SY_0StIfWUg57qVwbPe5NHlD48ZMf3AGqC_nVdI";
 
 function ViewerContainer({ children }) {
+  const { egyptBound } = useContext(EssentialsContext);
   const viewerRef = useRef();
   const image = useRef();
   const radiansToDegrees = (radians) => {
@@ -124,12 +125,7 @@ function ViewerContainer({ children }) {
               new WebMapTileServiceImageryProvider({
                 // url: "https://services.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer",
                 url: "https://mt0.google.com/vt/lyrs=y&hl=ar&x={TileCol}&y={TileRow}&z={TileMatrix}",
-                rectangle: Rectangle.fromDegrees(
-                  24.7066669999999995,
-                  22.0,
-                  33.5,
-                  31.6762034861141828
-                ),
+                rectangle: Rectangle.fromDegrees(...egyptBound),
 
                 layer: "OpenStreetMap",
                 format: "image/png",

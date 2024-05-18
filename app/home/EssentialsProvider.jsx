@@ -2,6 +2,7 @@
 import { createContext, useRef, useState } from "react";
 
 export const EssentialsContext = createContext();
+const egyptBound = [24.7, 22.0, 33.5, 32];
 const wqiCalc = (val) => {
   if (val == 0) return "سيئة";
   if (val > 0 && val < 44) return "سيئة";
@@ -67,7 +68,7 @@ const EssentialsProvider = ({ children }) => {
   const reference = useRef();
   return (
     <EssentialsContext.Provider
-      value={{ colors, statusIcons, mainIcons, reference, wqiCalc }}
+      value={{ colors, statusIcons, mainIcons, reference, wqiCalc, egyptBound }}
     >
       {children}
     </EssentialsContext.Provider>
