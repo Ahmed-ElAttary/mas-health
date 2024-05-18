@@ -31,7 +31,7 @@ const DataProvider = ({ params, children }) => {
   const searchParams = useRef({});
 
   const [filteredData, setFilteredData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const lookups = useRef([]);
 
   const intial = async () => {
@@ -42,8 +42,8 @@ const DataProvider = ({ params, children }) => {
 
       setFilteredData(data.filter((el) => el.legendType == "5"));
       // console.log(allData.current);
-      const lookupsReq =  [];
-      //(await getLookups()) ||
+      const lookupsReq = (await getLookups()) || [];
+
       lookups.current = { ...lookups.current, ...lookupsReq };
       // console.log(lookups.current);
       data && lookupsReq && setIsLoading(false);
