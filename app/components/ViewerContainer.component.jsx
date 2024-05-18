@@ -8,7 +8,15 @@ import React, {
   useRef,
   useContext,
 } from "react";
-import { Viewer, CameraFlyTo, Provider, Globe, Scene, useCesium } from "resium";
+import {
+  Viewer,
+  CameraFlyTo,
+  Provider,
+  Globe,
+  Scene,
+  useCesium,
+  ImageryLayer,
+} from "resium";
 import {
   WebMapTileServiceImageryProvider,
   createWorldTerrain,
@@ -25,6 +33,10 @@ import {
   Cesium3DTileset,
   Light,
   Cartesian2,
+  ClippingPlaneCollection,
+  ClippingPlane,
+  Rectangle,
+  GeoJsonDataSource,
 } from "cesium";
 import Markers from "./Markers/Markers";
 import Controls from "./HomeControls/Controls";
@@ -38,11 +50,13 @@ Ion.defaultAccessToken =
 
 function ViewerContainer({ children }) {
   const viewerRef = useRef();
+  const image = useRef();
   const radiansToDegrees = (radians) => {
     const pi = Math.PI;
     return radians * (180 / pi);
   };
-  const getLocationFromScreenXY = async (x, y) => {
+  const getLocationFromScreenXY = async (e) => {
+    const { x, y } = e.position;
     const scene = viewerRef.current?.cesiumElement?.scene;
     if (!scene) return;
     const ellipsoid = scene.globe.ellipsoid;
@@ -65,11 +79,7 @@ function ViewerContainer({ children }) {
     <div>
       <Viewer
         ref={viewerRef}
-        onClick={(e) => {
-          const { x, y } = e.position;
-
-          getLocationFromScreenXY(x, y);
-        }}
+        onClick={getLocationFromScreenXY}
         shouldAnimate={true}
         homeButton={false}
         sceneModePicker={false}
@@ -93,7 +103,8 @@ function ViewerContainer({ children }) {
         imageryProvider={
           new WebMapTileServiceImageryProvider({
             // url: "https://services.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer",
-            url: "https://mt0.google.com/vt/lyrs=y&hl=ar&x={TileCol}&y={TileRow}&z={TileMatrix}",
+            url: "https://mt0.google.com/vt/lyrs=s&hl=ar&x={TileCol}&y={TileRow}&z={TileMatrix}",
+
             layer: "OpenStreetMap",
             format: "image/png",
             style: "default",
@@ -107,13 +118,29 @@ function ViewerContainer({ children }) {
         style={{ overflow: "hidden" }}
       >
         <Scene>
-          <Globe baseColor={Color.BLACK}>
-            {/* <CameraFlyTo
-            duration={0}
-            destination={Cartesian3.fromDegrees(30.2, 28, 2000000)}
-          /> */}
-            {children}
-          </Globe>
+          <ImageryLayer
+            ref={image}
+            imageryProvider={
+              new WebMapTileServiceImageryProvider({
+                // url: "https://services.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer",
+                url: "https://mt0.google.com/vt/lyrs=y&hl=ar&x={TileCol}&y={TileRow}&z={TileMatrix}",
+                rectangle: Rectangle.fromDegrees(
+                  24.7066669999999995,
+                  22.0,
+                  33.5,
+                  31.6762034861141828
+                ),
+
+                layer: "OpenStreetMap",
+                format: "image/png",
+                style: "default",
+                tileMatrixSetID: "GoogleMapsCompatible",
+                maximumLevel: 22,
+                credit: new Credit("ATTARY"),
+              })
+            }
+          ></ImageryLayer>
+          <Globe baseColor={Color.BLACK}>{children}</Globe>
         </Scene>
       </Viewer>
     </div>

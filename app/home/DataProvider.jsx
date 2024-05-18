@@ -12,6 +12,7 @@ import { getData, getLookups, detailsById } from "./server";
 const DataProvider = ({ params, children }) => {
   const [checked, setChecked] = useState({ 5: true });
   const checkHandler = (key, value) => {
+    // console.log(key, value);
     setChecked((prev) => {
       prev[key] = value;
       return { ...prev };
@@ -30,7 +31,7 @@ const DataProvider = ({ params, children }) => {
   const searchParams = useRef({});
 
   const [filteredData, setFilteredData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const lookups = useRef([]);
 
   const intial = async () => {
@@ -41,7 +42,8 @@ const DataProvider = ({ params, children }) => {
 
       setFilteredData(data.filter((el) => el.legendType == "5"));
       // console.log(allData.current);
-      const lookupsReq = (await getLookups()) || [];
+      const lookupsReq =  [];
+      //(await getLookups()) ||
       lookups.current = { ...lookups.current, ...lookupsReq };
       // console.log(lookups.current);
       data && lookupsReq && setIsLoading(false);

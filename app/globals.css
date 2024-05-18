@@ -14,3 +14,6 @@ label {
 .p-dropdown-panel .p-dropdown-items .p-dropdown-empty-message {
   text-align: right;
 }
+/* td,th,.p-column-title {
+  text-align: center;
+} */
