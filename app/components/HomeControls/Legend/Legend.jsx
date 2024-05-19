@@ -10,7 +10,7 @@ import { ScrollPanel } from "primereact/scrollpanel";
 import { EssentialsContext } from "@app/home/EssentialsProvider";
 
 import { DataContext } from "@app/home/DataProvider";
-
+import Image from "next/image";
 import { Tree } from "primereact/tree";
 import styles from "./Legend.module.css";
 const avatar = (color) =>
@@ -21,7 +21,7 @@ const LegendItem = ({ image, label }) => {
   return (
     <div className={styles.item}>
       <span>
-        <img src={`/${image}`} className={styles.image} />
+        <Image width="30" height="30" alt={label} src={`/${image}`} />
       </span>
       <span>{label}</span>
     </div>

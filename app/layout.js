@@ -6,6 +6,7 @@ import "primereact/resources/primereact.css";
 import "primereact/resources/themes/vela-orange/theme.css";
 // import "primereact/resources/themes/arya-orange/theme.css";
 // import "primereact/resources/themes/soho-dark/theme.css";
+
 import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
