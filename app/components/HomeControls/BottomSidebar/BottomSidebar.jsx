@@ -15,6 +15,11 @@ const BottomSidebar = () => {
     console.log(details);
     setDate(details?.LastReadings[0]?.DateTime);
     const reading = details.LastReadings.reduce((acc, curr) => {
+      if (curr.low == "NaN") curr.low = "-";
+      if (curr.high == "NaN") curr.high = "-";
+      if (curr.Unit == "NaN") curr.Unit = "-";
+      if (curr.equal == "NaN") curr.equal = "-";
+      if (curr.Reading == "NaN") curr.Reading = "-";
       const color = () => {
         switch (curr.type_of_criterion) {
           case 0:

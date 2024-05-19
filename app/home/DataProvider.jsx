@@ -10,28 +10,25 @@ export const DataContext = createContext();
 import { getData, getLookups, detailsById } from "./server";
 
 const DataProvider = ({ params, children }) => {
-  const [checked, setChecked] = useState({ 5: true });
-  const checkHandler = (key, value) => {
-    // console.log(key, value);
-    setChecked((prev) => {
-      prev[key] = value;
-      return { ...prev };
-    });
-  };
+  const [selectedLocations, setSelectedLocations] = useState({
+    5: { checked: true },
+  });
   const ApplyCheckHandler = () => {
     searchParams.current.legendType = {
-      code: Object.keys(checked).filter((key) => checked[key] === true),
+      code: Object.keys(selectedLocations).filter(
+        (key) => selectedLocations[key].checked === true
+      ),
     };
     applyFilter(searchParams.current);
   };
-  useEffect(ApplyCheckHandler, [checked]);
+  useEffect(ApplyCheckHandler, [selectedLocations]);
   const viewerCs = useCesium();
   const allData = useRef();
 
   const searchParams = useRef({});
 
   const [filteredData, setFilteredData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const lookups = useRef([]);
 
   const intial = async () => {
@@ -134,9 +131,10 @@ const DataProvider = ({ params, children }) => {
         multiDimensionalFilter,
         popupDetails,
         searchParams,
-        checked,
-        checkHandler,
+
         params,
+        selectedLocations,
+        setSelectedLocations,
       }}
     >
       {children}
