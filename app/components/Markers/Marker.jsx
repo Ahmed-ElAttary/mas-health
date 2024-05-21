@@ -6,6 +6,7 @@ import {
   Polyline,
   PolylineCollection,
   Entity,
+  Primitive,
 } from "resium";
 
 import {
@@ -94,7 +95,7 @@ const Marker = ({ data }) => {
     <>
       {legendType == "5" && json__EmergencyEventsTrackLocation?.length && (
         <>
-          <Entity
+          {/* <Entity
             position={Cartesian3.fromDegrees(+longitude, +latitude, 0)}
             polyline={{
               positions: Cartesian3.fromDegreesArray([
@@ -106,31 +107,71 @@ const Marker = ({ data }) => {
                 // + longitude + 10,
                 // +latitude + 10,
               ]),
+   
 
-              material: new PolylineOutlineMaterialProperty({
-                color: randColor,
-                outlineColor: Color.BLACK,
-              }),
+              // material: new PolylineOutlineMaterialProperty({
+              //   color: randColor,
+              //   outlineColor: Color.BLACK,
+              // }),
               width: 5,
-              // [
-              //   Cartesian3.fromDegrees(+longitude, +latitude, 0),
-              //   Cartesian3.fromDegrees(+longitude + 10, +latitude + 10, 0),
-              // ],
-              // material: Color.RED,
             }}
-          ></Entity>
+          ></Entity> */}
+
           {json__EmergencyEventsTrackLocation.map((el, index) => (
-            <Entity
+            // <Entity
+            //   key={index}
+            //   position={Cartesian3.fromDegrees(el.lng, el.lat, 0)}
+            //   point={{
+            //     pixelSize: 15,
+            //     color: randColor,
+            //     outlineColor: Color.BLACK,
+            //   }}
+            //   onClick={() => showPopup(el.lng, el.lat)}
+            // ></Entity>
+
+            //
+            <BillboardCollection
               key={index}
-              position={Cartesian3.fromDegrees(el.lng, el.lat, 0)}
-              point={{
-                pixelSize: 15,
-                color: randColor,
-                outlineColor: Color.BLACK,
-              }}
-              onClick={() => showPopup(el.lng, el.lat)}
-            ></Entity>
+              modelMatrix={Transforms.eastNorthUpToFixedFrame(
+                Cartesian3.fromDegrees(el.lng, el.lat, 0)
+              )}
+            >
+              <Billboard
+                image="cuw-alert-icon.png"
+                scale={0.06}
+                // pixelOffset={new Cartesian2(-15, 15)}
+                onClick={() => showPopup(el.lng, el.lat)}
+              ></Billboard>
+            </BillboardCollection>
           ))}
+          <PolylineCollection
+          // modelMatrix={Transforms.eastNorthUpToFixedFrame(
+          //   Cartesian3.fromDegrees(+longitude, +latitude, 0)
+          // )}
+          >
+            <Polyline
+              positions={Cartesian3.fromDegreesArray([
+                +longitude,
+                +latitude,
+                ...json__EmergencyEventsTrackLocation
+                  ?.map((el) => [el.lng, el.lat])
+                  .flat(),
+                // + longitude + 10,
+                // +latitude + 10,
+              ])}
+              width={20}
+              material={
+                new Material({
+                  fabric: {
+                    type: "PolylineArrow",
+                    uniforms: {
+                      color: randColor,
+                    },
+                  },
+                })
+              }
+            />
+          </PolylineCollection>
         </>
       )}
       <BillboardCollection

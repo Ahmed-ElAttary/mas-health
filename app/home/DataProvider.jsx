@@ -10,25 +10,15 @@ export const DataContext = createContext();
 import { getData, getLookups, detailsById } from "./server";
 
 const DataProvider = ({ params, children }) => {
-  const [selectedLocations, setSelectedLocations] = useState({
-    5: { checked: true },
-  });
-  const ApplyCheckHandler = () => {
-    searchParams.current.legendType = {
-      code: Object.keys(selectedLocations).filter(
-        (key) => selectedLocations[key].checked === true
-      ),
-    };
-    applyFilter(searchParams.current);
-  };
-  useEffect(ApplyCheckHandler, [selectedLocations]);
+  const [selectedLocations, setSelectedLocations] = useState({});
+
   const viewerCs = useCesium();
   const allData = useRef();
 
   const searchParams = useRef({});
 
   const [filteredData, setFilteredData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const lookups = useRef([]);
 
   const intial = async () => {
@@ -37,7 +27,7 @@ const DataProvider = ({ params, children }) => {
 
       allData.current = data;
 
-      setFilteredData(data.filter((el) => el.legendType == "5"));
+      setFilteredData(data);
       // console.log(allData.current);
       const lookupsReq = (await getLookups()) || [];
 
@@ -54,9 +44,26 @@ const DataProvider = ({ params, children }) => {
     return details;
   };
   useEffect(() => {
-    intial();
+    (async () => {
+      await intial();
+      setSelectedLocations({
+        1: { checked: params },
+        2: { checked: params },
+        3: { checked: params },
+        5: { checked: !params },
+      });
+    })();
   }, []);
-
+  const ApplyCheckHandler = () => {
+    console.log("apply check handler");
+    searchParams.current.legendType = {
+      code: Object.keys(selectedLocations).filter(
+        (key) => selectedLocations[key].checked === true
+      ),
+    };
+    applyFilter(searchParams.current);
+  };
+  useEffect(ApplyCheckHandler, [selectedLocations]);
   useEffect(() => {
     const latitudes = filteredData.map((el) => el.latitude);
     const longitudes = filteredData.map((el) => el.longitude);
