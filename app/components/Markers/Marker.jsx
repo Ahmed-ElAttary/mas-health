@@ -144,11 +144,7 @@ const Marker = ({ data }) => {
               ></Billboard>
             </BillboardCollection>
           ))}
-          <PolylineCollection
-          // modelMatrix={Transforms.eastNorthUpToFixedFrame(
-          //   Cartesian3.fromDegrees(+longitude, +latitude, 0)
-          // )}
-          >
+          <PolylineCollection>
             <Polyline
               positions={Cartesian3.fromDegreesArray([
                 +longitude,
@@ -156,8 +152,6 @@ const Marker = ({ data }) => {
                 ...json__EmergencyEventsTrackLocation
                   ?.map((el) => [el.lng, el.lat])
                   .flat(),
-                // + longitude + 10,
-                // +latitude + 10,
               ])}
               width={20}
               material={

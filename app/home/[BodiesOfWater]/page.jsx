@@ -9,7 +9,7 @@ import EssentialsProvider from "../EssentialsProvider.jsx";
 import LoadingSpinner from "@app/components/LoadingSpinner/LoadingSpinner.jsx";
 export default async function BodiesOfWater({ params }) {
   return (
-    <EssentialsProvider>
+    <EssentialsProvider params={params}>
       <ViewerContainer>
         <DataProvider params={params}>
           <GeojsonComp />

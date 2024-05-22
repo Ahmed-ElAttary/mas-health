@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useRef, useState } from "react";
+import { createContext, useEffect, useRef, useState } from "react";
 
 export const EssentialsContext = createContext();
 const egyptBound = [24.7, 22.0, 33.5, 32];
@@ -26,7 +26,7 @@ const statusIcons = {
   4: { name: "مستمرة", image: "cycle.png" },
   5: { name: "تم إلغائها", image: "cancel.png" },
 };
-const mainIcons = {
+const icons = {
   1: {
     name: "نقطة رصد دورية (عذبة/غير عذبة)",
     image: "f7406b70-c594-45b3-89ce-1d5173a86eff.png",
@@ -64,8 +64,19 @@ const mainIcons = {
   },
 };
 
-const EssentialsProvider = ({ children }) => {
+let mainIcons = {};
+
+const EssentialsProvider = ({ params, children }) => {
   const reference = useRef();
+  if (params?.BodiesOfWater == 16) {
+    mainIcons[16] = icons[16];
+    mainIcons[5] = icons[5];
+  } else if (params?.BodiesOfWater == 17) {
+    mainIcons[17] = icons[17];
+    mainIcons[5] = icons[5];
+  } else mainIcons = icons;
+
+  // useEffect(() => {}, []);
   return (
     <EssentialsContext.Provider
       value={{ colors, statusIcons, mainIcons, reference, wqiCalc, egyptBound }}

@@ -10,7 +10,14 @@ export const DataContext = createContext();
 import { getData, getLookups, detailsById } from "./server";
 
 const DataProvider = ({ params, children }) => {
-  const [selectedLocations, setSelectedLocations] = useState({});
+  const [selectedLocations, setSelectedLocations] = useState({
+    1: { checked: Boolean(params) },
+    2: { checked: Boolean(params) },
+    3: { checked: Boolean(params) },
+    5: { checked: Boolean(!params) },
+    16: { checked: params.BodiesOfWater == 16 },
+    17: { checked: params.BodiesOfWater == 17 },
+  });
 
   const viewerCs = useCesium();
   const allData = useRef();
@@ -34,6 +41,7 @@ const DataProvider = ({ params, children }) => {
       lookups.current = { ...lookups.current, ...lookupsReq };
       // console.log(lookups.current);
       data && lookupsReq && setIsLoading(false);
+      ApplyCheckHandler();
     } catch (err) {
       console.log(err);
     }
@@ -44,23 +52,15 @@ const DataProvider = ({ params, children }) => {
     return details;
   };
   useEffect(() => {
-    (async () => {
-      await intial();
-      setSelectedLocations({
-        1: { checked: params },
-        2: { checked: params },
-        3: { checked: params },
-        5: { checked: !params },
-      });
-    })();
+    intial();
   }, []);
   const ApplyCheckHandler = () => {
-    console.log("apply check handler");
     searchParams.current.legendType = {
       code: Object.keys(selectedLocations).filter(
         (key) => selectedLocations[key].checked === true
       ),
     };
+
     applyFilter(searchParams.current);
   };
   useEffect(ApplyCheckHandler, [selectedLocations]);
