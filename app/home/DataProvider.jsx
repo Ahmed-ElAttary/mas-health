@@ -15,8 +15,8 @@ const DataProvider = ({ params, children }) => {
     2: { checked: Boolean(params) },
     3: { checked: Boolean(params) },
     5: { checked: Boolean(!params) },
-    16: { checked: params.BodiesOfWater == 16 },
-    17: { checked: params.BodiesOfWater == 17 },
+    16: { checked: params?.BodiesOfWater == 16 },
+    17: { checked: params?.BodiesOfWater == 17 },
   });
 
   const viewerCs = useCesium();
