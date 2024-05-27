@@ -45,6 +45,9 @@ const Marker = ({ data }) => {
     json__EmergencyEventsTrackLocation,
     api,
   } = data;
+  const eLocations =
+    json__EmergencyEventsTrackLocation?.map((el) => [el.lng, el.lat]) || [];
+  // console.log(eLocations);
   const viewerCs = useCesium();
   const [randColor, setRandColor] = useState(Color.fromRandom({ alpha: 1 }));
   const [details, setDetails] = useState({});
@@ -139,19 +142,44 @@ const Marker = ({ data }) => {
               <Billboard
                 image="cuw-alert-icon.png"
                 scale={0.06}
-                // pixelOffset={new Cartesian2(-15, 15)}
+                pixelOffset={new Cartesian2(0, 12)}
                 onClick={() => showPopup(el.lng, el.lat)}
               ></Billboard>
             </BillboardCollection>
           ))}
           <PolylineCollection>
-            <Polyline
+            {eLocations.length &&
+              eLocations?.map((el, index) => {
+                console.log("index", index);
+                let positions;
+                if (index == 0) {
+                  positions = [+longitude, +latitude, ...el];
+                } else if (index > 0) {
+                  positions = [...eLocations[index - 1], ...el];
+                }
+                return (
+                  <Polyline
+                    key={index}
+                    positions={Cartesian3.fromDegreesArray(positions)}
+                    width={30}
+                    material={
+                      new Material({
+                        fabric: {
+                          type: "PolylineArrow",
+                          uniforms: {
+                            color: randColor,
+                          },
+                        },
+                      })
+                    }
+                  />
+                );
+              })}
+            {/* <Polyline
               positions={Cartesian3.fromDegreesArray([
                 +longitude,
                 +latitude,
-                ...json__EmergencyEventsTrackLocation
-                  ?.map((el) => [el.lng, el.lat])
-                  .flat(),
+                ...eLocations.flat(),
               ])}
               width={20}
               material={
@@ -164,7 +192,7 @@ const Marker = ({ data }) => {
                   },
                 })
               }
-            />
+            /> */}
           </PolylineCollection>
         </>
       )}
