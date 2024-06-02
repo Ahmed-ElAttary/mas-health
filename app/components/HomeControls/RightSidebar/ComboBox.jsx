@@ -1,6 +1,7 @@
 import { Dropdown } from "primereact/dropdown";
 import { useContext, useEffect, useState } from "react";
 import { DataContext } from "@app/home/DataProvider.jsx";
+import { MultiSelect } from "primereact/multiselect";
 const ComboBox = ({
   id,
   label,
@@ -10,6 +11,7 @@ const ComboBox = ({
   filter_id,
   column,
   dependancy,
+  autoComplete,
 }) => {
   const { lookups } = useContext(DataContext);
   const [value, setValue] = useState();
@@ -54,11 +56,42 @@ const ComboBox = ({
       }
     }
     optionsHandler();
+
+    // if (multi) {
+    //   setValue(
+    //     searchParams.current[filter_id]?.code.map((el) => {
+    //       return { name: el, code: el };
+    //     })
+    //   );
+    //   // setValue(searchParams.current[filter_id]);
+    // } else {
     setValue(searchParams.current[filter_id]);
+    // }
   }, [reload]);
   return (
     <>
       <span className="p-float-label">
+        {/* {multi ? (
+          <MultiSelect
+            value={value}
+            onChange={(e) => {
+              setValue(e.value);
+              // console.log(e.value.map((el) => el.code));
+              console.log(e.value);
+              searchParams.current[filter_id] = {
+                code: e.value.map((el) => el.code),
+              };
+              // reloadHandler(multi);
+            }}
+            options={options}
+            emptyMessage="لا يوجد"
+            optionLabel="name"
+            className="w-full"
+            // showClear
+            filter
+            maxSelectedLabels={3}
+          />
+        ) : ( */}
         <Dropdown
           inputId={id}
           value={value}
@@ -72,7 +105,10 @@ const ComboBox = ({
           optionLabel="name"
           className="w-full"
           showClear
+          filter={autoComplete}
         />
+        {/* )} */}
+
         <label htmlFor={id}>{label}</label>
       </span>
     </>

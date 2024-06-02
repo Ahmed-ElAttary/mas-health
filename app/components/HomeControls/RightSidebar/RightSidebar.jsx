@@ -48,10 +48,16 @@ export const fields = {
     filter_id: "state_of_place_id",
     column: "state",
   },
+  // StationsNames: {
+  //   label: "اسم الموقع",
+  //   filter_id: "name",
+  //   column: "name",
+  // },
   StationsNames: {
     label: "اسم الموقع",
     filter_id: "name",
     column: "name",
+    autoComplete: true,
   },
 };
 const RightSidebar = () => {
@@ -68,7 +74,10 @@ const RightSidebar = () => {
   const [sideBarVis, setSideBarVis] = useState(false);
 
   const [reload, setReload] = useState(0);
-  const reloadHandler = () => {
+  const reloadHandler = (multi) => {
+    // if (multi) {
+    //   setReload(reload + 1);
+    // } else {
     const dataFiltered = multiDimensionalFilter(
       filteredData,
       searchParams.current
@@ -79,6 +88,7 @@ const RightSidebar = () => {
 
     lookups.current = { ...lookups.current, StationsNames };
     setReload(reload + 1);
+    // }
   };
 
   return (
@@ -105,6 +115,7 @@ const RightSidebar = () => {
                   reload={reload}
                   dependancy={field[1].dependancy}
                   reloadHandler={reloadHandler}
+                  autoComplete={field[1].autoComplete}
                 />
               );
             })}

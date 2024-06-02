@@ -71,7 +71,10 @@ const Legend = () => {
                 value={locations}
                 selectionMode="checkbox"
                 selectionKeys={selectedLocations}
-                onSelectionChange={(e) => setSelectedLocations(e.value)}
+                onSelectionChange={(e) => {
+                  console.log(e.value);
+                  setSelectedLocations(e.value);
+                }}
               />
               {/* {Object.entries(mainIcons).map(([key, val]) => (
                 <div key={key}>
