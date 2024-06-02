@@ -82,11 +82,11 @@ const Marker = ({ data }) => {
     }
     setDetails(await popupDetails(id, api));
   };
-  if (legendType == "5") {
-    if (json__EmergencyEventsTrackLocation?.length) {
-      console.log();
-    }
-  }
+  // if (legendType == "5") {
+  //   if (json__EmergencyEventsTrackLocation?.length) {
+  //     console.log();
+  //   }
+  // }
 
   const wqi = () => {
     const num = Number(details["WQI"]?.toFixed(2));
@@ -150,7 +150,7 @@ const Marker = ({ data }) => {
           <PolylineCollection>
             {eLocations.length &&
               eLocations?.map((el, index) => {
-                console.log("index", index);
+                // console.log("index", index);
                 let positions;
                 if (index == 0) {
                   positions = [+longitude, +latitude, ...el];
@@ -254,7 +254,9 @@ const Marker = ({ data }) => {
                     visible={Boolean(details.line)}
                     severity="info"
                     label="عرض تفاصيل الموقع"
-                    onClick={() => window.open(details.url)}
+                    onClick={() => {
+                      window.open(details.url);
+                    }}
                   />
                 </div>
               </>

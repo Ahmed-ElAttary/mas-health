@@ -2,7 +2,7 @@
 import govs from "@public/simplified.json";
 import booleanWithin from "@turf/boolean-within";
 import axios from "axios";
-const { HOST, USER, PASS } = process.env;
+const { HOST, USER, PASS, PUBLIC_HOST } = process.env;
 
 export const getToken = async () => {
   try {
@@ -86,7 +86,7 @@ export const detailsById = async (id, api) => {
   // console.log(data.data);
   return {
     ...data.data,
-    url: `${HOST}${data.data.line}`,
+    url: `${PUBLIC_HOST}${data.data.line}`,
   };
 };
 export const getLookups = async () => {
