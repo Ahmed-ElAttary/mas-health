@@ -12,7 +12,7 @@ const BottomSidebar = () => {
   const [date, setDate] = useState();
   openBottom = (details) => {
     setBottomBarVis(true);
-    console.log(details);
+    // console.log(details);
     setDate(details?.LastReadings[0]?.DateTime);
     const reading = details.LastReadings.reduce((acc, curr) => {
       if (curr.low == "NaN") curr.low = "-";
@@ -21,39 +21,38 @@ const BottomSidebar = () => {
       if (curr.equal == "NaN") curr.equal = "-";
       if (curr.Reading == "NaN") curr.Reading = "-";
       const color = () => {
+      
         switch (curr.type_of_criterion) {
           case 0:
             if (curr.Reading >= curr.low && curr.Reading <= curr.high)
               return "success";
-            else "danger";
-            break;
+            else return "danger";
           case 1:
             if (curr.Reading >= curr.low) return "success";
-            else "danger";
-            break;
+            else return "danger";
+
           case 2:
             if (curr.Reading <= curr.high) return "success";
-            else "danger";
-            break;
+            else return "danger";
+
           case 3:
             if (curr.Reading == curr.equal) return "success";
-            else "danger";
-            break;
+            else return "danger";
+
           case 4:
             if (curr.Reading >= curr.low && curr.Reading <= curr.high)
               return "success";
-            else "danger";
-            break;
+            else return "danger";
+
           case 5:
             if (curr.Reading <= curr.high) return "success";
-            else "danger";
-            break;
+            else return "danger";
+
           case 6:
             if (curr.Reading >= curr.low) return "success";
-            else "danger";
+            else return "danger";
           default:
-            "info";
-            break;
+            return "info";
         }
       };
       acc[curr.PointerName] = (

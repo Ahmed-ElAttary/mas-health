@@ -138,7 +138,7 @@ const DataProvider = ({ params, children }) => {
         multiDimensionalFilter,
         popupDetails,
         searchParams,
-
+        allData,
         params,
         selectedLocations,
         setSelectedLocations,

@@ -98,6 +98,7 @@ const ComboBox = ({
           onChange={(e) => {
             setValue(e.value);
             searchParams.current[filter_id] = e.value;
+          
             reloadHandler();
           }}
           options={options}

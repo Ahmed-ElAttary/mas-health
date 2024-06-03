@@ -69,17 +69,16 @@ const RightSidebar = () => {
     lookups,
     searchParams,
     params,
+    allData,
   } = useContext(DataContext);
 
   const [sideBarVis, setSideBarVis] = useState(false);
 
   const [reload, setReload] = useState(0);
-  const reloadHandler = (multi) => {
-    // if (multi) {
-    //   setReload(reload + 1);
-    // } else {
+  const reloadHandler = () => {
+    // console.log(searchParams.current);
     const dataFiltered = multiDimensionalFilter(
-      filteredData,
+      allData.current,
       searchParams.current
     );
     const StationsNames = dataFiltered.map(({ name }) => {
@@ -88,7 +87,6 @@ const RightSidebar = () => {
 
     lookups.current = { ...lookups.current, StationsNames };
     setReload(reload + 1);
-    // }
   };
 
   return (
