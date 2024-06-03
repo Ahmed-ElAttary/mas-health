@@ -103,12 +103,19 @@ const DataProvider = ({ params, children }) => {
     return data.filter((el) => {
       return filterKeys.every((key) => {
         if (!filters[key]) return true;
+
         if (Array.isArray(el[key])) {
+          console.log("is array");
           return el[key].code?.some((keyEle) =>
             filters[key].code?.includes(keyEle)
           );
         }
-        return filters[key].code?.includes(el[key]);
+        // return filters[key].code?.includes(el[key]);
+        if (Array.isArray(filters[key].code)) {
+          return filters[key].code?.includes(el[key]);
+        }
+
+        return filters[key].code == el[key];
       });
     });
   };
@@ -119,6 +126,7 @@ const DataProvider = ({ params, children }) => {
         allData.current,
         searchParams
       );
+      // console.log(dataFiltered);
       setFilteredData(dataFiltered);
     }
   };

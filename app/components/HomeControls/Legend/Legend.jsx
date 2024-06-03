@@ -72,7 +72,7 @@ const Legend = () => {
                 selectionMode="checkbox"
                 selectionKeys={selectedLocations}
                 onSelectionChange={(e) => {
-                  console.log(e.value);
+                  // console.log(e.value);
                   setSelectedLocations(e.value);
                 }}
               />

@@ -76,11 +76,12 @@ const RightSidebar = () => {
 
   const [reload, setReload] = useState(0);
   const reloadHandler = () => {
-    // console.log(searchParams.current);
+    console.log(searchParams.current);
     const dataFiltered = multiDimensionalFilter(
       allData.current,
       searchParams.current
     );
+
     const StationsNames = dataFiltered.map(({ name }) => {
       return { name, id: name };
     });
