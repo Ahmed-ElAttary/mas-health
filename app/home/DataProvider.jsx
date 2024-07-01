@@ -105,13 +105,13 @@ const DataProvider = ({ params, children }) => {
         if (!filters[key]) return true;
 
         if (Array.isArray(el[key])) {
-          console.log("is array");
           return el[key].code?.some((keyEle) =>
             filters[key].code?.includes(keyEle)
           );
         }
         // return filters[key].code?.includes(el[key]);
         if (Array.isArray(filters[key].code)) {
+          // console.log("is array");
           return filters[key].code?.includes(el[key]);
         }
 
@@ -128,6 +128,7 @@ const DataProvider = ({ params, children }) => {
       );
       // console.log(dataFiltered);
       setFilteredData(dataFiltered);
+      // console.log(dataFiltered);
     }
   };
   const resetFilter = () => {

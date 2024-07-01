@@ -37,6 +37,12 @@ export const fields = {
     filter_id: "bodies_of_water_id",
     column: "name",
   },
+  SecondaryWaterBodyType: {
+    label: "النوع الفرعي",
+    filter_id: "secondary_water_body_type_id",
+    column: "name",
+    dependancy: "bodies_of_water_id",
+  },
   LocationType: {
     label: "نوع الموقع",
     filter_id: "location_type_id",
@@ -48,11 +54,6 @@ export const fields = {
     filter_id: "state_of_place_id",
     column: "state",
   },
-  // StationsNames: {
-  //   label: "اسم الموقع",
-  //   filter_id: "name",
-  //   column: "name",
-  // },
   StationsNames: {
     label: "اسم الموقع",
     filter_id: "name",

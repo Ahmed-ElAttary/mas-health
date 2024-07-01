@@ -49,7 +49,9 @@ Ion.defaultAccessToken =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwNmI4NDZkNS05YjE1LTRmNGMtOWIxZC1kYWM2NjkyNzQxYzUiLCJpZCI6MTM2MTc3LCJpYXQiOjE2ODI4Mzk1MzZ9.iEG0SY_0StIfWUg57qVwbPe5NHlD48ZMf3AGqC_nVdI";
 
 function ViewerContainer({ children }) {
+   
   const { egyptBound } = useContext(EssentialsContext);
+
   const viewerRef = useRef();
   const image = useRef();
   const radiansToDegrees = (radians) => {
