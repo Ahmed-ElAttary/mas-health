@@ -7,7 +7,7 @@ import { createContext, useEffect } from "react";
 import { useCesium } from "resium";
 
 export const DataContext = createContext();
-import { getData, getLookups, detailsById } from "./server";
+import { getData, getLookups, detailsById, getCanalsDrains } from "./server";
 
 const DataProvider = ({ params, children }) => {
   const [selectedLocations, setSelectedLocations] = useState({
@@ -51,6 +51,15 @@ const DataProvider = ({ params, children }) => {
     // console.log(details);
     return details;
   };
+
+  const canalsDrains = async (id) => {
+    if (id) {
+      const data = await getCanalsDrains(id);
+      // console.log(data)
+      return data;
+    }
+  };
+
   useEffect(() => {
     intial();
   }, []);
@@ -128,7 +137,6 @@ const DataProvider = ({ params, children }) => {
       );
       // console.log(dataFiltered);
       setFilteredData(dataFiltered);
-      // console.log(dataFiltered);
     }
   };
   const resetFilter = () => {
@@ -146,6 +154,7 @@ const DataProvider = ({ params, children }) => {
         isLoading,
         multiDimensionalFilter,
         popupDetails,
+        canalsDrains,
         searchParams,
         allData,
         params,

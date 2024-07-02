@@ -17,6 +17,7 @@
     "@turf/boolean-point-in-polygon": "^6.5.0",
     "@turf/boolean-within": "^6.5.0",
     "@turf/convex": "^6.5.0",
+    "@turf/turf": "^7.0.0",
     "axios": "^1.6.7",
     "cesium": "^1.105.2",
     "copy-webpack-plugin": "^11.0.0",
@@ -27,11 +28,13 @@
     "primeicons": "^6.0.1",
     "primereact": "^10.3.3",
     "prisma": "^5.11.0",
+    "proj4": "^2.11.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.9.0",
     "resium": "^1.16.1",
-    "shapefile": "^0.6.6"
+    "shapefile": "^0.6.6",
+    "wkt": "^0.1.1"
   },
   "devDependencies": {
     "@types/node": "20.2.5",

@@ -9,14 +9,14 @@ const Govs = () => {
   const { lookups } = useContext(Context);
   const { colors, statusIcons, mainIcons, wqiCalc } =
     useContext(EssentialsContext);
-  console.log(lookups);
+  // console.log(lookups);
   const viewerCs = useCesium();
 
   const coloring = (layer) => {
     layer.entities.values.forEach((entity) => {
       const id = entity.properties.id._value;
       const gov = lookups.Governorate?.find((el) => el.id == id);
-      console.log(gov);
+      // console.log(gov);
       if (gov?.hasOwnProperty("WQI"))
         if (Array.isArray(colors[wqiCalc(gov.WQI)])) {
           entity.polygon.material = Color.fromCssColorString(

@@ -17,6 +17,24 @@ export const getToken = async () => {
   }
 };
 
+export const getCanalsDrains = async (id) => {
+  try{
+
+    const {data}=  await axios.get(
+      `${HOST}/api/secondary-water-body-type-handle?length=100000000&start=1&id=${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${await getToken()}`,
+        },
+      }
+    );
+    return data
+  }
+  catch(err){
+   console.log(err);
+  }
+};
+
 export const getData = async (params) => {
   const urlParams = new URLSearchParams(params).toString();
 
