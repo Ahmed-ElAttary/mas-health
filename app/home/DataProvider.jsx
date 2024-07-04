@@ -69,6 +69,10 @@ const DataProvider = ({ params, children }) => {
         (key) => selectedLocations[key].checked === true
       ),
     };
+    if (params?.BodiesOfWater) {
+      searchParams.current.bodies_of_water_id = { code: params.BodiesOfWater };
+    }
+
 
     applyFilter(searchParams.current);
   };
@@ -138,6 +142,7 @@ const DataProvider = ({ params, children }) => {
       // console.log(dataFiltered);
       setFilteredData(dataFiltered);
     }
+    console.log(searchParams);
   };
   const resetFilter = () => {
     setFilteredData(allData.current);

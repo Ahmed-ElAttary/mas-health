@@ -1,9 +1,14 @@
 import { DataContext } from "@app/home/DataProvider";
 import React, { useContext, useEffect, useState } from "react";
-import { GeoJsonDataSource, useCesium } from "resium";
+import {
+  GeoJsonDataSource,
+  Polyline,
+  PolylineCollection,
+  useCesium,
+} from "resium";
 import { parse } from "wkt";
 import proj4 from "proj4";
-import { BoundingSphere, Cartesian3, Color, Rectangle } from "cesium";
+import { BoundingSphere, Cartesian3, Color, Material, Rectangle } from "cesium";
 import * as turf from "@turf/turf";
 const CanalsDrains = () => {
   const { searchParams, canalsDrains } = useContext(DataContext);
@@ -17,6 +22,7 @@ const CanalsDrains = () => {
   );
 
   useEffect(() => {
+
     // setGeojson(null);
     (async () => {
       const res = await canalsDrains(
@@ -49,16 +55,52 @@ const CanalsDrains = () => {
   }, [searchParams.current?.secondary_water_body_type_id?.code]);
 
   return (
-    <GeoJsonDataSource
-      data={geojson}
-      //   onLoad={(layer) => {
-      //     layer.entities.values[0].polyline.material = Color.RED;
+    // <GeoJsonDataSource
+    //   data={geojson}
+    //   //   onLoad={(layer) => {
+    //   //     layer.entities.values[0].polyline.material = Color.RED;
 
-      //     viewerCs.viewer.flyTo(layer.entities.values[0]);
-      //   }}
-      //   onLoad={() => console.log("loaded")}
-      //   stroke={Color.RED}
-    ></GeoJsonDataSource>
+    //   //     viewerCs.viewer.flyTo(layer.entities.values[0]);
+    //   //   }}
+    //   //   onLoad={() => console.log("loaded")}
+    //   //   stroke={Color.RED}
+
+    //   strokeWidth={10}
+    // ></GeoJsonDataSource>
+    <PolylineCollection>
+      {geojson &&
+        turf.cleanCoords(geojson)?.coordinates[0]?.map((el, index) => {
+          let positions;
+
+          const coords = turf.cleanCoords(geojson)?.coordinates[0];
+          //   console.log(el, index, coords);
+          if (index == 0) {
+            return null;
+          } else if (index > 0) {
+            positions = [...coords[index - 1], ...el];
+            // console.log(positions);
+            // console.log("index", index);
+
+            return (
+              <Polyline
+                key={index}
+                positions={Cartesian3.fromDegreesArray(positions)}
+                width={30}
+                material={
+                  new Material({
+                    fabric: {
+                      type: "PolylineArrow",
+                      uniforms: {
+                        color: Color.CYAN,
+                      },
+                    },
+                  })
+                }
+              />
+            );
+          }
+        })}
+    </PolylineCollection>
   );
 };
 

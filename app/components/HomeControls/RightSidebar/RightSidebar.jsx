@@ -38,7 +38,7 @@ export const fields = {
     column: "name",
   },
   SecondaryWaterBodyType: {
-    label: "النوع الفرعي",
+    label: "المسطحات المائية (النوع الفرعي)",
     filter_id: "secondary_water_body_type_id",
     column: "name",
     dependancy: "bodies_of_water_id",
