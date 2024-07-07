@@ -1,5 +1,5 @@
 "use client";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { GeoJsonDataSource, useCesium } from "resium";
 import { Color } from "cesium";
 import { Context } from "./Provider";
@@ -11,7 +11,10 @@ const Govs = () => {
     useContext(EssentialsContext);
   // console.log(lookups);
   const viewerCs = useCesium();
-
+  useEffect(() => {
+    window.viewerCs = viewerCs;
+    window.ahmed = "elattary";
+  }, []);
   const coloring = (layer) => {
     layer.entities.values.forEach((entity) => {
       const id = entity.properties.id._value;

@@ -20,6 +20,10 @@ const DataProvider = ({ params, children }) => {
   });
 
   const viewerCs = useCesium();
+  useEffect(() => {
+    window.viewerCs = viewerCs;
+    window.ahmed = "sdfssdds";
+  }, []);
   const allData = useRef();
 
   const searchParams = useRef({});
@@ -72,7 +76,6 @@ const DataProvider = ({ params, children }) => {
     if (params?.BodiesOfWater) {
       searchParams.current.bodies_of_water_id = { code: params.BodiesOfWater };
     }
-
 
     applyFilter(searchParams.current);
   };
