@@ -10,8 +10,8 @@ const Markers = () => {
 
   return (
     <>
-      {filteredData.map((data) => {
-        return <Marker data={data} key={data.id} />;
+      {filteredData.map((data, index) => {
+        return <Marker data={data} key={index} />;
       })}
     </>
   );

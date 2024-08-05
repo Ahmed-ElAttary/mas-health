@@ -29,7 +29,7 @@ const DataProvider = ({ params, children }) => {
   const searchParams = useRef({});
 
   const [filteredData, setFilteredData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const lookups = useRef([]);
 
   const intial = async () => {
@@ -39,7 +39,7 @@ const DataProvider = ({ params, children }) => {
       allData.current = data;
 
       setFilteredData(data);
-      // console.log(allData.current);
+      console.log(allData.current);
       const lookupsReq = (await getLookups()) || [];
 
       lookups.current = { ...lookups.current, ...lookupsReq };
@@ -142,7 +142,7 @@ const DataProvider = ({ params, children }) => {
         allData.current,
         searchParams
       );
-      // console.log(dataFiltered);
+      console.log(dataFiltered);
       setFilteredData(dataFiltered);
     }
     console.log(searchParams);
