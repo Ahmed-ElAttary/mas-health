@@ -29,7 +29,7 @@ const DataProvider = ({ params, children }) => {
   const searchParams = useRef({});
 
   const [filteredData, setFilteredData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const lookups = useRef([]);
 
   const intial = async () => {
