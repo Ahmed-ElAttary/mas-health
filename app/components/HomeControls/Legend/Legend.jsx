@@ -62,7 +62,7 @@ const Legend = () => {
             </div>
           }
         >
-          <ScrollPanel style={{ height: "250px" }}>
+          <ScrollPanel style={{ height: "510px" }}>
             <div
               style={{ display: "flex", flexDirection: "column", gap: "0px" }}
             >

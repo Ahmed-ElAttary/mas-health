@@ -17,3 +17,11 @@ label {
 /* td,th,.p-column-title {
   text-align: center;
 } */
+.p-fieldset .p-component {
+  margin: 0;
+  padding: 0;
+}
+.p-fieldset-content {
+  margin: 0;
+  padding: 0;
+}

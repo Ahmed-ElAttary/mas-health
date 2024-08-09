@@ -141,8 +141,8 @@ const Marker = ({ data }) => {
             >
               <Billboard
                 image="cuw-alert-icon.png"
-                scale={0.06}
-                pixelOffset={new Cartesian2(0, 12)}
+                scale={0.04}
+                pixelOffset={new Cartesian2(0, 2)}
                 onClick={() => showPopup(el.lng, el.lat)}
               ></Billboard>
             </BillboardCollection>
@@ -161,7 +161,7 @@ const Marker = ({ data }) => {
                   <Polyline
                     key={index}
                     positions={Cartesian3.fromDegreesArray(positions)}
-                    width={30}
+                    width={20}
                     material={
                       new Material({
                         fabric: {

@@ -30,37 +30,37 @@ const icons = {
   1: {
     name: "نقطة رصد دورية (عذبة/غير عذبة)",
     image: "f7406b70-c594-45b3-89ce-1d5173a86eff.png",
-    scale: 0.14,
+    scale: 0.10,
   },
   2: {
     name: "مأخذ محطة تنقية مياه",
     image: "bbbc4622-358e-4e5d-a956-e047be529219.png",
-    scale: 0.1,
+    scale: 0.07,
   },
   3: {
     name: "رصد لحظي مستمر (عذبة/غير عذبة)",
     image: "85d7bcdb-bec6-477a-b0b5-472f43f77dd5.png",
-    scale: 0.27,
+    scale: 0.20,
   },
   4: {
     name: "مواقع الرصد البحثية",
     image: "3b330465-141b-4452-9a26-3a2e175f62cf.png",
-    scale: 0.15,
+    scale: 0.10,
   },
   5: {
     name: "مواقع رصد الأحداث الطارئة",
     image: "e472e82b-5e55-4720-8f07-a720f665c297.png",
-    scale: 0.15,
+    scale: 0.11,
   },
   16: {
     name: "صرف صحي",
     image: "waste-sewer-svgrepo-com.png",
-    scale: 0.15,
+    scale: 0.11,
   },
   17: {
     name: "صرف صناعي",
     image: "industry-svgrepo-com.png",
-    scale: 0.15,
+    scale: 0.11,
   },
 };
 
