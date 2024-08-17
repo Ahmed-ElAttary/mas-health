@@ -18,7 +18,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <PrimeReactProvider>
-      <html lang="en">
+      <html lang="en" >
+      
         <body>{children}</body>
       </html>
     </PrimeReactProvider>
