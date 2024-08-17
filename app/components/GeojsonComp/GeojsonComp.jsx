@@ -18,10 +18,10 @@ const GeojsonComp = () => {
 
       if (searchParams?.current?.governorate_id?.code) {
         if (searchParams?.current?.governorate_id?.code == id) {
-          entity.polygon.material = Color.RED.withAlpha(0.2);
+          entity.polygon.material = Color.BLUE.withAlpha(0.2);
           entity.polygon.outline = true;
 
-          entity.polygon.outlineColor = Color.RED.withAlpha(1);
+          entity.polygon.outlineColor = Color.BLUE.withAlpha(1);
 
           viewerCs.viewer.flyTo(entity);
         } else {

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-
+import { Checkbox } from "primereact/checkbox";
 import { Chip } from "primereact/chip";
 import { Divider } from "primereact/divider";
 
@@ -29,7 +29,12 @@ const LegendItem = ({ image, label }) => {
 };
 const Legend = () => {
   const { statusIcons, mainIcons } = useContext(EssentialsContext);
-  const { selectedLocations, setSelectedLocations } = useContext(DataContext);
+  const {
+    selectedLocations,
+    setSelectedLocations,
+    labelChecked,
+    setLabelChecked,
+  } = useContext(DataContext);
 
   const [locations, setLocations] = useState([]);
   const [statuses, setStatuses] = useState([]);
@@ -66,6 +71,16 @@ const Legend = () => {
             <div
               style={{ display: "flex", flexDirection: "column", gap: "0px" }}
             >
+              <div className="flex align-items-center">
+                <Checkbox
+                  name="label-check"
+                  onChange={()=>setLabelChecked(!labelChecked)}
+                  checked={labelChecked}
+                />
+                <label htmlFor="label-check" className="ml-2">
+                  إظهار اسم الموقع
+                </label>
+              </div>
               <Divider type="solid">المواقع</Divider>
               <Tree
                 value={locations}

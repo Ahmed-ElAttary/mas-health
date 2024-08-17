@@ -18,18 +18,18 @@ const DataProvider = ({ params, children }) => {
     16: { checked: params?.BodiesOfWater == 16 },
     17: { checked: params?.BodiesOfWater == 17 },
   });
+  const [isLoading, setIsLoading] = useState(true);
+  const [labelChecked, setLabelChecked] = useState(false);
 
   const viewerCs = useCesium();
   useEffect(() => {
     window.viewerCs = viewerCs;
-    window.ahmed = "sdfssdds";
   }, []);
   const allData = useRef();
 
   const searchParams = useRef({});
 
   const [filteredData, setFilteredData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
   const lookups = useRef([]);
 
   const intial = async () => {
@@ -142,10 +142,10 @@ const DataProvider = ({ params, children }) => {
         allData.current,
         searchParams
       );
-      console.log(dataFiltered);
+      // console.log(dataFiltered);
       setFilteredData(dataFiltered);
     }
-    console.log(searchParams);
+    // console.log(searchParams);
   };
   const resetFilter = () => {
     setFilteredData(allData.current);
@@ -168,6 +168,8 @@ const DataProvider = ({ params, children }) => {
         params,
         selectedLocations,
         setSelectedLocations,
+        labelChecked,
+        setLabelChecked,
       }}
     >
       {children}
