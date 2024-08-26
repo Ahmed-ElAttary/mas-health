@@ -38,14 +38,14 @@ const DataProvider = ({ params, children }) => {
 
       allData.current = data;
 
-      setFilteredData(data);
+      // setFilteredData(data);
       console.log(allData.current);
       const lookupsReq = (await getLookups()) || [];
 
       lookups.current = { ...lookups.current, ...lookupsReq };
       // console.log(lookups.current);
       data && lookupsReq && setIsLoading(false);
-      ApplyCheckHandler();
+    ApplyCheckHandler();
     } catch (err) {
       console.log(err);
     }
