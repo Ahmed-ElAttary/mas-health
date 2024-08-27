@@ -113,12 +113,14 @@ const Marker = ({ data }) => {
 
     // Set canvas size dynamically based on text length and font size
     const textMetrics = context.measureText(text);
-    canvas.width = textMetrics.width + 20; // Add some padding
-    canvas.height = 60; // Adjust based on font size// Re-draw text on the canvas with updated size
+        // canvas.width = textMetrics.width + 20; 
+    canvas.width = textMetrics.width + 150; // Add some padding
+      //  canvas.height = 60;
+    canvas.height = 20; // Adjust based on font size// Re-draw text on the canvas with updated size
     context.font = font;
     context.fillStyle = "#00000080";
 
-    context.fillRect(10, 0, textMetrics.width + 20, 22);
+    context.fillRect(10, 0, textMetrics.width , 22);
    context.fillStyle = "yellow";
     context.fillText(text, 10, 18.5);
     // context.strokeStyle = "black";
