@@ -21,7 +21,6 @@ const BottomSidebar = () => {
       if (curr.equal == "NaN") curr.equal = "-";
       if (curr.Reading == "NaN") curr.Reading = "-";
       const color = () => {
-      
         switch (curr.type_of_criterion) {
           case 0:
             if (curr.Reading >= curr.low && curr.Reading <= curr.high)
@@ -112,13 +111,12 @@ const BottomSidebar = () => {
     setLastReading([criterion, reading]);
   };
   return (
-    <>
-      <Sidebar
-        visible={bottomBarVis}
-        onHide={() => setBottomBarVis(false)}
-        position="bottom"
-        className="h-full md:h-15rem lg:h-25rem"
-      >
+    <Sidebar
+      visible={bottomBarVis}
+      onHide={() => setBottomBarVis(false)}
+      position="bottom"
+      // className="h-full"
+      content={() => (
         <Fieldset
           dir="rtl"
           legend={
@@ -128,7 +126,8 @@ const BottomSidebar = () => {
           <DataTable
             showGridlines
             value={lastReading}
-            tableStyle={{ minWidth: "50rem" }}
+            tableStyle={{ minWidth: "50rem",fontSize: "small" }}
+            size="small"
           >
             {lastReading.length &&
               Object.keys(lastReading[0]).map((el, index) => (
@@ -141,8 +140,8 @@ const BottomSidebar = () => {
               ))}
           </DataTable>
         </Fieldset>
-      </Sidebar>
-    </>
+      )}
+    ></Sidebar>
   );
 };
 

@@ -9,6 +9,7 @@ import {
   Primitive,
   Label,
   LabelCollection,
+  CustomDataSource,
 } from "resium";
 
 import {
@@ -21,6 +22,8 @@ import {
   PolylineArrowMaterialProperty,
   HorizontalOrigin,
   VerticalOrigin,
+  EntityCluster,
+  BillboardGraphics,
 } from "cesium";
 import { openBottom } from "../HomeControls/BottomSidebar/BottomSidebar";
 import PopupComponent from "../Popup.component";
@@ -113,15 +116,15 @@ const Marker = ({ data }) => {
 
     // Set canvas size dynamically based on text length and font size
     const textMetrics = context.measureText(text);
-        // canvas.width = textMetrics.width + 20; 
-    canvas.width = textMetrics.width + 150; // Add some padding
-      //  canvas.height = 60;
-    canvas.height = 20; // Adjust based on font size// Re-draw text on the canvas with updated size
+    canvas.width = textMetrics.width + 20;
+    // canvas.width = textMetrics.width + 150; // Add some padding
+    canvas.height = 60;
+    // canvas.height = 20; // Adjust based on font size// Re-draw text on the canvas with updated size
     context.font = font;
     context.fillStyle = "#00000080";
 
-    context.fillRect(10, 0, textMetrics.width , 22);
-   context.fillStyle = "yellow";
+    context.fillRect(10, 0, textMetrics.width, 22);
+    context.fillStyle = "yellow";
     context.fillText(text, 10, 18.5);
     // context.strokeStyle = "black";
     // context.strokeText(text, 10, 20);
@@ -155,33 +158,43 @@ const Marker = ({ data }) => {
             }}
           ></Entity> */}
 
-          {json__EmergencyEventsTrackLocation.map((el, index) => (
-            // <Entity
-            //   key={index}
-            //   position={Cartesian3.fromDegrees(el.lng, el.lat, 0)}
-            //   point={{
-            //     pixelSize: 15,
-            //     color: randColor,
-            //     outlineColor: Color.BLACK,
-            //   }}
-            //   onClick={() => showPopup(el.lng, el.lat)}
-            // ></Entity>
-
-            //
-            <BillboardCollection
-              key={index}
-              modelMatrix={Transforms.eastNorthUpToFixedFrame(
-                Cartesian3.fromDegrees(el.lng, el.lat, 0)
-              )}
-            >
-              <Billboard
-                image="cuw-alert-icon.png"
-                scale={0.04}
-                pixelOffset={new Cartesian2(0, 2)}
+          {/* <CustomDataSource
+            clustering={
+              new EntityCluster({
+                enabled: true,
+                pixelRange: 50,
+                minimumClusterSize: 3,
+                clusterPoints: true,
+                clusterLabels: true,
+                clusterBillboards: true,
+              })
+            }
+          > */}
+            {json__EmergencyEventsTrackLocation.map((el, index) => (
+              <Entity
+              
+                key={index}
+                position={Cartesian3.fromDegrees(el.lng, el.lat, 0)}
                 onClick={() => showPopup(el.lng, el.lat)}
-              ></Billboard>
-            </BillboardCollection>
-          ))}
+                
+                billboard={{ image: "cuw-alert-icon.png" ,scale: 0.04,pixelOffset: new Cartesian2(0, 2)  }}
+              ></Entity>
+
+              // <BillboardCollection
+              //   key={index}
+              //   modelMatrix={Transforms.eastNorthUpToFixedFrame(
+              //     Cartesian3.fromDegrees(el.lng, el.lat, 0)
+              //   )}
+              // >
+              //   <Billboard
+              //     image="cuw-alert-icon.png"
+              //     scale={0.04}
+              //     pixelOffset={new Cartesian2(0, 2)}
+              //     onClick={() => showPopup(el.lng, el.lat)}
+              //   ></Billboard>
+              // </BillboardCollection>
+            ))}
+          {/* </CustomDataSource> */}
           <PolylineCollection>
             {eLocations.length &&
               eLocations?.map((el, index) => {
@@ -310,6 +323,7 @@ const Marker = ({ data }) => {
           }
         </Billboard>
       </BillboardCollection>
+
       {/* <LabelCollection
         modelMatrix={Transforms.eastNorthUpToFixedFrame(
           Cartesian3.fromDegrees(+longitude, +latitude, 0)

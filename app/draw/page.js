@@ -14,6 +14,7 @@ export default function Home() {
     <ViewerContainer>
       <GeoJsonDataSource
         data={data}
+        
         sourceUri=""
         markerColor={Color.RED}
         clustering={
