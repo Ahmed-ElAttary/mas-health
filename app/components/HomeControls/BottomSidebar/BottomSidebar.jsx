@@ -115,7 +115,7 @@ const BottomSidebar = () => {
       visible={bottomBarVis}
       onHide={() => setBottomBarVis(false)}
       position="bottom"
-      // className="h-full"
+      // className="h-full" test
       content={() => (
         <Fieldset
           dir="rtl"
@@ -126,7 +126,7 @@ const BottomSidebar = () => {
           <DataTable
             showGridlines
             value={lastReading}
-            tableStyle={{ minWidth: "50rem",fontSize: "small" }}
+            tableStyle={{ minWidth: "50rem", fontSize: "small" }}
             size="small"
           >
             {lastReading.length &&
