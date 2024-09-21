@@ -9,6 +9,7 @@ import EssentialsProvider from "../EssentialsProvider.jsx";
 import LoadingSpinner from "@app/components/LoadingSpinner/LoadingSpinner.jsx";
 import CanalsDrains from "@app/components/CanalsDrains/CanalsDrains.jsx";
 export default async function BodiesOfWater({ params }) {
+  console.log(params);
   return (
     <EssentialsProvider params={params}>
       <ViewerContainer>

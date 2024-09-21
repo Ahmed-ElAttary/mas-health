@@ -14,6 +14,7 @@ const BottomSidebar = () => {
     setBottomBarVis(true);
     // console.log(details);
     setDate(details?.LastReadings[0]?.DateTime);
+    console.log("last date", details?.LastReadings);
     const reading = details.LastReadings.reduce((acc, curr) => {
       if (curr.low == "NaN") curr.low = "-";
       if (curr.high == "NaN") curr.high = "-";
@@ -110,6 +111,19 @@ const BottomSidebar = () => {
 
     setLastReading([criterion, reading]);
   };
+
+  // const neglectTimeZone = (dateString) => {
+  //   const parts = dateString.split(/[-T:Z]/);
+  //   const date = new Date(
+  //     parts[0],
+  //     parts[1] - 1,
+  //     parts[2],
+  //     parts[3],
+  //     parts[4],
+  //     parts[5]
+  //   );
+
+  // };
   return (
     <Sidebar
       visible={bottomBarVis}
@@ -120,25 +134,41 @@ const BottomSidebar = () => {
         <Fieldset
           dir="rtl"
           legend={
-            <>{` تاريخ أخر قراءة : ${new Date(date).toLocaleDateString()}`}</>
+            <>{` تاريخ أخر قراءة : ${new Date(date).toLocaleDateString(
+              "ar-EG",
+              {
+                weekday: "long", // Show the day of the week
+                year: "numeric", // Show the year
+                month: "long", // Show the full month name
+                day: "numeric", // Show the day of the month
+                hour: "numeric", // Show hours
+                minute: "numeric", // Show minutes
+                // second: "numeric", // Show seconds
+                hour12: true, // Use 24-hour time
+                timeZone: "UTC", // Time zone to use for formatting
+              }
+            )}`}</>
           }
         >
-          <DataTable
-            showGridlines
-            value={lastReading}
-            tableStyle={{ minWidth: "50rem", fontSize: "small" }}
-            size="small"
-          >
-            {lastReading.length &&
-              Object.keys(lastReading[0]).map((el, index) => (
-                <Column
-                  align="center"
-                  key={index}
-                  field={el}
-                  header={el}
-                ></Column>
-              ))}
-          </DataTable>
+          <div className="card" style={{ width: "97vw" }}>
+            <DataTable
+              showGridlines
+              value={lastReading}
+              scrollable
+              tableStyle={{ minWidth: "50rem", fontSize: "small" }}
+              size="small"
+            >
+              {lastReading.length &&
+                Object.keys(lastReading[0]).map((el, index) => (
+                  <Column
+                    align="center"
+                    key={index}
+                    field={el}
+                    header={el}
+                  ></Column>
+                ))}
+            </DataTable>
+          </div>
         </Fieldset>
       )}
     ></Sidebar>
