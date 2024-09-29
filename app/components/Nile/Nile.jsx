@@ -41,7 +41,7 @@ const Nile = ({ params }) => {
         setGeojson(null);
       }
     })();
-  }, []);
+  });
 
   const coloring = (layer) => {
     layer.entities.values.forEach((entity) => {

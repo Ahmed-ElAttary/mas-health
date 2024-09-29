@@ -8,7 +8,7 @@ import DataProvider from "./DataProvider.jsx";
 import EssentialsProvider from "./EssentialsProvider.jsx";
 import LoadingSpinner from "@app/components/LoadingSpinner/LoadingSpinner.jsx";
 import CanalsDrains from "@app/components/CanalsDrains/CanalsDrains.jsx";
-export default async function Home() {
+export default  function Home() {
   return (
     <EssentialsProvider>
       <ViewerContainer>
