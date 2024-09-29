@@ -37,7 +37,7 @@ const DataProvider = ({ params, children }) => {
       const data = (await getData(params)) || [];
 
       allData.current = data;
-
+// test
       // setFilteredData(data);
       console.log(allData.current);
       const lookupsReq = (await getLookups()) || [];
