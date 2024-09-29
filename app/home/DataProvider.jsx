@@ -7,7 +7,7 @@ import { createContext, useEffect } from "react";
 import { useCesium } from "resium";
 
 export const DataContext = createContext();
-import { getData, getLookups, detailsById, getCanalsDrains } from "./server";
+import { getData, getLookups, detailsById, getCanalsDrains, getNile } from "./server";
 
 const DataProvider = ({ params, children }) => {
   const [selectedLocations, setSelectedLocations] = useState({
@@ -63,7 +63,11 @@ const DataProvider = ({ params, children }) => {
       return data;
     }
   };
+  const nile = async () => {
+    const data = await getNile();
 
+    return data;
+  };
   useEffect(() => {
     intial();
   }, []);
@@ -163,6 +167,7 @@ const DataProvider = ({ params, children }) => {
         multiDimensionalFilter,
         popupDetails,
         canalsDrains,
+        nile,
         searchParams,
         allData,
         params,

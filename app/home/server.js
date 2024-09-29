@@ -18,9 +18,8 @@ export const getToken = async () => {
 };
 
 export const getCanalsDrains = async (id) => {
-  try{
-
-    const {data}=  await axios.get(
+  try {
+    const { data } = await axios.get(
       `${HOST}/api/secondary-water-body-type-handle?length=100000000&start=1&id=${id}`,
       {
         headers: {
@@ -28,10 +27,24 @@ export const getCanalsDrains = async (id) => {
         },
       }
     );
-    return data
+    return data;
+  } catch (err) {
+    console.log(err);
   }
-  catch(err){
-   console.log(err);
+};
+export const getNile = async () => {
+  try {
+    const { data } = await axios.get(
+      `${HOST}/api/nile-geom-handle?length=100000000&start=1`,
+      {
+        headers: {
+          Authorization: `Bearer ${await getToken()}`,
+        },
+      }
+    );
+    return data;
+  } catch (err) {
+    console.log(err);
   }
 };
 
