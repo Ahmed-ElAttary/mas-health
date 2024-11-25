@@ -26,14 +26,14 @@ import {
   EntityCluster,
   BillboardGraphics,
 } from "cesium";
-import { openBottom } from "../HomeControls/BottomSidebar/BottomSidebar";
-import PopupComponent from "../../average/Popup.component";
+// import { openBottom } from "../HomeControls/BottomSidebar/BottomSidebar";
+import PopupComponent from "../Popup.component";
 import Popup from "@cesium-extends/popup";
 
 import { Button } from "primereact/button";
 import { EssentialsContext } from "@app/home/EssentialsProvider";
 
-import { DataContext } from "@app/home/DataProvider";
+import { DataContext } from "../DataProvider.jsx";
 
 // const legalIcons = { مطابق: "right.png", "غير مطابق": "wrong.png" };
 
@@ -89,34 +89,22 @@ const Marker = ({ data }) => {
     });
   };
 
-  const showPopup = async (lng, lat) => {
-    closeAllPopups();
-    const element = document.getElementById(popupID);
-    if (element) {
-      popups[popupID] = new Popup(viewerCs.viewer, {
-        position: [+lng, +lat],
-        element,
-        offset: [0, -30],
-      });
-    }
-    setDetails(await popupDetails(id, api));
-  };
+
   // if (legendType == "5") {
   //   if (json__EmergencyEventsTrackLocation?.length) {
   //     console.log();
   //   }
   // }
-  const testTable = [
-    { key: "Name", value: "Alice" },
-    { key: "Age", value: "30" },
-    { key: "Country", value: "UAE" },
-    { key: "Occupation", value: "Engineer" },
-  ];
+
+ const tableData = Object.entries(data).map((el) => ({
+    key: el[0],
+    value: el[1],
+  }));
   const createCanvasTable = (data) => {
     const canvas = document.createElement("canvas");
     const context = canvas.getContext("2d");
 
-    const font = "bold 16px Arial";
+    const font = "bold 12px Arial";
     context.font = font;
     // Padding around each cell text
 
@@ -247,7 +235,7 @@ const Marker = ({ data }) => {
             <Entity
               key={index}
               position={Cartesian3.fromDegrees(el.lng, el.lat, 0)}
-              onClick={() => showPopup(el.lng, el.lat)}
+              // onClick={() => showPopup(el.lng, el.lat)}
               billboard={{
                 image: "cuw-alert-icon.png",
                 scale: 0.04,
@@ -339,7 +327,7 @@ const Marker = ({ data }) => {
         {/* --------------------------------------------------------Label---------------------------------------------------------------------- */}
         {averageReadingChecked && (
           <Billboard
-            image={createCanvasTable(testTable)}
+            image={createCanvasTable(tableData)}
             scale={1}
             // pixelOffset={new Cartesian2(-15, 15)}
           ></Billboard>
@@ -356,52 +344,9 @@ const Marker = ({ data }) => {
           // image={`data:image/svg+xml;base64,${btoa(svg)}`}
           image={`/${mainIcons[legendType]?.image}`}
           scale={mainIcons[legendType]?.scale * 0.6}
-          onClick={() => showPopup(longitude, latitude)}
+          // onClick={() => showPopup(longitude, latitude)}
         >
-          {
-            <PopupComponent id={popupID} closePopup={closePopup}>
-              <>
-                <div>{name}</div>
-                <div>المحافظة : {details.governorate}</div>
-                {api == "location-handle" && (
-                  <>
-                    <div>WQI :{wqi()}</div>
 
-                    <div
-                      style={{
-                        fontSize: "x-large",
-                        fontWeight: 800,
-                        color: colors[wqiCalc(details["WQI"])]?.[0],
-                      }}
-                    >
-                      {wqiCalc(details["WQI"])}
-                    </div>
-                  </>
-                )}
-                <div
-                  className="flex flex-column gap-2"
-                  style={{ marginTop: "10px" }}
-                >
-                  <Button
-                    icon="pi pi-file-edit"
-                    severity="info"
-                    label="عرض أخر قراءة"
-                    visible={Boolean(details.LastReadings?.length)}
-                    onClick={() => openBottom(details)}
-                  />
-                  <Button
-                    icon="pi pi-book"
-                    visible={Boolean(details.line)}
-                    severity="info"
-                    label="عرض تفاصيل الموقع"
-                    onClick={() => {
-                      window.open(details.url);
-                    }}
-                  />
-                </div>
-              </>
-            </PopupComponent>
-          }
         </Billboard>
       </BillboardCollection>
 

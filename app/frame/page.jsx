@@ -13,7 +13,7 @@ const Frame = () => {
   }, []);
   return (
     <div>
-      fdgfg
+      
       {val}
       <iframe src="/home" width="100%" height="800px"></iframe>
     </div>

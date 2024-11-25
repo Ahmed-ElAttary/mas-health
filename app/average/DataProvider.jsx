@@ -5,7 +5,7 @@ import { Cartesian3, Rectangle } from "cesium";
 import React, { useRef, useState } from "react";
 import { createContext, useEffect } from "react";
 import { useCesium } from "resium";
-
+import { useSearchParams } from "next/navigation";
 export const DataContext = createContext();
 import {
   getData,
@@ -16,17 +16,19 @@ import {
 } from "./server";
 
 const DataProvider = ({ params, children }) => {
+  const avgParams = useSearchParams();
+ 
   const [selectedLocations, setSelectedLocations] = useState({
-    1: { checked: Boolean(params) },
-    2: { checked: Boolean(params) },
-    3: { checked: Boolean(params) },
-    5: { checked: Boolean(!params) },
-    16: { checked: params?.BodiesOfWater == 16 },
-    17: { checked: params?.BodiesOfWater == 17 },
+    1: { checked: true},
+    2: { checked: true},
+    3: { checked: true},
+    5: { checked: true },
+    16: { checked: true },
+    17: { checked: true },
   });
   const [isLoading, setIsLoading] = useState(true);
   const [labelChecked, setLabelChecked] = useState(false);
-  const [averageReadingChecked, setAverageReadingChecked] = useState(false);
+  const [averageReadingChecked, setAverageReadingChecked] = useState(true);
   const viewerCs = useCesium();
   useEffect(() => {
     window.viewerCs = viewerCs;
@@ -40,17 +42,18 @@ const DataProvider = ({ params, children }) => {
 
   const intial = async () => {
     try {
-      const data = (await getData(params)) || [];
+  
+      const data = (await getData(avgParams.toString())) || [];
 
       allData.current = data;
       // test
       // setFilteredData(data);
       console.log(allData.current);
-      const lookupsReq = (await getLookups()) || [];
 
-      lookups.current = { ...lookups.current, ...lookupsReq };
+
+      lookups.current = { ...lookups.current };
       // console.log(lookups.current);
-      data && lookupsReq && setIsLoading(false);
+      data && setIsLoading(false);
       ApplyCheckHandler();
     } catch (err) {
       console.log(err);

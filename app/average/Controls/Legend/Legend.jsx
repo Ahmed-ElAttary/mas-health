@@ -9,7 +9,7 @@ import { Fieldset } from "primereact/fieldset";
 import { ScrollPanel } from "primereact/scrollpanel";
 import { EssentialsContext } from "@app/home/EssentialsProvider";
 
-import { DataContext } from "@app/home/DataProvider";
+import { DataContext } from "../../DataProvider";
 import Image from "next/image";
 import { Tree } from "primereact/tree";
 import styles from "./Legend.module.css";
@@ -83,7 +83,7 @@ const Legend = () => {
                   إظهار اسم الموقع
                 </label>
               </div>
-              {/* <div className="flex align-items-center">
+              <div className="flex align-items-center">
                 <Checkbox
                   name="label-check"
                   onChange={() =>
@@ -94,11 +94,11 @@ const Legend = () => {
                 <label htmlFor="label-check" className="ml-2">
                   إظهار متوسط القراءات
                 </label>
-              </div> */}
+              </div>
               <Divider type="solid">المواقع</Divider>
               <Tree
                 value={locations}
-                selectionMode="checkbox"
+                // selectionMode="checkbox"
                 selectionKeys={selectedLocations}
                 onSelectionChange={(e) => {
                   // console.log(e.value);

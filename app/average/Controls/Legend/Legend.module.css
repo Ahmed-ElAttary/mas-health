@@ -1,0 +1,11 @@
+.item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.image {
+  width: 40px;
+  height: 40px;
+}
+
