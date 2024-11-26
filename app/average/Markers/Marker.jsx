@@ -96,10 +96,17 @@ const Marker = ({ data }) => {
   //   }
   // }
 
- const tableData = Object.entries(data).map((el) => ({
+ const tableData = Object.entries(data).map((el) => {
+if (el[0]=="latitude" || el[0]=="longitude" || el[0]=="legendType") return ;
+ else return {
     key: el[0],
     value: el[1],
-  }));
+  }
+
+}).filter((el) => el);
+const element = tableData.splice(tableData.findIndex((el) => el.key == "name"), 1)[0]; // Remove the element from `fromIndex`
+tableData.splice(0, 0, element); 
+console.log(tableData);
   const createCanvasTable = (data) => {
     const canvas = document.createElement("canvas");
     const context = canvas.getContext("2d");
