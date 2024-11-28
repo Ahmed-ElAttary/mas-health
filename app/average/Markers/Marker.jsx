@@ -97,7 +97,7 @@ const Marker = ({ data }) => {
   // }
 
  const tableData = Object.entries(data).map((el) => {
-if (el[0]=="latitude" || el[0]=="longitude" || el[0]=="legendType") return ;
+if (el[0]=="latitude" || el[0]=="longitude" || el[0]=="legendType" || el[0]=="location_id" || el[0]=="loc_type" ) return ;
  else return {
     key: el[0],
     value: el[1],
