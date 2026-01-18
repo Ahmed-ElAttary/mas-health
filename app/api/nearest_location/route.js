@@ -8,26 +8,29 @@ export async function POST(req, res) {
   };
   try {
     const body = await req.json();
-    const { gov_id, lon, lat } = body;
+    const { location_type_id, lon, lat } = body;
     const prisma = new Db();
-    const location = await prisma.$queryRaw`DECLARE @given_point geography;
-SET @given_point = geography::Point(${lat}, ${lon}, 4326);
+    // prettier-ignore
+    const telemetry = await prisma.$queryRaw `
+DECLARE @given_point geography;
+SET @given_point = geography::Point(${lat},${lon}, 4326);
 
-SELECT TOP 2
+SELECT TOP 3
     l.*,
     ROUND(@given_point.STDistance(p.geom) / 1000, 2) AS distance
 FROM dbo.Location l
 CROSS APPLY (
     SELECT geography::Point(l.latitude, l.longitude, 4326) AS geom
 ) p
-WHERE l.governorate_id = ${gov_id}
-  AND l.latitude IS NOT NULL
+WHERE
+location_type_id =${location_type_id}
+
+ AND l.latitude IS NOT NULL
   AND l.longitude IS NOT NULL
 ORDER BY @given_point.STDistance(p.geom);
-
 `;
 
-    return NextResponse.json(location, { status: 200 });
+    return NextResponse.json(telemetry, { status: 200 });
   } catch (err) {
     return NextResponse.json("there is an error", { status: 500 });
   }
