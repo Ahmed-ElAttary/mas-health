@@ -11,7 +11,7 @@ export async function POST(req, res) {
     const { location_type_id, lon, lat } = body;
     const prisma = new Db();
     // prettier-ignore
-    const telemetry = await prisma.$queryRaw `
+    const location = await prisma.$queryRaw `
 DECLARE @given_point geography;
 SET @given_point = geography::Point(${lat},${lon}, 4326);
 
@@ -30,7 +30,7 @@ location_type_id =${location_type_id}
 ORDER BY @given_point.STDistance(p.geom);
 `;
 
-    return NextResponse.json(telemetry, { status: 200 });
+    return NextResponse.json(location, { status: 200,headers:{"Access-Control-Allow-Origin": "*"} });
   } catch (err) {
     return NextResponse.json("there is an error", { status: 500 });
   }
