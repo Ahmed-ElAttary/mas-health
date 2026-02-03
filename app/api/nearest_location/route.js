@@ -30,7 +30,7 @@ location_type_id =${location_type_id}
 ORDER BY @given_point.STDistance(p.geom);
 `;
 
-    return NextResponse.json(location, { status: 200,headers:{"Access-Control-Allow-Origin": "*"} });
+    return NextResponse.json(location, { status: 200});
   } catch (err) {
     return NextResponse.json("there is an error", { status: 500 });
   }
