@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "getChanges": "git pull origin main && next build && next start",
-    "installChanges": "git pull origin main && npm install && npx prisma generate"
+    "installChanges": "git pull origin main && npm install && npx prisma generate",
+    "deploy": "git pull origin main && npm install && npx prisma generate && next build && next start"
   },
   "dependencies": {
     "@arwes/react": "^1.0.0-next.8",
