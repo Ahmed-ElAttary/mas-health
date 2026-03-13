@@ -5,7 +5,7 @@ import { Button } from "primereact/button";
 import ComboBox from "./ComboBox";
 import "./RightSidebar.css";
 
-import { DataContext } from "@app/home_maplibre/DataProvider.jsx";
+import { DataContext } from "@app/home/DataProvider.jsx";
 
 import { Card } from "primereact/card";
 import { Message } from "primereact/message";

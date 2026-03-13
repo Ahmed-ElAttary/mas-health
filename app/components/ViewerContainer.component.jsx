@@ -40,8 +40,8 @@ import {
 } from "cesium";
 import Markers from "./Markers/Markers";
 import Controls from "./HomeControls/Controls";
-import { EssentialsContext } from "@app/home/EssentialsProvider";
-import { govOfClick } from "@app/home/server";
+import { EssentialsContext } from "@app/home_old/EssentialsProvider";
+import { govOfClick } from "@app/home_old/server";
 if (typeof window !== "undefined")
   window.CESIUM_BASE_URL = "/cesium/Build/CesiumUnminified";
 

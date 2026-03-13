@@ -4,8 +4,8 @@ import { useSearchParams } from "next/navigation";
 import { Marker as MapLibreMarker, Popup, Source, Layer } from "react-map-gl/maplibre";
 import { openBottom } from "../HomeControls/BottomSidebar/BottomSidebar";
 import { Button } from "primereact/button";
-import { EssentialsContext } from "@app/home_maplibre/EssentialsProvider";
-import { DataContext } from "@app/home_maplibre/DataProvider";
+import { EssentialsContext } from "@app/home/EssentialsProvider";
+import { DataContext } from "@app/home/DataProvider";
 
 const Marker = ({ data }) => {
   const {

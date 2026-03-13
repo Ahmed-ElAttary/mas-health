@@ -1,7 +1,7 @@
 "use client";
 import ViewerComp from "./ViewerComp";
 import Govs from "./Govs";
-import EssentialsProvider from "@app/home/EssentialsProvider";
+import EssentialsProvider from "@app/home_old/EssentialsProvider";
 import Provider from "./Provider";
 
 export default async function Report() {

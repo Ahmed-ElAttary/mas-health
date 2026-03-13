@@ -3,7 +3,7 @@ import React from "react";
 import Marker from "./Marker";
 
 import { useContext } from "react";
-import { DataContext } from "@app/home/DataProvider.jsx";
+import { DataContext } from "@app/home_old/DataProvider.jsx";
 
 const Markers = () => {
   const { filteredData } = useContext(DataContext);

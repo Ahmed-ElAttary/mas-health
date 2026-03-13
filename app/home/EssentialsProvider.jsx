@@ -40,7 +40,7 @@ const icons = {
   3: {
     name: "رصد لحظي مستمر (عذبة/غير عذبة)",
     image: "85d7bcdb-bec6-477a-b0b5-472f43f77dd5.png",
-    scale: 0.20,
+    scale: 0.10,
   },
   4: {
     name: "مواقع الرصد البحثية",

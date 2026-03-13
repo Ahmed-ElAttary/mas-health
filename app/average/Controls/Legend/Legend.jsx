@@ -7,7 +7,7 @@ import { Inplace, InplaceDisplay, InplaceContent } from "primereact/inplace";
 import { Button } from "primereact/button";
 import { Fieldset } from "primereact/fieldset";
 import { ScrollPanel } from "primereact/scrollpanel";
-import { EssentialsContext } from "@app/home/EssentialsProvider";
+import { EssentialsContext } from "@app/home_old/EssentialsProvider";
 
 import { DataContext } from "../../DataProvider";
 import Image from "next/image";

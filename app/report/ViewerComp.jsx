@@ -12,7 +12,7 @@ import {
   Rectangle,
   Cartesian3,
 } from "cesium";
-import { EssentialsContext } from "@app/home/EssentialsProvider";
+import { EssentialsContext } from "@app/home_old/EssentialsProvider";
 
 if (typeof window !== "undefined")
   window.CESIUM_BASE_URL = "/cesium/Build/CesiumUnminified";

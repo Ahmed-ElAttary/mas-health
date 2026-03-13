@@ -1,8 +1,8 @@
 "use client";
 import React, { useContext, useMemo } from "react";
 import { Source, Layer, useMap } from "react-map-gl/maplibre";
-import { EssentialsContext } from "@app/home_maplibre/EssentialsProvider";
-import { DataContext } from "@app/home_maplibre/DataProvider.jsx";
+import { EssentialsContext } from "@app/home/EssentialsProvider";
+import { DataContext } from "@app/home/DataProvider.jsx";
 import * as turf from "@turf/turf";
 
 const GeojsonComp = () => {

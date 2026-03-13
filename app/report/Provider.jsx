@@ -7,7 +7,7 @@ import { createContext, useEffect } from "react";
 import { useCesium } from "resium";
 
 export const Context = createContext();
-import { getLookups } from "@app/home/server";
+import { getLookups } from "@app/home_old/server";
 
 const Provider = ({ params, children }) => {
   const [isLoading, setIsLoading] = useState(true);

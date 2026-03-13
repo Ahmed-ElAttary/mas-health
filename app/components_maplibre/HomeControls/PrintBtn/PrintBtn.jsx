@@ -4,7 +4,7 @@ import { Button } from "primereact/button";
 import { useMap } from "react-map-gl/maplibre";
 import html2canvas from "html2canvas";
 
-import { EssentialsContext } from "@app/home_maplibre/EssentialsProvider";
+import { EssentialsContext } from "@app/home/EssentialsProvider";
 
 const PrintBtn = () => {
   const { reference } = useContext(EssentialsContext);

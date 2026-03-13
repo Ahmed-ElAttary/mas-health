@@ -1,4 +1,4 @@
-import { DataContext } from "@app/home_maplibre/DataProvider";
+import { DataContext } from "@app/home/DataProvider";
 import React, { useContext, useEffect, useState } from "react";
 import { Source, Layer, useMap } from "react-map-gl/maplibre";
 import { parse } from "wkt";

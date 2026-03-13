@@ -2,8 +2,8 @@
 import { useContext, useEffect, useRef } from "react";
 import { GeoJsonDataSource, useCesium } from "resium";
 import { Color } from "cesium";
-import { EssentialsContext } from "@app/home/EssentialsProvider";
-import { DataContext } from "@app/home/DataProvider.jsx";
+import { EssentialsContext } from "@app/home_old/EssentialsProvider";
+import { DataContext } from "@app/home_old/DataProvider.jsx";
 const GeojsonComp = () => {
   const { colors, egyptBound } = useContext(EssentialsContext);
   const { searchParams, lookups } = useContext(DataContext);

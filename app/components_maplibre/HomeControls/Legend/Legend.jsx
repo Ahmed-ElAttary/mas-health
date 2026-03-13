@@ -7,9 +7,9 @@ import { Inplace, InplaceDisplay, InplaceContent } from "primereact/inplace";
 import { Button } from "primereact/button";
 import { Fieldset } from "primereact/fieldset";
 import { ScrollPanel } from "primereact/scrollpanel";
-import { EssentialsContext } from "@app/home_maplibre/EssentialsProvider";
+import { EssentialsContext } from "@app/home/EssentialsProvider";
 
-import { DataContext } from "@app/home_maplibre/DataProvider";
+import { DataContext } from "@app/home/DataProvider";
 import Image from "next/image";
 import { Tree } from "primereact/tree";
 import styles from "./Legend.module.css";

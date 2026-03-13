@@ -1,6 +1,6 @@
 "use client";
 import React, { useContext } from "react";
-import { DataContext } from "@app/home_maplibre/DataProvider.jsx";
+import { DataContext } from "@app/home/DataProvider.jsx";
 import { ProgressSpinner } from "primereact/progressspinner";
 import { BlockUI } from "primereact/blockui";
 const LoadingSpinner = () => {

@@ -7,8 +7,8 @@ import "maplibre-gl/dist/maplibre-gl.css";
 
 import Markers from "./Markers/Markers";
 import Controls from "./HomeControls/Controls";
-import { EssentialsContext } from "@app/home_maplibre/EssentialsProvider";
-import { govOfClick } from "@app/home_maplibre/server";
+import { EssentialsContext } from "@app/home/EssentialsProvider";
+import { govOfClick } from "@app/home/server";
 
 export const BaseMapContext = React.createContext();
 

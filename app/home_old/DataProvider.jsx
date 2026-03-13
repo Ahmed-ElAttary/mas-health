@@ -1,7 +1,10 @@
 "use client";
-import React, { createContext, useState, useEffect, useRef } from "react";
 
-import { useMap } from "react-map-gl/maplibre";
+import { Cartesian3, Rectangle } from "cesium";
+
+import React, { useRef, useState } from "react";
+import { createContext, useEffect } from "react";
+import { useCesium } from "resium";
 
 export const DataContext = createContext();
 import {
@@ -24,9 +27,10 @@ const DataProvider = ({ params, children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [labelChecked, setLabelChecked] = useState(false);
   const [averageReadingChecked, setAverageReadingChecked] = useState(false);
-  
-  const { current: map } = useMap();
-
+  const viewerCs = useCesium();
+  useEffect(() => {
+    window.viewerCs = viewerCs;
+  }, []);
   const allData = useRef();
 
   const searchParams = useRef({});
@@ -87,8 +91,6 @@ const DataProvider = ({ params, children }) => {
   };
   useEffect(ApplyCheckHandler, [selectedLocations]);
   useEffect(() => {
-    if (!map || !filteredData || filteredData.length === 0) return;
-
     const latitudes = filteredData.map((el) => el.latitude);
     const longitudes = filteredData.map((el) => el.longitude);
     const north = Math.max(...latitudes);
@@ -96,26 +98,31 @@ const DataProvider = ({ params, children }) => {
     const south = Math.min(...latitudes);
     const west = Math.min(...longitudes);
 
-    if (
+    const dist = () => {
+      if (filteredData.length == 0)
+        return Cartesian3.fromDegrees(30.2, 28, 2000000);
+
+      if (
         isFinite(north) &&
         isFinite(east) &&
         isFinite(south) &&
         isFinite(west)
-    ) {
-        if (filteredData.length === 1) {
-             map.flyTo({
-                 center: [west, south],
-                 zoom: 12,
-                 duration: 2000
-             });
-        } else {
-             map.fitBounds([
-                 [west, south],
-                 [east, north]
-             ], { padding: 50, duration: 2000 });
-        }
-    }
-  }, [filteredData, map]);
+      ) {
+        if (filteredData.length == 1)
+          return Cartesian3.fromDegrees(
+            (east + west) / 2,
+            (south + north) / 2,
+            1000
+          );
+        else return Rectangle.fromDegrees(west, south, east, north);
+      }
+    };
+
+    viewerCs.camera.flyTo({
+      duration: 3,
+      destination: dist(),
+    });
+  }, [filteredData]);
 
   const multiDimensionalFilter = (data, filters) => {
     const filterKeys = Object.keys(filters);

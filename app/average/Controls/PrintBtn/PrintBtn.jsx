@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { Button } from "primereact/button";
 import { useCesium } from "resium";
 
-import { EssentialsContext } from "@app/home/EssentialsProvider";
+import { EssentialsContext } from "@app/home_old/EssentialsProvider";
 
 const PrintBtn = () => {
   const { reference } = useContext(EssentialsContext);

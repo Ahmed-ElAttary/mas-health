@@ -1,1 +1,1 @@
-npm run depoly
+npm run deploy
