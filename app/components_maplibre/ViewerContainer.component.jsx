@@ -137,6 +137,11 @@ function ViewerContainer({ children }) {
       },
       layers: [
          {
+           id: "background",
+           type: "background",
+           paint: { 'background-color': 'rgba(0,0,0,0)', 'background-opacity': 0 }
+         },
+         {
            id: "google-satellite-layer",
            type: "raster",
            source: "google-satellite",
@@ -162,6 +167,11 @@ function ViewerContainer({ children }) {
       },
       layers: [
          {
+           id: "background",
+           type: "background",
+           paint: { 'background-color': 'rgba(0,0,0,0)', 'background-opacity': 0 }
+         },
+         {
            id: "osm-layer",
            type: "raster",
            source: "osm",
@@ -172,7 +182,14 @@ function ViewerContainer({ children }) {
   };
 
   return (
-    <div style={{ width: "100vw", height: "100vh", overflow: "hidden" }}>
+    <div style={{ 
+      width: "100vw", 
+      height: "100vh", 
+      overflow: "hidden",
+      backgroundImage: "url('/universe.jpg')",
+      backgroundSize: "cover",
+      backgroundPosition: "center"
+    }}>
       <BaseMapContext.Provider value={{ activeBaseLayer, setActiveBaseLayer }}>
         <Map
           ref={mapRef}
